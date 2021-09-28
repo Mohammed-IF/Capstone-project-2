@@ -4,8 +4,10 @@ const mongoose = require('mongoose');
 const passport = require('passport');
 const flash = require('connect-flash');
 const session = require('express-session');
+const bodyParser = require("body-parser")
 const router = express.Router();
 const path = require('path');
+const morgan = require('morgan');
 
 const app = express();
 
@@ -15,6 +17,7 @@ require('./config/passport')(passport);
 // DB Config
 const db = require('./config/keys').mongoURI;
 
+app.use(morgan('tiny'));
 // Connect to MongoDB
 mongoose
   .connect(
@@ -48,6 +51,12 @@ app.use(passport.session());
 // Connect flash
 app.use(flash());
 
+app.use(express.json());
+app.use(express.urlencoded({
+  extended: true
+}));
+
+
 // Global variables
 app.use(function(req, res, next) {
   res.locals.success_msg = req.flash('success_msg');
@@ -59,26 +68,9 @@ app.use(function(req, res, next) {
 // Routes
 app.use('/', require('./routes/index.js'));
 app.use('/users', require('./routes/users.js'));
+app.use('/', require('./routes/router'))
 
 var cons = require('consolidate');
-
-// view engine setup
-/*app.engine('html', cons.swig)
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'html');*/
-
-/*router.get('/welcome',function(req,res){
-  res.sendFile(path.join(__dirname+'/welcome.html'));
-  //__dirname : It will resolve to your project folder.
-});*/
-
-/*router.get('/about',function(req,res){
-  res.sendFile(path.join(__dirname+'/about.html'));
-});*/
-
-/*router.get('/sitemap',function(req,res){
-  res.sendFile(path.join(__dirname+'/sitemap.html'));
-});*/
 
 
 app.get('/become-a-seller',function (req, res) {
@@ -89,7 +81,28 @@ app.get('/become-a-seller',function (req, res) {
     res.render('pages/contact',{
     })
     });
-  
+    app.get('/freelancers',function (req, res) {
+      res.render('/freelancers/become-a-freelancer',{
+      })
+      });
+
+      app.get('/freelancerRequests',function (req, res) {
+        res.render('adminPages/freelancerRequests',{
+        })
+        });
+        app.get('/index',function (req, res) {
+          res.render('index',{
+          })
+          });
+          app.get('/add_freelancer',function (req, res) {
+            res.render('add_freelancer',{
+            })
+            });
+            app.get('/update_freelancer',function (req, res) {
+              res.render('update_freelancer',{
+              })
+              });
+      
 
 const PORT = process.env.PORT || 5000;
 

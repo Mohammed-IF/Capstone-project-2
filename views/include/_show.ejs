@@ -1,0 +1,19 @@
+<% for(var i = 0; i < freelancers.length; i++) { %>
+    <trs>
+        <td><%= i + 1 %></td>
+        <td><%= freelancers[i].userName %></td>
+        <td><%= freelancers[i].name %></td>
+        <td><%= freelancers[i].email %></td>
+        <td><%= freelancers[i].phoneNumber %></td>
+        <td><%= freelancers[i].language %></td>
+        <td><%= freelancers[i].skills %></td>
+        <td>
+            <a href="/update-freelancer?id=<%= freelancers[i]._id%>" class="btn border-shadow update">
+                <span class="text-gradient"><i class="fas fa-pencil-alt"></i></span>
+            </a>
+            <a class="btn border-shadow delete" data-id=<%= freelancers[i]._id%> >
+                <span class="text-gradient"><i class="fas fa-times"></i></span>
+            </a>
+        </td>
+    </tr>
+    <% } %>
