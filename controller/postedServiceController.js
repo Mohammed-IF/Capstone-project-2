@@ -1,4 +1,4 @@
-var Freelancerdb = require('../models/freelancer');
+var postedServicedb = require('../models/postedService');
 
 // create and save new user
 exports.create = (req,res)=>{
@@ -9,21 +9,18 @@ exports.create = (req,res)=>{
     }
 
     // new user
-    const freelancer = new Freelancerdb({
-        userName : req.body.userName,
+    const postedService = new postedServicedb({
         name : req.body.name,
-        email : req.body.email,
-        phoneNumber: req.body.phoneNumber,
-        language: req.body.language,
-        skills: req.body.skills
+        category : req.body.category,
+        description : req.body.description,
     })
 
     // save user in the database
-    freelancer
-        .save(freelancer)
+    postedService
+        .save(postedService)
         .then(data => {
             //res.send(data)
-            res.redirect('/become-a-seller');
+            res.redirect('/add_postedService');
         })
         .catch(err =>{
             res.status(500).send({
@@ -39,7 +36,7 @@ exports.find = (req, res)=>{
     if(req.query.id){
         const id = req.query.id;
 
-        Freelancerdb.findById(id)
+        postedServicedb.findById(id)
             .then(data =>{
                 if(!data){
                     res.status(404).send({ message : "Not found user with id "+ id})
@@ -52,9 +49,9 @@ exports.find = (req, res)=>{
             })
 
     }else{
-        Freelancerdb.find()
-            .then(freelancer => {
-                res.send(freelancer)
+        postedServicedb.find()
+            .then(postedService => {
+                res.send(postedService)
             })
             .catch(err => {
                 res.status(500).send({ message : err.message || "Error Occurred while retriving user information" })
@@ -73,7 +70,7 @@ exports.update = (req, res)=>{
     }
 
     const id = req.params.id;
-    Freelancerdb.findByIdAndUpdate(id, req.body, { useFindAndModify: false})
+    postedServicedb.findByIdAndUpdate(id, req.body, { useFindAndModify: false})
         .then(data => {
             if(!data){
                 res.status(404).send({ message : `Cannot Update user with ${id}. Maybe user not found!`})
@@ -90,7 +87,7 @@ exports.update = (req, res)=>{
 exports.delete = (req, res)=>{
     const id = req.params.id;
 
-    Freelancerdb.findByIdAndDelete(id)
+    postedServicedb.findByIdAndDelete(id)
         .then(data => {
             if(!data){
                 res.status(404).send({ message : `Cannot Delete with id ${id}. Maybe id is wrong`})

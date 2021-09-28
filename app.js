@@ -32,6 +32,10 @@ app.use(expressLayouts);
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
+app.use('/vendor', express.static(path.resolve(__dirname, "assets/vendor")))
+app.use('/images', express.static(path.resolve(__dirname, "assets/images")))
+app.use('/js', express.static(path.resolve(__dirname, "assets/js")))
+
 // Express body parser
 app.use(express.urlencoded({ extended: true }));
 
@@ -68,7 +72,8 @@ app.use(function(req, res, next) {
 // Routes
 app.use('/', require('./routes/index.js'));
 app.use('/users', require('./routes/users.js'));
-app.use('/', require('./routes/router'))
+app.use('/', require('./routes/router'));
+app.use('/', require('./routes/postedServiceRouter'));
 
 var cons = require('consolidate');
 
@@ -81,6 +86,10 @@ app.get('/become-a-seller',function (req, res) {
     res.render('pages/contact',{
     })
     });
+    app.get('/add_postedService',function (req, res) {
+      res.render('pages/add_postedService',{
+      })
+      });
     app.get('/freelancers',function (req, res) {
       res.render('/freelancers/become-a-freelancer',{
       })
@@ -102,6 +111,13 @@ app.get('/become-a-seller',function (req, res) {
               res.render('update_freelancer',{
               })
               });
+              
+             app.get('/postedServices',function (req, res) {
+                res.render('postedServices/add_postedService',{
+                })
+                });
+                
+                  
       
 
 const PORT = process.env.PORT || 5000;

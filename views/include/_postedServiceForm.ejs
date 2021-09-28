@@ -1,0 +1,63 @@
+<main class="col-md-8">
+    <div class="shadow-sm rounded bg-white mb-3">
+       <div class="box-title border-bottom p-3">
+          <h6 class="m-0">Enter your Info</h6>
+          <p class="mb-0 mt-0 small">
+          </p>
+       </div>
+       <div class="box-body p-3">
+          <form class="js-validate" action="/api/postedServices" method = "POST" id = "add-postedService">
+             <div class="row">
+                <div class="col-sm-6 mb-2">
+                   <div class="js-form-message">
+                      <label id="nameLabel" class="form-label">
+                      name
+                      <span class="text-danger">*</span>
+                      </label>
+                      <div class="form-group">
+                         <input type="text" class="form-control" name="name"  placeholder="Enter service name" aria-label="Enter service name" required="" aria-describedby="nameLabel" data-msg="Please service name." data-error-class="u-has-error" data-success-class="u-has-success">
+                      </div>
+                   </div>
+                </div>
+                <!-- End Input -->
+             </div>
+          </div>
+             <div class="row">
+                <!-- Input -->
+                <div class="col-sm-6 mb-2">
+                   <div class="js-form-message">
+                      <label id="nameLabel" class="form-label">
+                      category
+                      <span class="text-danger">*</span>
+                      </label>
+                      <div class="form-group">
+                         <input type="text" class="form-control" name="category" value="<%= typeof category != 'undefined' ? category : '' %>" placeholder="Enter service category" aria-label="Enter service category" required="" aria-describedby="categoryLabel" data-msg="Please service category." data-error-class="u-has-error" data-success-class="u-has-success">
+                      </div>
+                   </div>
+                </div>
+                <!-- End Input -->
+                <!-- Input -->
+             </div>
+        
+             <div class="row">
+                <!-- Input -->
+                <div class="col-sm-6 mb-2">
+                   <div class="js-form-message">
+                      <label id="descriptionLabel" class="form-label">
+                      service description
+                      <span class="text-danger">*</span>
+                      </label>
+                      <div class="form-group">
+                         <input type="description" class="form-control" name="description" value="<%= typeof description != 'undefined' ? email : '' %>" placeholder="Enter service description" aria-label="Enter service description" required="" aria-describedby="descriptionLabel" data-msg="enter service description" data-error-class="u-has-error" data-success-class="u-has-success">
+                      </div>
+                   </div>
+                </div>
+            
+             </div>
+             
+             
+          
+             <button type="submit" class="btn btn-success">Submit</button>
+          </form>
+       </div>
+    </div>
