@@ -5,7 +5,7 @@ exports.homeRoutes = (req, res) => {
     // Make a get request to /api/users
     axios.get('http://localhost:5000/api/postedServices')
         .then(function(response){
-            res.render('index', { postedServices : response.data });
+            res.render('', { postedServices : response.data });
         })
         .catch(err =>{
             res.send(err);
@@ -21,9 +21,17 @@ exports.add_postedService = (req, res) =>{
 exports.update_postedService = (req, res) =>{
     axios.get('http://localhost:5000/api/postedServices', { params : { id : req.query.id }})
         .then(function(postedServicedata){
-            res.render("update_postedService", { postedService : postedServicedata.data})
+            res.render("update_postedService", { postedServices : postedServicedata.data})
         })
         .catch(err =>{
             res.send(err);
         })
 }
+exports.read_postedService = (req, res) =>{
+ axios.get('http://localhost:5000/api/postedServices', { params : { id : req.query.id }})
+                    .then(function(postedServicedata){
+                        res.render("", { postedServices : postedServicedata.data})
+                    })
+                    .catch(err =>{
+                        res.send(err);
+                    })}

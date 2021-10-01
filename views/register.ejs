@@ -1,60 +1,99 @@
-<div class="row mt-5">
-  <div class="col-md-6 m-auto">
-    <div class="card card-body">
-      <h1 class="text-center mb-3">
-        <i class="fas fa-user-plus"></i> Register
-      </h1>
-      <%- include ./partials/messages %>
-      <form action="/users/register" method="POST">
-        <div class="form-group">
-          <label for="name">Name</label>
-          <input
-            type="name"
-            id="name"
-            name="name"
-            class="form-control"
-            placeholder="Enter Name"
-            value="<%= typeof name != 'undefined' ? name : '' %>"
-          />
-        </div>
-        <div class="form-group">
-          <label for="email">Email</label>
-          <input
-            type="email"
-            id="email"
-            name="email"
-            class="form-control"
-            placeholder="Enter Email"
-            value="<%= typeof email != 'undefined' ? email : '' %>"
-          />
-        </div>
-        <div class="form-group">
-          <label for="password">Password</label>
-          <input
-            type="password"
-            id="password"
-            name="password"
-            class="form-control"
-            placeholder="Create Password"
-            value="<%= typeof password != 'undefined' ? password : '' %>"
-          />
-        </div>
-        <div class="form-group">
-          <label for="password2">Confirm Password</label>
-          <input
-            type="password"
-            id="password2"
-            name="password2"
-            class="form-control"
-            placeholder="Confirm Password"
-            value="<%= typeof password2 != 'undefined' ? password2 : '' %>"
-          />
-        </div>
-        <button type="submit" class="btn btn-primary btn-block">
-          Register
-        </button>
-      </form>
-      <p class="lead mt-4">Have An Account? <a href="/users/login">Login</a></p>
-    </div>
-  </div>
-</div>
+<!DOCTYPE html>
+<html>
+   <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+      <meta name="description" content="Gurdeep singh osahan">
+      <meta name="author" content="Gurdeep singh osahan">
+      <title>Miver - LMS & Freelance Services Marketplace for Businesses HTML Template</title>
+      <!-- Favicon Icon -->
+      <link rel="icon" type="image/png" href="images/fav.svg">
+      <!-- Bootstrap core CSS -->
+      <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+      <!-- Font Awesome-->
+      <link href="vendor/fontawesome/css/font-awesome.min.css" rel="stylesheet">
+      <!-- Material Design Icons -->
+      <link href="vendor/icons/css/materialdesignicons.min.css" media="all" rel="stylesheet" type="text/css">
+      <!-- Slick -->
+      <link href="vendor/slick-master/slick/slick.css" rel="stylesheet" type="text/css">
+      <!-- Lightgallery -->
+      <link href="vendor/lightgallery-master/dist/css/lightgallery.min.css" rel="stylesheet">
+      <!-- Select2 CSS -->
+      <link href="vendor/select2/css/select2-bootstrap.css" />
+      <link href="vendor/select2/css/select2.min.css" rel="stylesheet">
+      <!-- Custom styles for this template -->
+      <link href="css/style.css" rel="stylesheet">
+   </head>
+   <body>
+      <!-- Register -->
+      <div class="bg-white">
+         <div class="container">
+            <div class="row justify-content-center align-items-center d-flex vh-100">
+               <div class="col-lg-4 mx-auto">
+                  <div class="osahan-login py-4">
+                     <div class="text-center mb-4">
+                        <a href="index.html"><img src="images/fav.svg" alt=""></a>
+                        <h5 class="font-weight-bold mt-3">Join Miver</h5>
+                        <p class="text-muted">Make the most of your professional life</p>
+                     </div>
+                     <form action="/users/register" method="POST">
+                        <div class="form-row">
+                           <div class="col">
+                              <div class="form-group">
+                                 <label class="mb-1">Name</label>
+                                 <div class="position-relative icon-form-control">
+                                    <i class="mdi mdi-account position-absolute"></i>
+                                    <input type="text" class="form-control" name ="name">
+                                 </div>
+                              </div>
+                           </div>
+                        <div class="form-group">
+                           <label class="mb-1">Email</label>
+                           <div class="position-relative icon-form-control">
+                              <i class="mdi mdi-email-outline position-absolute"></i>
+                              <input type="email" class="form-control" name="email"> 
+                           </div>
+                        </div>
+                        <div class="form-group">
+                           <label class="mb-1">Password (6 or more characters)</label>
+                           <div class="position-relative icon-form-control">
+                              <i class="mdi mdi-key-variant position-absolute"></i>
+                              <input type="password" class="form-control" name="password">
+                           </div>
+                        </div>
+                        <div class="form-group">
+                           <label class="mb-1">Confirm Password</label>
+                           <div class="position-relative icon-form-control">
+                              <i class="mdi mdi-key-variant position-absolute"></i>
+                              <input type="password" class="form-control" name="password2">
+                           </div>
+                        </div>
+                        <button class="btn btn-success btn-block text-uppercase" type="submit"> Sign up </button>
+                        <div class="py-3 d-flex align-item-center">
+                           <a href="forgot-password.html">Forgot password?</a>
+                           <span class="ml-auto"> Already on Miver? <a href="/users/login">Sign in</a></span>
+                        </div>
+                     </form>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+      <!-- End Register -->
+      <!-- Bootstrap core JavaScript -->
+      <script src="vendor/jquery/jquery.min.js"></script>
+      <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+      <!-- Contact form JavaScript -->
+      <!-- Do not edit these files! In order to set the email address and subject line for the contact form go to the bin/contact_me.php file. -->
+      <script src="js/jqBootstrapValidation.js"></script>
+      <script src="js/contact_me.js"></script>
+      <!-- Slick -->
+      <script src="vendor/slick-master/slick/slick.js" type="text/javascript" charset="utf-8"></script>
+      <!-- lightgallery -->
+      <script src="vendor/lightgallery-master/dist/js/lightgallery-all.min.js"></script>
+      <!-- select2 Js -->
+      <script src="vendor/select2/js/select2.min.js"></script>
+      <!-- Custom -->
+      <script src="js/custom.js"></script>
+   </body>
+</html>

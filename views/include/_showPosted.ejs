@@ -1,0 +1,16 @@
+<% for(var i = 0; i < postedservices.length; i++) { %>
+    <trs>
+        <td><%= i + 1 %></td>
+        <td><%= postedservices[i].name %></td>
+        <td><%= postedservices[i].category %></td>
+        <td><%= postedservices[i].description %></td>
+        <td>
+            <a href="/update-postedService?id=<%= postedservices[i]._id%>" class="btn border-shadow update">
+                <span class="text-gradient"><i class="fas fa-pencil-alt"></i></span>
+            </a>
+            <a class="btn border-shadow delete" data-id=<%= postedservices[i]._id%> >
+                <span class="text-gradient"><i class="fas fa-times"></i></span>
+            </a>
+        </td>
+    </tr>
+    <% } %>

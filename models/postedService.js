@@ -1,4 +1,6 @@
+const express = require('express');
 const mongoose = require('mongoose');
+const app = express();
 
 const postedServiceSchema = new mongoose.Schema({
   name: {
@@ -20,6 +22,7 @@ const postedServiceSchema = new mongoose.Schema({
   }
 });
 
-const postedService= mongoose.model('postedService', postedServiceSchema);
+const postedService= mongoose.model('postedService', postedServiceSchema); 
+
 
 module.exports = postedService;

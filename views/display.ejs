@@ -1,0 +1,49 @@
+
+<!DOCTYPE html>
+<html>
+<!--<html lang="en">-->
+<head>
+  <% include partials/header %>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  
+</head>
+<body>
+    <!--<form action="/api/postedServices" method = "GET" id="/read_postedService"> -->
+
+  <%postedList.forEach(posted => {%>
+      <div class="card" style="width: 18rem;">
+        <img src="..." class="card-img-top" alt="...">
+        <div class="card-body">
+         
+          
+            <h5 class="card-title">Card title</h5>
+            <p class="card-text"><%= posted.name %></p>
+          </div>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item"><%= posted.name %></li>
+            <li class="list-group-item"><%= posted.category %></li>
+            <li class="list-group-item"><%= posted.description %></li>
+          </ul>
+
+        
+       
+        <div class="card-body">
+          <a href="#" class="card-link">Card link</a>
+          <a href="#" class="card-link">Another link</a>
+        </div>
+      </div>
+<br>
+<br>
+      <%})%>
+     
+   <!-- </form> -->
+
+</body>
+<footer>
+  <% include partials/footer %>
+</footer>
+   </body>
+</html>

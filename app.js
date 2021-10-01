@@ -8,8 +8,17 @@ const bodyParser = require("body-parser")
 const router = express.Router();
 const path = require('path');
 const morgan = require('morgan');
+//var collection = require('postedservices')
+//const MongoClient = require('mongodb').MongoClient
+const postedService = require('./models/postedService.js');
+const freelancers = require('./models/freelancer.js');
 
 const app = express();
+
+//require('./dotenv')
+
+// Replace process.env.DB_URL with your actual connection string
+
 
 // Passport Config
 require('./config/passport')(passport);
@@ -74,8 +83,47 @@ app.use('/', require('./routes/index.js'));
 app.use('/users', require('./routes/users.js'));
 app.use('/', require('./routes/router'));
 app.use('/', require('./routes/postedServiceRouter'));
+//app.use('/', require('./models/postedService'))
 
 var cons = require('consolidate');
+const Freelancer = require('./models/freelancer.js');
+/*const postedServiceSchema = new mongoose.Schema({
+ name: {
+    type: String,
+     required: true
+      }, 
+  category: {
+    type: String,
+    required: true
+  },
+  description: {
+    type: String,
+    required: true
+  },
+
+  date: {
+    type: Date,
+    default: Date.now
+  }
+});
+
+const postedService= mongoose.model('postedService', postedServiceSchema); 
+*/
+app.get('/display', (req, res) => {
+  postedService.find({}, function(err, posted) {
+      res.render('display', {
+         postedList: posted
+      })
+  })
+})
+app.get('/index', (req, res) => {
+  freelancers.find({}, function(err, posted) {
+      res.render('index', {
+         freelancerList: posted
+      })
+  })
+})
+
 
 
 app.get('/become-a-seller',function (req, res) {
@@ -103,6 +151,10 @@ app.get('/become-a-seller',function (req, res) {
           res.render('index',{
           })
           });
+          app.get('/index1',function (req, res) {
+            res.render('index1',{
+            })
+            });
           app.get('/add_freelancer',function (req, res) {
             res.render('add_freelancer',{
             })
@@ -116,12 +168,29 @@ app.get('/become-a-seller',function (req, res) {
                 res.render('postedServices/add_postedService',{
                 })
                 });
-                
+                app.get('/freelancerDashboard',function (req, res) {
+                  res.render('pages/freelancerDashboard',{
+                  })
+                  });
+
+                  app.get('/postedList', function (req, res) {
+                    res.render('pages/postedList',{
+                    })
+                    });
+                    
+                  app.get('/account', function (req, res) {
+                    res.render('pages/account',{
+                    })
+                    });
+                    app.get('/serviceDetails',function (req, res) {
+                      res.render('pages/serviceDetails',{
+                      })
+                      });
+                    
                   
       
 
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, console.log(`Server running on  ${PORT}`));
-
 

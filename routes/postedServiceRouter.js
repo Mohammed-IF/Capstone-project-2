@@ -1,6 +1,7 @@
 const express = require('express');
 const route = express.Router()
-
+var mongo = require('mongodb').MongoClient;
+var assert = require('assert');
 const services = require('../services/postedServiceRender');
 const controller1 = require('../controller/postedServiceController');
 
@@ -16,12 +17,15 @@ route.get('/', services.homeRoutes);
  */
 route.get('/add-postedService', services.add_postedService)
 
+
+
 /**
  *  @description for update user
  *  @method GET /update-user
  */
 route.get('/update-postedService', services.update_postedService)
 
+route.get('/read-postedService' , services.read_postedService)
 
 // API
 route.post('/api/postedServices', controller1.create);
