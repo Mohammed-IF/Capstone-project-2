@@ -1,0 +1,63 @@
+
+<div class="container mt-5">
+    <p class="text-muted">published at: <%= question.postedAt %> </p>
+    <h2><%= question.title %> </h2>
+
+    <hr>
+
+    <label>Question details:</label>
+    <p class="mt-3"><%= question.content %> </p>
+ 
+    <hr>
+    
+
+<!-- comments-->
+
+<div class="container pt-5">
+    <div class="container">
+        <form action="/question/<%=question._id%>/comments" method="POST" >
+           <div class="form-group">
+               <textarea class="form-control rounded-0"
+                placeholder="Leave an Answer here" rows="4" name="comment"></textarea>
+
+           </div>
+        
+          <div class="form-group pt-2"> <button class="btn rounded-0 btn-primary w-100">Answer</button> </div>
+        
+           
+           
+           
+
+          
+        
+        </form>
+
+    </div>
+
+</div>
+
+
+<div class="continer pt-5">
+    <div class="container">
+        <div class="row">
+          
+          
+                <% question.comments.forEach((comment)=> {%>
+                 <div class="col-12">
+                  <p>
+                    <strong><%=comment.author%> : </strong> 
+                    <br>
+                    <%=comment.comment%>
+                  
+                    
+                   </p> 
+                   <hr>
+               </div>
+                
+            <% }) %>
+            
+
+        </div>
+    </div>
+</div>
+

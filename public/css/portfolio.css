@@ -1,0 +1,29 @@
+.portfolio-form {
+    width: 20rem;
+    max-width: 90%;
+    margin: auto;
+    display: block;
+}
+
+.portfolio-item {
+    width: 20rem;
+    max-width: 95%;
+    margin: 1rem;
+}
+.portfolio__previousWork {
+    font-size: 1.2rem;
+    text-align: center;
+}
+
+.portfolio__yearsOfExperience {
+    text-align: center;
+    color: #4d4d4d;
+    margin-bottom: 0.5rem;
+}
+
+.portfolio__description {
+    text-align: center;
+}
+
+
+

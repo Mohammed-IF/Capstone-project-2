@@ -1,28 +1,34 @@
-const express = require('express');
 const mongoose = require('mongoose');
-const app = express();
 
-const postedServiceSchema = new mongoose.Schema({
-  name: {
+var Schema = mongoose.Schema;
+
+var postedServiceSchema = new Schema({
+  title: {
     type: String,
-     required: true
-      }, 
-  category: {
-    type: String,
+    required: true
+  },
+  price: {
+    type: Number,
     required: true
   },
   description: {
     type: String,
     required: true
   },
-
-  date: {
-    type: Date,
-    default: Date.now
+  image: {
+    public_id: {
+      type: String
+    },
+    url: {
+      type: String,
+      required: true
+    }
+  },
+  freelancerId: {
+    type: mongoose.Schema.Types.ObjectId,
+    required: true,
+    ref: 'Freelancer'
   }
 });
 
-const postedService= mongoose.model('postedService', postedServiceSchema); 
-
-
-module.exports = postedService;
+module.exports = mongoose.model('PostedService', postedServiceSchema);

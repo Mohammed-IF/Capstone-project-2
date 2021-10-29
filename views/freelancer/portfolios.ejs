@@ -1,0 +1,47 @@
+<%- include('../includesFreelancer/head.ejs') %>
+    <link rel="stylesheet" href="/css/portfolio.css">
+    </head>
+
+    <body>
+        <%- include('../includesFreelancer/navigation.ejs') %>
+
+            <main>
+                <% if (prods.length > 0) { %>
+                    <div class="grid">
+                        
+                        <% for (let portfolio of prods) { %>
+                            <article class="card portfolio-item">
+                                <header class="card__header">
+                                    <h1 class="portfolio__previousWork">
+                                        <%= portfolio.previousWork %>
+                                    </h1>
+                                </header>
+                                <div class="card__image">
+                                    <img src="<%= portfolio.image.url %>" alt="<%= portfolio.previousWork %>">
+                                </div>
+                                <div class="card__content">
+                                    <h2 class="portfolio__yearsOfExperience">$
+                                        <%= portfolio.yearsOfExperience %>
+                                    </h2>
+                                    <p class="portfolio__description">
+                                        <%= portfolio.description %>
+                                    </p>
+                                </div>
+                                <div class="card__actions">
+                                    <a href="/freelancer/edit-portfolio/<%= portfolio._id %>?edit=true" class="btn">Edit</a>
+                                    <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
+                                    <input type="hidden" value="<%= portfolio._id %>" name="portfolioId">
+                                    <button class="btn" type="button" onclick="deletePortfolio(this)">Delete</button>
+                                </div>
+                            </article>
+                            <% } %>
+                    </div>
+                    <section class='pagination'>
+                        <%- include('../includesFreelancer/pagination.ejs', { currentPage: currentPage, previousPage: previousPage, nextPage: nextPage, hasPreviousPage: hasPreviousPage, hasNextPage: hasNextPage, lastPage: lastPage}) %>
+                    </section>
+                    <% } else { %>
+                        <h1>No Products Found!</h1>
+                        <% } %>
+            </main>
+            <%- include('../includesFreelancer/end.ejs') %>
+            <script src='/js/freelancer.js'></script>

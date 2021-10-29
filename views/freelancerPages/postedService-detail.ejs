@@ -1,0 +1,17 @@
+<head>
+    <%- include('../partials/freelanceP.ejs') %>
+</head>
+<%- include('../includesFreelancer/head.ejs') %>
+    </head>
+
+    <body>
+        <main class="centered">
+            <h1><%= postedService.title %></h1>
+            <hr>
+            <div class="image">
+                <img src="<%= postedService.image.url %>" alt="<%= postedService.title %>">
+            </div>
+            <h2><%= postedService.price %></h2>
+            <p><%= postedService.description %></p>
+        </main>
+        <%- include('../includesFreelancer/end.ejs') %>

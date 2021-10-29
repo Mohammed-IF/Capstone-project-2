@@ -1,0 +1,125 @@
+
+<div class="container mt-5">
+    <p class="text-muted">published at: <%= article.postedAt %> </p>
+    <h2><%= article.title %> </h2>
+
+    <hr>
+
+    <label>Article details:</label>
+    <p class="mt-3"><%= article.content %> </p>
+ 
+    <hr>
+    
+
+<!-- comments-->
+
+<div class="container pt-5">
+    <div class="container">
+        <form action="/article/<%=article._id%>/comments" method="POST" >
+           <div class="form-group">
+               <textarea class="form-control rounded-0"
+                placeholder="Leave a comment here" rows="4" name="comment"></textarea>
+
+           </div>
+        
+          <div class="form-group pt-2"> <button class="btn rounded-0 btn-primary w-100">Comments</button> </div>
+        
+           
+           
+           
+
+          
+        
+        </form>
+
+    </div>
+
+</div>
+
+
+<div class="continer pt-5">
+    <div class="container">
+        <div class="row">
+          
+          
+                <% article.comments.forEach((comment)=> {%>
+                 <div class="col-12">
+                  <p>
+                    <strong><%=comment.author%> : </strong> 
+                    <br>
+                    <%=comment.comment%>
+                  
+                    
+                   </p> 
+                   <hr>
+               </div>
+                
+            <% }) %>
+            
+
+        </div>
+    </div>
+</div>
+
+<!-- share--> 
+
+<body>
+    <div class="share-btn-container">
+        <a href="#" class="facebook-btn">
+          <i class="fab fa-facebook"></i>
+        </a>
+  
+        <a href="#" class="twitter-btn">
+          <i class="fab fa-twitter"></i>
+        </a>
+  
+        <a href="#" class="linkedin-btn">
+          <i class="fab fa-linkedin"></i>
+        </a>
+  
+        <a href="#" class="whatsapp-btn">
+          <i class="fab fa-whatsapp"></i>
+        </a>
+      </div>
+
+      <div id="fb-root"></div>
+
+</body>
+
+<script>
+
+const facebookBtn = document.querySelector(".facebook-btn");
+const twitterBtn = document.querySelector(".twitter-btn");
+const linkedinBtn = document.querySelector(".linkedin-btn");
+const whatsappBtn = document.querySelector(".whatsapp-btn");
+
+function init() {
+  let postUrl = encodeURI(document.location.href);
+  let postTitle = encodeURI("Hi everyone, please check this out: ");
+
+  facebookBtn.setAttribute(
+    "href",
+    `https://www.facebook.com/sharer/sharer.php?u=${postUrl} `
+  );
+
+  twitterBtn.setAttribute(
+    "href",
+    `https://twitter.com/share?url=${postUrl}&text=${postTitle}`
+  );
+
+
+  linkedinBtn.setAttribute(
+    "href",
+    `http://www.linkedin.com/shareArticle?mini=true&url=${postUrl} `
+    
+    
+  );
+
+  whatsappBtn.setAttribute(
+    "href",
+    `https://wa.me/?text=${postTitle} ${postUrl}`
+  );
+}
+
+init();
+</script>

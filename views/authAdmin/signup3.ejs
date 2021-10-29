@@ -1,0 +1,101 @@
+
+<!DOCTYPE html>
+<html>
+   <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+      <meta name="description" content="Gurdeep singh osahan">
+      <meta name="author" content="Gurdeep singh osahan">
+      <title>Miver - LMS & Freelance Services Marketplace for Businesses HTML Template</title>
+      <!-- Favicon Icon -->
+      <link rel="icon" type="image/png" href="images/fav.svg">
+      <!-- Bootstrap core CSS -->
+      <link href="vendor/bootstrap.min.css" rel="stylesheet">
+      <!-- Font Awesome-->
+      <link href="vendor/font-awesome.min.css" rel="stylesheet">
+      <!-- Material Design Icons -->
+      <link href="vendor/materialdesignicons.min.css" media="all" rel="stylesheet" type="text/css">
+      <!-- Slick -->
+      <link href="vendor/slick.css" rel="stylesheet" type="text/css">
+      <!-- Lightgallery -->
+      <link href="vendor/lightgallery.min.css" rel="stylesheet">
+      <!-- Select2 CSS -->
+      <link href="vendor/select2-bootstrap.css" />
+      <link href="vendor/select2.min.css" rel="stylesheet">
+      <!-- Custom styles for this template -->
+      <link href="css/style.css" rel="stylesheet">
+   </head>
+   <body>
+      <!-- Register -->
+      <div class="bg-white">
+         <div class="container">
+            <div class="row justify-content-center align-items-center d-flex vh-100">
+               <div class="col-lg-4 mx-auto">
+                  <div class="osahan-login py-4">
+                     <div class="text-center mb-4">
+                        <a ><img src="images/fav.svg" alt=""></a>
+                        <h5 class="font-weight-bold mt-3">Join Miver</h5>
+                        <p class="text-muted">Make the most of your professional life</p>
+                     </div>
+                     <form class="login-form" action="/signup3" method="POST" novalidate>
+                        <div class="form-row">
+                           <div class="col">
+                              <div class="form-group">
+                                 <label class="mb-1">name</label>
+                                 <div class="position-relative icon-form-control">
+                                    <i class="mdi mdi-email-outline position-absolute"></i>
+                                    <input class="form-control" class="<%= validationErrors.find(e => e.param == 'name') ? 'invalid' : '' %>" type="name" name="name" id="name" value="<%= oldInput.name %>">
+                                 </div>
+                              </div>
+                           </div>
+                        <div class="form-group">
+                           <label class="mb-1">Email</label>
+                           <div class="position-relative icon-form-control">
+                              <i class="mdi mdi-email-outline position-absolute"></i>
+                              <input class="form-control" class="<%= validationErrors.find(e => e.param == 'email') ? 'invalid' : '' %>" type="email" name="email" id="email" value="<%= oldInput.email %>">
+                           </div>
+                        </div>
+                        <div class="form-group">
+                           <label class="mb-1">Password (6 or more characters)</label>
+                           <div class="position-relative icon-form-control">
+                              <i class="mdi mdi-key-variant position-absolute"></i>
+                              <input class="form-control" class="<%= validationErrors.find(e => e.param == 'password') ? 'invalid' : '' %>"  type="password" name="password" id="password" value="<%= oldInput.password %>">
+                           </div>
+                        </div>
+                
+                        <div class="form-group">
+                            <label class="mb-1" for="confirmPassword">Confirm Password</label>
+                            <div class="position-relative icon-form-control">
+                                <i class="mdi mdi-key-variant position-absolute"></i>
+                            <input  class="form-control" class="<%= validationErrors.find(e => e.param == 'confirmPassword') ? 'invalid' : '' %>"  type="password" name="confirmPassword" id="confirmPassword"  value="<%= oldInput.confirmPassword %>">
+                        </div>
+                        <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
+                        <button class="btn btn-success btn-block text-uppercase" type="submit"> signup </button>
+                        <div class="py-3 d-flex align-item-center">
+                           <a href="/reset3">Forgot password?</a>
+                           <span class="ml-auto"> Already on Miver? <a href="/login3">Sign in</a></span>
+                        </div>
+                     </form>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+      <!-- End Register -->
+      <!-- Bootstrap core JavaScript -->
+      <script src="vendor/jquery/jquery.min.js"></script>
+      <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+      <!-- Contact form JavaScript -->
+      <!-- Do not edit these files! In order to set the email address and subject line for the contact form go to the bin/contact_me.php file. -->
+      <script src="js/jqBootstrapValidation.js"></script>
+      <script src="js/contact_me.js"></script>
+      <!-- Slick -->
+      <script src="vendor/slick-master/slick/slick.js" type="text/javascript" charset="utf-8"></script>
+      <!-- lightgallery -->
+      <script src="vendor/lightgallery-master/dist/js/lightgallery-all.min.js"></script>
+      <!-- select2 Js -->
+      <script src="vendor/select2/js/select2.min.js"></script>
+      <!-- Custom -->
+      <script src="js/custom.js"></script>
+   </body>
+</html>

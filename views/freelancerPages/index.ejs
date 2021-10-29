@@ -1,0 +1,47 @@
+<head>
+    <%- include('../partials/freelanceP.ejs') %>
+</head>
+<%- include('../includesFreelancer/head.ejs') %>
+    <link rel="stylesheet" href="/css/postedService.css">
+</head>
+
+<body>
+    <main>
+        <% if (prods.length > 0) { %>
+            <div class="grid">
+                <% for (let postedService of prods) { %>
+                    <article class="card postedService-item">
+                        <header class="card__header">
+                            <h1 class="postedService__title"><%= postedService.title %></h1>
+                        </header>
+                        <div class="card__image">
+                            <img src="<%= postedService.image.url %>"
+                                alt="<%= postedService.title %>">
+                        </div>
+                        <div class="card__content">
+                            <h2 class="postedService__price">$<%= postedService.price %></h2>
+                            <p class="postedService__description"><%= postedService.description %></p>
+                        </div>
+                        
+                        <div class="card__actions">
+                            <a href="/postedServices/<%= postedService._id %>" class="btn">Details</a>
+                          
+                    
+                        </div>
+                    </article>
+                <% } %>
+            </div>
+            <section class='pagination'>
+                <%- include('../includesFreelancer/pagination.ejs', { currentPage: currentPage, previousPage: previousPage, nextPage: nextPage, hasPreviousPage: hasPreviousPage, hasNextPage: hasNextPage, lastPage: lastPage}) %>
+            </section>
+        <% } else { %>
+            <h1>No Products Found!</h1>
+        <% } %>
+    </main>
+<%- include('../includesFreelancer/end.ejs') %>
+
+
+<footer>
+    <%- include('../partials/footer.ejs') %>
+</footer>
+ 

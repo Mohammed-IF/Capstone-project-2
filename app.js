@@ -1,54 +1,33 @@
-const express = require('express');
+const dotenv = require('dotenv');
+dotenv.config();
+
+const path = require("path");
 const expressLayouts = require('express-ejs-layouts');
-const mongoose = require('mongoose');
+
+const helmet = require('helmet');
+const multer  = require('multer');
 const passport = require('passport');
+const express = require("express");
 const flash = require('connect-flash');
-const session = require('express-session');
-const bodyParser = require("body-parser")
-const router = express.Router();
-const path = require('path');
-const morgan = require('morgan');
-//var collection = require('postedservices')
-//const MongoClient = require('mongodb').MongoClient
-const postedService = require('./models/postedService.js');
-const freelancers = require('./models/freelancer.js');
+let session = require('express-session');
+const bodyParser = require("body-parser");
+const mongoose = require('mongoose');
+//let session = require('express-session');
+const csrf = require('csurf')
+//const flash = require('connect-flash');
+const compression = require('compression');
+const morgan = require('morgan')
+const MongoDBStore = require('connect-mongodb-session')(session);
+
+const cloudinary = require("./cloudinaryConfig");
+const cloudinaryStorage = require("multer-storage-cloudinary");
+
+const User = require('./models/user');
+const errorController = require("./controllers/error");
+
 
 const app = express();
 
-//require('./dotenv')
-
-// Replace process.env.DB_URL with your actual connection string
-
-
-// Passport Config
-require('./config/passport')(passport);
-
-// DB Config
-const db = require('./config/keys').mongoURI;
-
-app.use(morgan('tiny'));
-// Connect to MongoDB
-mongoose
-  .connect(
-    db,
-    { useNewUrlParser: true ,useUnifiedTopology: true}
-  )
-  .then(() => console.log('MongoDB Connected'))
-  .catch(err => console.log(err));
-
-// EJS
-app.use(expressLayouts);
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'ejs');
-
-app.use('/vendor', express.static(path.resolve(__dirname, "assets/vendor")))
-app.use('/images', express.static(path.resolve(__dirname, "assets/images")))
-app.use('/js', express.static(path.resolve(__dirname, "assets/js")))
-
-// Express body parser
-app.use(express.urlencoded({ extended: true }));
-
-// Express session
 app.use(
   session({
     secret: 'secret',
@@ -60,55 +39,163 @@ app.use(
 // Passport middleware
 app.use(passport.initialize());
 app.use(passport.session());
+const db = require('./config/keys').mongoURI;
+app.use(morgan('tiny'));
+/*mongoose
+  .connect(
+    db,
+    { useNewUrlParser: true ,useUnifiedTopology: true}
+  )
+  .then(() => console.log('MongoDB Connected'))
+  .catch(err => console.log(err));
+  */
+const { MONGO_DB_URI, PORT } = process.env;
 
-// Connect flash
-app.use(flash());
+app.use(expressLayouts);
+app.use(helmet())
+app.use(compression())
+app.use(morgan('combined'))
+app.set('views', path.join(__dirname, 'views'));
+app.set("view engine", "ejs");
+//app.set("views", "views");
+
+app.use(session({
+  secret: 'randomstring',
+  resave: false,
+  saveUninitialized: false,
+  store: new MongoDBStore({ uri: MONGO_DB_URI, collection: 'sessions' })
+}));
+
+const csrfProtection = csrf();
+
+const storage = cloudinaryStorage({
+	cloudinary
+});
+
+const fileFilter = (req, file, cb) => {
+  if(file.mimetype === 'image/png' || file.mimetype === 'image/jpg'|| file.mimetype === 'image/jpeg'){
+    cb(null, true);
+  }
+  else {
+    cb(null, false);
+  }
+}
+/*app.use(function(req, res, next) {
+  res.locals.success_msg = req.flash('success_msg');
+  res.locals.error_msg = req.flash('error_msg');
+  res.locals.error = req.flash('error');
+  next();
+});
+*/
+
+const freelancerRoutes = require("./routes/freelancer");
+const shopRoutes = require("./routes/shop");
+const freelancerPagesRoutes = require("./routes/freelancerPages");
+const authFreelancerRoutes = require("./routes/authFreelacner");
+const authUserRoutes = require("./routes/authUser");
+const authAdminRoutes = require("./routes/authAdmin");
+const appRoutes = require("./routes/appRouter");
+
+//app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use(express.json());
 app.use(express.urlencoded({
   extended: true
 }));
 
+app.use(multer({ storage: storage, fileFilter }).single('image'));
 
-// Global variables
-app.use(function(req, res, next) {
-  res.locals.success_msg = req.flash('success_msg');
-  res.locals.error_msg = req.flash('error_msg');
-  res.locals.error = req.flash('error');
+app.use(express.static(path.join(__dirname, "public")));
+app.use('/images', express.static(path.join(__dirname, "images")));
+
+require('./config/passport')(passport);
+require('./config/auth');
+
+//app.use(express.static(path.join(__dirname, "assets")));
+//app.use('/vendor', express.static(path.resolve(__dirname, "assets/vendor")));
+//app.use('/images', express.static(path.resolve(__dirname, "assets/images")));
+//app.use('/js', express.static(path.resolve(__dirname, "assets/js")));
+//app.use(express.static('assets'));
+//app.use('/', require('./routes/router'));
+const Freelancer = require('./models/freelancer.js');
+//const freelancer = require('./models/freelancer.js');
+
+
+app.use(session({
+  secret: 'randomstring',
+  resave: false,
+  saveUninitialized: false,
+  store: new MongoDBStore({ uri: MONGO_DB_URI, collection: 'sessions' })
+}));
+
+app.use(csrfProtection);
+//app.use(flash());
+
+
+
+// Connect flash
+app.use(flash());
+
+app.use((req, res, next) => {
+  res.locals.isAuthenticated = req.session.isLoggedIn;
+  res.locals.csrfToken = req.csrfToken();
   next();
 });
 
-// Routes
-app.use('/', require('./routes/index.js'));
-app.use('/users', require('./routes/users.js'));
-app.use('/', require('./routes/router'));
-app.use('/', require('./routes/postedServiceRouter'));
-//app.use('/', require('./models/postedService'))
-
-var cons = require('consolidate');
-const Freelancer = require('./models/freelancer.js');
-/*const postedServiceSchema = new mongoose.Schema({
- name: {
-    type: String,
-     required: true
-      }, 
-  category: {
-    type: String,
-    required: true
-  },
-  description: {
-    type: String,
-    required: true
-  },
-
-  date: {
-    type: Date,
-    default: Date.now
+app.use((req, res, next) => {
+  if (!req.session.user) {
+    return next();
   }
+  User.findById(req.session.user._id)
+    .then(user => {
+      if(!user){
+        return next()
+      }
+      req.user = user;
+      next();
+    })
+    .catch(err => {
+      next(new Error(err));
+    });
 });
 
-const postedService= mongoose.model('postedService', postedServiceSchema); 
-*/
+app.use((req, res, next) => {
+  if (!req.session.freelancer) {
+    return next();
+  }
+  Freelancer.findById(req.session.freelancer._id)
+    .then(freelancer => {
+      if(!freelancer){
+        return next()
+      }
+      req.freelancer = freelancer;
+      next();
+    })
+    .catch(err => {
+      next(new Error(err));
+    });
+})
+
+//app.use('/', require('./routes/index.js'));
+
+app.use("/freelancer", freelancerRoutes);
+app.use(authUserRoutes);
+app.use(shopRoutes);
+app.use(freelancerPagesRoutes);
+app.use(authFreelancerRoutes);
+app.use(authAdminRoutes);
+//app.use("/freelancer", appRoutes);
+app.use(require("./routes/customIndex"));
+app.use(require("./routes/custom"));
+app.use('/users', require('./routes/users'));
+app.use(require("./routes/postCustom"));
+app.use(require("./routes/postApp"));
+
+
+
+//app.use('/', require('./routes/appRouter'));
+//app.use("/user",authUserRoutes);
+
 app.get('/display', (req, res) => {
   postedService.find({}, function(err, posted) {
       res.render('display', {
@@ -116,28 +203,49 @@ app.get('/display', (req, res) => {
       })
   })
 })
-app.get('/index', (req, res) => {
+/
+/*app.get('/index', (req, res) => {
   freelancers.find({}, function(err, posted) {
       res.render('index', {
          freelancerList: posted
       })
   })
 })
-
+*/
 
 
 app.get('/become-a-seller',function (req, res) {
   res.render('pages/become-a-seller',{
   })
   });
-  app.get('/contact',function (req, res) {
-    res.render('pages/contact',{
+  app.get('/all_products',function (req, res) {
+    res.render('all_products',{
     })
     });
-    app.get('/add_postedService',function (req, res) {
-      res.render('pages/add_postedService',{
+  app.get('/cat_products',function (req, res) {
+    res.render('cat_products',{
+    })
+    });
+    app.get('/product',function (req, res) {
+    res.render('product',{
+    })
+    });
+    app.get('/emptycart',function (req, res) {
+      res.render('emptycart',{
       })
       });
+    /*app.get('/login',function (req, res) {
+      res.render('login',{
+      })
+      });*/
+      app.get('/login1',function (req, res) {
+        res.render('/authFreelancer/login1',{
+        })
+        });
+       /* app.get('/quote',function (req, res) {
+          res.render('pages/quote',{
+          })
+          });*/
     app.get('/freelancers',function (req, res) {
       res.render('/freelancers/become-a-freelancer',{
       })
@@ -186,11 +294,27 @@ app.get('/become-a-seller',function (req, res) {
                       res.render('pages/serviceDetails',{
                       })
                       });
+                      app.get('/postedService-detail',function (req, res) {
+                        res.render('freelancerPages/postedService-detail',{
+                        })
+                        });
                     
-                  
-      
 
-const PORT = process.env.PORT || 5000;
+app.use('/500', errorController.get500);
 
-app.listen(PORT, console.log(`Server running on  ${PORT}`));
+app.use(errorController.get404);
 
+app.use((error, req, res, next) => {
+  res
+    .status(500)
+    .render("500", {
+      pageTitle: "Something went wrong",
+      path: "/500",
+      isAuthenticated: req.session.isLoggedIn
+    });
+})
+
+mongoose.connect(MONGO_DB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
+.then(() => {
+    app.listen(PORT || 3000);
+}).catch(err => console.log(err));

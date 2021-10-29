@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Custom</title>
+</head>
+
+<body>
+
+    <center><div class="container mt-3 py-1"><h3>All Customized Services </h3></div> </center>
+    <hr>
+
+    <div class="container mt-3 py-3">
+
+        <form action="/Custom" method="GET">
+            <label>Filter Customized Services Category</label>
+            <select name="category" class="form-control">
+               <option value="all"> All </option>
+               <option value="Graphics & Design"> Graphics & Design </option>
+               <option value="Programming & Tech"> Programming & Tech </option>
+               <option value="Video & Animation"> Video & Animation </option>
+               <option value=" Writing & Translation"> Writing & Translation </option>
+              </select>
+
+              <input type="submit" class="btn btn-primary mt-3" value="Filter">
+        </form>
+
+
+            </select>
+          
+        </form>
+
+</div>
+
+<hr>
+
+<div class="container mt-5 py-5">
+
+    <a href="/postCustom" class="btn btn-primary">post service</a>
+
+    <% customs.forEach(custom => { %>
+    <div class="card mt-3">
+        <div class="card-body">
+            <p class="text-muted">published at: <%= custom.postedAt %> </p>
+            <p class="card-text"> posted by: <%= custom.user %> </p>
+            <h5 class="card-title"><%= custom.title %> </h5>
+            <p class="card-text">description: <%= custom.content %> </p>
+            <p class="card-text"><%= custom.price %>$</p>
+            <a href=" /custom/<%= custom._id %>" class="btn btn-primary">Read More...</a>
+            <a href=" /deleteCustom/<%= custom._id %>" class="btn btn-danger">Delete</a>
+            <a href=" /editCustom/<%= custom._id %>" class="btn btn-warning">Edit</a>
+        </div>
+    </div>
+    <%}) %>
+
+
+</div>
+
+</body>
+</html>

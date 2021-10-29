@@ -1,34 +1,55 @@
 {
-  "name": "node_passport_login",
-  "version": "2.0.0",
-  "description": "Node.js authentication with Passport",
+  "name": "online-shop",
+  "version": "1.0.0",
+  "description": "e-commerce app built with Node.js",
   "main": "app.js",
   "scripts": {
-    "start": "node app.js",
-    "dev": "nodemon app.js"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "NODE_ENV=production node app.js",
+    "start-server": "node app.js",
+    "dev": "nodemon app.js",
+    "prettify": "prettier **/*.js --write"
   },
-  "keywords": [],
-  "author": "",
+  "author": "James Katarikawe",
   "license": "ISC",
-  "dependencies": {
-    "assert": "^2.0.0",
-    "axios": "^0.21.4",
-    "bcryptjs": "^2.4.3",
-    "connect-flash": "^0.1.1",
-    "consolidate": "^0.16.0",
-    "ejs": "^2.6.1",
-    "express": "^4.16.4",
-    "express-ejs-layouts": "^2.5.0",
-    "express-session": "^1.15.6",
-    "html": "^1.0.0",
-    "mongodb": "^4.1.2",
-    "mongoose": "^5.7.5",
-    "morgan": "^1.10.0",
-    "passport": "^0.4.0",
-    "passport-local": "^1.0.0",
-    "swig": "^1.4.2"
+  "engines": {
+    "node": "11.10.1"
   },
   "devDependencies": {
-    "nodemon": "^1.19.4"
+    "nodemon": "^1.18.3",
+    "prettier": "^1.19.1"
+  },
+  "dependencies": {
+    "axios": "^0.22.0",
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.18.3",
+    "cloudinary": "^1.19.0",
+    "compression": "^1.7.4",
+    "connect-flash": "^0.1.1",
+    "connect-mongo": "^4.6.0",
+    "connect-mongodb-session": "^2.3.0",
+    "consolidate": "^0.16.0",
+    "csurf": "^1.10.0",
+    "dotenv": "^8.2.0",
+    "ejs": "^2.6.1",
+    "express": "^4.16.3",
+    "express-ejs-layouts": "^2.5.1",
+    "express-handlebars": "^3.0.0",
+    "express-session": "^1.17.0",
+    "express-validator": "^6.3.1",
+    "helmet": "^3.21.2",
+    "method-override": "^3.0.0",
+    "mongodb": "^3.3.5",
+    "mongoose": "^5.8.1",
+    "morgan": "^1.9.1",
+    "multer": "^1.4.2",
+    "multer-storage-cloudinary": "^2.2.1",
+    "nodemailer": "^6.4.2",
+    "nodemailer-sendgrid-transport": "^0.2.0",
+    "passport": "^0.5.0",
+    "passport-local": "^1.0.0",
+    "pdfkit": "^0.11.0",
+    "pug": "^2.0.3",
+    "stripe": "^7.15.0"
   }
 }

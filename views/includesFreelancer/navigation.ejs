@@ -1,0 +1,100 @@
+<!--
+<head class="h">
+</head>
+-->
+<body>
+<div class="backdrop"></div>
+<header class="main-header">
+    <button id="side-menu-toggle">Menu</button>
+    <nav class="main-header__nav">
+        <ul class="main-header__item-list">
+            <li class="main-header__item">
+                <a class="<%= path === '/freelancerPages' ? 'active' : '' %>" href="/freelancerPages">Freelancer's Dashboard</a>
+            </li>
+            <li class="main-header__item">
+                <a class="<%= path === '/freelancerPages/postedServices' ? 'active' : '' %>" href="/freelancerPages/postedServices">PostedServices</a>
+            </li>
+            <% if (isAuthenticated) { %>
+                
+                <li class="main-header__item">
+                    <a class="<%= path === '/freelancer/add-postedService' ? 'active' : '' %>" href="/freelancer/add-postedService">Add PostedService
+                    </a>
+                </li>
+                <li class="main-header__item">
+                    <a class="<%= path === '/freelancer/postedServices' ? 'active' : '' %>" href="/freelancer/postedServices">Freelancer PostedServices
+                    </a>
+                </li>
+            <% } %>
+        </ul>
+        <ul class="main-header__item-list">
+            <% if (!isAuthenticated) { %>
+                <li class="main-header__item">
+                    <a class="<%= path === '/login1' ? 'active' : '' %>" href="/login1">Login</a>
+                </li>
+                <li class="main-header__item">
+                    <a class="<%= path === '/signup1' ? 'active' : '' %>" href="/signup1">Signup</a>
+                </li>
+            <% } else { %>
+                <li class="main-header__item">
+                    <form action="/logout1" method="post">
+                        <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
+                        <button type="submit">Logout</button> 
+                    </form>
+                </li>
+            <% } %>
+        </ul>
+    </nav>
+</header>
+
+<nav class="mobile-nav">
+    <ul class="mobile-nav__item-list">
+        <li class="mobile-nav__item">
+            <a class="<%= path === '/freelancerPages' ? 'active' : '' %>" href="/freelancerPages">Shop</a>
+        </li>
+        <li class="mobile-nav__item">
+            <a class="<%= path === '/freelancerPages/postedServices' ? 'active' : '' %>" href="/freelancerPages/postedServices">PostedServices</a>
+        </li>
+        <% if (isAuthenticated) { %>
+            <li class="mobile-nav__item">
+                <a class="<%= path === '/freelancerPages/freelancer/add-postedService' ? 'active' : '' %>" href="/freelancerPages/freelancer/add-postedService">Add PostedService
+                </a>
+            </li>
+            <li class="mobile-nav__item">
+                <a class="<%= path === '/freelancerPages/freelancer/postedServices' ? 'active' : '' %>" href="/freelancerPages/freelancer/postedServices">Freelancer PostedServices
+                </a>
+            </li>
+        <% } %>
+        <% if (!isAuthenticated) { %>
+            <li class="mobile-nav__item">
+                <a class="<%= path === '/login1' ? 'active' : '' %>" href="/login1">Login</a>
+            </li>
+            <li class="mobile-nav__item">
+                <a class="<%= path === '/signup1' ? 'active' : '' %>" href="/signup1">Signup</a>
+            </li>
+        <% } else { %>
+            <li class="mobile-nav__item">
+                <form action="/logout1" method="post">
+                    <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
+                    <button type="submit">Logout</button>
+                </form>
+            </li>
+        <% } %>
+    </ul>
+</nav>
+</body>
+<style>
+    .f{
+        bottom: -10;
+    color: #707070;
+    height: 2em;
+    left: 0;
+    position: relative; 
+    font-size: small;
+    width:100%;
+  
+}
+</style>
+
+<!--<footer class="f" >
+ <%- include('../partials/footer.ejs') %> 
+ </footer> -->

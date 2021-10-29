@@ -1,0 +1,25 @@
+<head>
+    <%- include('../partials/header.ejs') %>
+</head>
+<%- include('../includesUser/head.ejs') %>
+    </head>
+
+    <body>
+        
+        <main class="centered">
+            <h1><%= postedService.title %></h1>
+            <hr>
+            <div class="image">
+                <img src="<%= postedService.image.url %>" alt="<%= postedService.title %>">
+            </div>
+            <h2><%= postedService.price %></h2>
+            <p><%= postedService.description %></p>
+            <% if (isAuthenticated) { %>
+                <%- include('../includesUser/add-to-cart.ejs', {postedService: postedService}) %>
+            <% } %>
+        </main>
+        <%- include('../includesUser/end.ejs') %>
+
+        <footer>
+            <%- include('../partials/footer.ejs') %>
+        </footer>

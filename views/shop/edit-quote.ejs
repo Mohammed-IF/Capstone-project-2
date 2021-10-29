@@ -1,0 +1,30 @@
+<%- include('../includesUser/head.ejs') %>
+    <link rel="stylesheet" href="/css/forms.css">
+    <link rel="stylesheet" href="/css/postedService.css">
+</head>
+
+<body>
+   <%- include('../includesUser/navigation.ejs') %>
+
+    <main>
+        <% if(errorMessage) { %>
+            <div class="user-message user-message--error"><%= errorMessage %></div>
+        <% } %>
+        <form class="postedService-form" action="/<% if (editing) { %>edit-quote<% } else { %>add-quote<% } %>" method="POST" enctype="multipart/form-data">
+            <div class="form-control">
+                <label for="description">Description</label>
+                <textarea name="description"  class="<%= validationErrors.find(e => e.param == 'description') ? 'invalid' : '' %>" id="description" rows="5"><% if (editing) { %><%= quote.description %><% } else {%><%= oldInput.description %><%}%></textarea>
+            </div>
+            <div class="form-control">
+                <label for="image">Image</label>
+                <input type="file" name="image" id="image">
+            </div>
+          
+            <% if (editing) { %>
+                <input type="hidden" value="<%= quote_id %>" name="quoteId">
+            <% } %>
+            <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
+            <button class="btn" type="submit"><% if (editing) { %>Update Quote<% } else { %>Add Quote<% } %></button>
+        </form>
+    </main>
+<%- include('../includesUser/end.ejs') %>

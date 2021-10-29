@@ -1,0 +1,69 @@
+
+<div class="container mt-5">
+    <p class="text-muted">published at: <%= custom.postedAt %> </p>
+    <h2><%= custom.title %> </h2>
+
+    <hr>
+
+    <label>service details:</label>
+    <p class="mt-3"><%= custom.content %> </p>
+ 
+    <hr>
+    
+        <label>i would like the service to be delivered in days:</label>
+        <p class="mt-3"><%= custom.day %> </p>
+    
+        <hr>
+
+    <label>i'm willing to pay:</label>
+    <p class="mt-3"><%= custom.price %> </p>
+
+<!-- comments-->
+
+<div class="container pt-5">
+    <div class="container">
+        <form action="/custom/<%=custom._id%>/comments" method="POST" >
+           <div class="form-group">
+               <textarea class="form-control rounded-0"
+                placeholder="Leave a comment here" rows="4" name="comment"></textarea>
+
+           </div>
+        
+          <div class="form-group pt-2"> <button class="btn rounded-0 btn-primary w-100">Comments</button> </div>
+        
+           
+           
+           
+
+          
+        
+        </form>
+
+    </div>
+
+</div>
+
+
+<div class="continer pt-5">
+    <div class="container">
+        <div class="row">
+          
+          
+                <% custom.comments.forEach((comment)=> {%>
+                 <div class="col-12">
+                  <p>
+                    <strong><%=comment.author%> : </strong> 
+                    <br>
+                    <%=comment.comment%>
+                  
+                    
+                   </p> 
+                   <hr>
+               </div>
+                
+            <% }) %>
+            
+
+        </div>
+    </div>
+</div>
