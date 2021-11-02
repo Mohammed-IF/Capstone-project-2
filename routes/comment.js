@@ -12,10 +12,10 @@ const Article = require('../models/Article');
 const Question = require('../models/Question');
 
 function isLoggedIn(req, res, next){
-      if(req.isAuthenticated()){
+      if(req.session.isLoggedIn){
           next();
       }else{
-        res.redirect('/users/login');
+        res.redirect('login1');
       }
 
 
@@ -24,7 +24,7 @@ function isLoggedIn(req, res, next){
 router.post('/custom/:id/comments',isLoggedIn,(req,res) => {  
     
      const comment = new Comment({
-         author: req.user.name,
+         author: req.freelancer.name,
          comment: req.body.comment
 
     });

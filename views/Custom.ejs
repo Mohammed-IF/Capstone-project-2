@@ -46,7 +46,8 @@
             <h5 class="card-title"><%= custom.title %> </h5>
             <p class="card-text">description: <%= custom.content %> </p>
             <p class="card-text"><%= custom.price %>$</p>
-            <a href=" /custom/<%= custom._id %>" class="btn btn-primary">Read More...</a>
+            <a href="/custom/<%= custom._id %>" class="btn btn-primary">Read More...</a>
+            <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
             <a href=" /deleteCustom/<%= custom._id %>" class="btn btn-danger">Delete</a>
             <a href=" /editCustom/<%= custom._id %>" class="btn btn-warning">Edit</a>
         </div>

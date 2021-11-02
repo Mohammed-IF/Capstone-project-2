@@ -37,8 +37,8 @@ app.use(
 );
 
 // Passport middleware
-app.use(passport.initialize());
-app.use(passport.session());
+//app.use(passport.initialize());
+//app.use(passport.session());
 const db = require('./config/keys').mongoURI;
 app.use(morgan('tiny'));
 /*mongoose
@@ -87,7 +87,7 @@ const fileFilter = (req, file, cb) => {
   next();
 });
 */
-
+app.use('/users', require('./routes/users'));
 const freelancerRoutes = require("./routes/freelancer");
 const shopRoutes = require("./routes/shop");
 const freelancerPagesRoutes = require("./routes/freelancerPages");
@@ -128,6 +128,7 @@ app.use(session({
   store: new MongoDBStore({ uri: MONGO_DB_URI, collection: 'sessions' })
 }));
 
+
 app.use(csrfProtection);
 //app.use(flash());
 
@@ -158,7 +159,11 @@ app.use((req, res, next) => {
       next(new Error(err));
     });
 });
-
+app.use(authUserRoutes);
+app.use(require("./routes/postCustom"));
+app.use(require("./routes/customIndex"));
+app.use(require("./routes/custom"));
+app.use(require("./routes/comment"));
 app.use((req, res, next) => {
   if (!req.session.freelancer) {
     return next();
@@ -179,16 +184,15 @@ app.use((req, res, next) => {
 //app.use('/', require('./routes/index.js'));
 
 app.use("/freelancer", freelancerRoutes);
-app.use(authUserRoutes);
+
 app.use(shopRoutes);
 app.use(freelancerPagesRoutes);
 app.use(authFreelancerRoutes);
 app.use(authAdminRoutes);
 //app.use("/freelancer", appRoutes);
-app.use(require("./routes/customIndex"));
-app.use(require("./routes/custom"));
-app.use('/users', require('./routes/users'));
-app.use(require("./routes/postCustom"));
+
+
+
 app.use(require("./routes/postApp"));
 
 
@@ -300,7 +304,7 @@ app.get('/become-a-seller',function (req, res) {
                         });
                     
 
-app.use('/500', errorController.get500);
+/*app.use('/500', errorController.get500);
 
 app.use(errorController.get404);
 
@@ -312,7 +316,7 @@ app.use((error, req, res, next) => {
       path: "/500",
       isAuthenticated: req.session.isLoggedIn
     });
-})
+})*/
 
 mongoose.connect(MONGO_DB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
 .then(() => {

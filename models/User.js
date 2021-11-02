@@ -7,10 +7,10 @@ const userSchema = mongoose.Schema({
   date: {
     type: Date,
     default: Date.now
-  }
+  },
   //resetToken: String,
   //resetTokenExpiration: Date,
-  /*cart: {
+  cart: {
     items: [
       {
         postedServiceId: {
@@ -25,10 +25,10 @@ const userSchema = mongoose.Schema({
       }
     ]
   }
-  */
+  
 });
 
-/*
+
 userSchema.methods.addToCart = function(postedService) {
   const cartPostedServiceIndex = this.cart.items.findIndex(item => {
     return item.postedServiceId.toString() == postedService._id.toString();
@@ -66,5 +66,4 @@ userSchema.methods.clearCart = function() {
   this.cart = { items: [] };
   return this.save();
 };
-*/
 module.exports = mongoose.model('User', userSchema);

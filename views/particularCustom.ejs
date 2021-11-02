@@ -28,7 +28,8 @@
                 placeholder="Leave a comment here" rows="4" name="comment"></textarea>
 
            </div>
-        
+
+           <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
           <div class="form-group pt-2"> <button class="btn rounded-0 btn-primary w-100">Comments</button> </div>
         
            

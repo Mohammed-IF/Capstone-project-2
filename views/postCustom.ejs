@@ -35,7 +35,7 @@
         <label>What is your budget for this service?</label>
         <input type="text" name="price" placeholder="Enter service price" class="form-control" required>
 
-
+        <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
         <input type="submit" value="Post" class="mt-5 btn btn-md btn-danger">
     </form>
 </div>

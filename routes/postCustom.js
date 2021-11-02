@@ -4,17 +4,17 @@ var Custom = require("../models/Custom");
 
 
 //const User = require('../models/user');
-const passport = require('passport');
+/*const passport = require('passport');
 require('../config/auth');
 require('../config/passport')(passport);;
-
+*/
 
 require('../models/user');
 require('../routes/authUser');
 
 
 function isLoggedIn(req, res, next){
-      if(req.isAuthenticated()){
+      if(req.session.isLoggedIn){
           next();
       }else{
         res.redirect('/login');
@@ -25,7 +25,7 @@ function isLoggedIn(req, res, next){
 const isAuth = require('../middleware/is-auth');
 
 router
-  .get("/postCustom",isAuth, (req, res) => { 
+  .get("/postCustom", isLoggedIn, (req, res) => { 
     res.render("postCustom");
   })
 
@@ -37,14 +37,14 @@ router
     if (!title || !content)
       return res.send("Please enter all the required credentials!");
 
-      const newCustom = new Custom({ user: req.user.name ,title, content, category, day, price });
+      const newCustom = new Custom({ user: req.user.name, title, content, category, day, price });
 
     // save the blog to the database
     newCustom
       .save()
       .then(() => {
         console.log("Custom service Saved Successfully!");
-        res.redirect("/");
+        res.redirect("/custom");
       })
       .catch((err) => console.log(err));
   });
