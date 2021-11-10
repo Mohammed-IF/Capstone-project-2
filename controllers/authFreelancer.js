@@ -33,6 +33,7 @@ exports.getSignup = (req, res, next) => {
     pageTitle: 'Signup1',
     errorMessage: req.flash('error')[0],
     oldInput: {
+      name: '',
       email: '',
       password: '',
       confirmPassword: ''
@@ -91,7 +92,7 @@ exports.postLogin = (req, res, next) => {
 };
 
 exports.postSignup = (req, res, next) => {
-  const { email, password, confirmPassword } = req.body;
+  const { name, email, password, confirmPassword } = req.body;
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     console.log(errors.array());
@@ -99,12 +100,13 @@ exports.postSignup = (req, res, next) => {
       path: '/signup1',
       pageTitle: 'Signup1',
       errorMessage: errors.array()[0].msg,
-      oldInput: { email, password, confirmPassword },
+      oldInput: { name, email, password, confirmPassword },
       validationErrors: errors.array()
     });
   }
   bcrypt.hash(password, 12).then(hashedPass => {
     const newFreelancer = new Freelancer({
+      name,
       email,
       password: hashedPass,
       cart: { items: [] }

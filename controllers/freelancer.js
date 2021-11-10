@@ -1,13 +1,15 @@
 const { validationResult } = require('express-validator');
 const cloudinary = require('../cloudinaryConfig');
 const PostedService = require('../models/postedService');
+const Freelancer = require('../models/freelancer');
+const CustomService = require('../models/Custom');
 const Portfolio = require('../models/portfolio');
 const fileHelper = require('../util/file');
 
-const ITEMS_PER_PAGE = 50;
+const ITEMS_PER_PAGE = 3;
 
 exports.getAddPostedService = (req, res, next) => {
-  let postedService = { title: '', price: '', description: '', image: { url: '' } };
+  let postedService = { title: '', price: '', category: '', description: '', image: { url: '' } };
   res.render('freelancer/edit-postedService', {
     postedService: postedService,
     pageTitle: 'Add PostedService',
@@ -15,13 +17,14 @@ exports.getAddPostedService = (req, res, next) => {
     editing: false,
     errorMessage: null,
     validationErrors: [],
-    oldInput: { title: '', imageUrl: '', price: '', description: '' }
+    oldInput: { title: '', imageUrl: '', category: '',price: '', description: '' }
   });
 };
 
 exports.postAddPostedService  = (req, res, next) => {
   const title = req.body.title;
   const image = req.file;
+  const category = req.body.category;
   const price = req.body.price;
   const description = req.body.description;
 
@@ -29,6 +32,7 @@ exports.postAddPostedService  = (req, res, next) => {
     return res.status(422).render('freelancer/edit-postedService', {
       postedService: {
         title,
+        category,
         price,
         description
       },
@@ -37,19 +41,27 @@ exports.postAddPostedService  = (req, res, next) => {
       editing: false,
       errorMessage: 'Attached file is not an image',
       validationErrors: [],
-      oldInput: { title, price, description }
+      oldInput: { title, category, price, description }
     });
   }
 
   const postedService  = new PostedService ({
     title,
+    category,
     price,
     image: {
       url: image.url,
       public_id: image.public_id
     },
     description,
+    name: req.freelancer.name,
     freelancerId: req.freelancer
+  /*portfolio: {
+    previousWork: req.portfolio.previousWork,
+    yearsOfExperinece: req.portfolio.yearsOfExperinece,
+    description: req.portfolio.description,
+    freelancerId: req.freelancer
+  }*/
   });
 
   const errors = validationResult(req);
@@ -61,7 +73,7 @@ exports.postAddPostedService  = (req, res, next) => {
       editing: false,
       errorMessage: errors.array()[0].msg,
       validationErrors: errors.array(),
-      oldInput: { title, image, description }
+      oldInput: { title, image, category, description }
     });
   }
 
@@ -101,6 +113,7 @@ exports.getEditPostedService = (req, res, next) => {
 exports.postEditPostedService  = (req, res, next) => {
   const prodId = req.body.postedServiceId;
   const title = req.body.title;
+  const category = req.body.category; 
   const price = req.body.price;
   const description = req.body.description;
   const image = req.file;
@@ -110,6 +123,7 @@ exports.postEditPostedService  = (req, res, next) => {
     return res.status(422).render('freelancer/edit-postedService', {
       postedService: {
         title,
+        category,
         price,
         description,
         _id: prodIdDesigns
@@ -125,9 +139,10 @@ exports.postEditPostedService  = (req, res, next) => {
   PostedService.findById(prodId)
     .then(postedService  => {
       if (postedService.freelancerId.toString() !== req.freelancer._id.toString()) {
-        res.redirect('/');
+        res.redirect('/freelancerPages');
       }
       postedService.title = title;
+      postedService.category = category;
       postedService.price = price;
       postedService.description = description;
       if (image) {
@@ -232,6 +247,7 @@ exports.postAddPortfolio = (req, res, next) => {
   const image = req.file;
   const yearsOfExperinece = req.body.yearsOfExperinece;
   const description = req.body.description;
+  const portfolioNum =0;
  
   if (!image) {
     return res.status(422).render('freelancer/edit-portfolio', {
@@ -248,8 +264,10 @@ exports.postAddPortfolio = (req, res, next) => {
       oldInput: { previousWork, yearsOfExperinece, description }
     });
   }
-
+  const portfolioNumber = portfolioNum + 1;
+  
   const portfolio  = new Portfolio ({
+    portfolioNumber,
     previousWork,
     yearsOfExperinece, 
     image: {
@@ -257,9 +275,10 @@ exports.postAddPortfolio = (req, res, next) => {
       public_id: image.public_id
     },
     description,
-    freelancerId: req.freelancer
+    freelancerId: req.freelancer,
+    name: req.freelancer.name
   });
-
+  
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     return res.status(422).render('freelancer/edit-portfolio', {
@@ -279,11 +298,13 @@ exports.postAddPortfolio = (req, res, next) => {
       console.log('Created Portfolio');
       res.redirect('/freelancer/portfolios');
     })
+    
     .catch(err => {
       const error = new Error(err);
       error.httpStatusCode = 500;
       next(error);
     });
+  
 };
 
 exports.getEditPortfolio = (req, res, next) => {
@@ -419,4 +440,62 @@ exports.getPortfolios = (req, res, next) => {
       error.httpStatusCode = 500;
       next(error);
     });
+};
+
+exports.getPortfolio = (req, res, next) => {
+  const porId = req.params.portfolioId;
+
+    
+  Portfolio.findById(porId).then(portfolio => {
+    res.render('freelancer/portfolios', {
+      portfolio: portfolio,
+      //pageTitle: postedService.title,
+      path: '/portfolios'
+    });
+  })
+  Freelancer.updateOne({ _id: req.freelancer }, { porId})
+    .then(() => {
+      console.log("successfully! updated the posted service!");
+    })
+}
+
+
+exports.getCustomServices = (req, res, next) => {
+  const page = +req.query.page || 1;
+  let totalItems;
+
+  CustomService.find()
+    .countDocuments()
+    .then(numCustomServices => {
+      totalItems = numCustomServices;
+
+      return CustomService.find()
+        .skip((page - 1) * ITEMS_PER_PAGE)
+        .limit(ITEMS_PER_PAGE);
+    })
+    .then(customServices => {
+      res.render('freelancerPages/customService-list', {
+        prods: customServices,
+        pageTitle: 'All CustomServices',
+        path: '/freelancer/customServices',
+        currentPage: page,
+        hasNextPage: ITEMS_PER_PAGE * page < totalItems,
+        hasPreviousPage: page > 1,
+        nextPage: page + 1,
+        previousPage: page - 1,
+        lastPage: Math.ceil(totalItems / ITEMS_PER_PAGE)
+      });
+    })
+    .catch(err => console.log(err));
+};
+
+exports.getCustomService = (req, res, next) => {
+  const prodId = req.params.customServiceId;
+  CustomService.findById(prodId).then(customService => {
+    res.render('freelancerPages/customService-list', {
+      customService: customService,
+      pageTitle: customService.title,
+      path: '/freelancer/customServices'
+    });
+  });
 };

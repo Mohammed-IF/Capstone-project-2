@@ -5,8 +5,30 @@
     <link rel="stylesheet" href="/css/postedService.css">
 </head>
 
+
+
 <body>
+    <div class="container mt-3 py-3">
+
+        <form action="/shop/index" method="GET">
+            <label>Filter Services Category</label>
+            <select name="category" class="form-control">
+               <option value="all"> All </option>
+               <option value="Graphics & Design"> Graphics & Design </option>
+               <option value="Programming & Tech"> Programming & Tech </option>
+               <option value="Video & Animation"> Video & Animation </option>
+               <option value=" Writing & Translation"> Writing & Translation </option>
+              </select>
     
+              <input type="submit" class="btn btn-primary mt-3" value="Filter">
+        </form>
+    
+    
+            </select>
+          
+        </form>
+    
+    </div>
 
     <main>
         <% if (prods.length > 0) { %>

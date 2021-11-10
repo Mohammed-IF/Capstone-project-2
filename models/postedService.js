@@ -11,6 +11,10 @@ var postedServiceSchema = new Schema({
     type: Number,
     required: true
   },
+  category: {
+    type: String,
+    required: true
+  },
   description: {
     type: String,
     required: true
@@ -24,11 +28,38 @@ var postedServiceSchema = new Schema({
       required: true
     }
   },
-  freelancerId: {
+    name: {
+      type: Schema.Types.String,
+      required: true
+    },
+    freelancerId: {
+      type: Schema.Types.ObjectId,
+      required: true,
+      ref: 'Freelancer'
+    },
+  quotes: [{
     type: mongoose.Schema.Types.ObjectId,
-    required: true,
-    ref: 'Freelancer'
-  }
+    ref: 'Quote'
+  }],
+  /*portfolio: {
+    previousWork: {
+      type: String,
+      required: true                  
+    },
+    yearsOfExperinece: {
+      type: String,
+      required: true                  
+    },
+    description: {
+      type: String,
+      required: true                  
+    },
+    portfolioId: {
+      type: Schema.Types.ObjectId,
+      required: true,
+      ref: 'Portfolio'
+    }
+  } */
 });
 
 module.exports = mongoose.model('PostedService', postedServiceSchema);

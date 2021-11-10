@@ -1,37 +1,35 @@
 const mongoose = require('mongoose');
+const express = require('express');
+const app = express();
 
-var Schema = mongoose.Schema;
-
-var quoteSchema = new Schema({
-  description: {
-    type: String,
-    required: true
-  },
-  image: {
-    public_id: {
-      type: String
-    },
-    url: {
-      type: String,
-      required: true
-    }
-  },
-  postedServices: [
-    {
-      postedServiceId: {
-        type: Schema.Types.ObjectId,
+const quoteSchema = new mongoose.Schema({
+    userName: {
+        type: String,
         required: true,
-        ref: 'PostedService'
       },
-    }
-  ],
-  user: {
-    userId: {
-      type: Schema.Types.ObjectId,
+      comment: {
+        type: String,
+        required: true
+      },
+      price: {
+        type: Number,
+        required: true
+      },
+
+      posted: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'PostedService'
+     },
+     userId: {
+      type: mongoose.Schema.Types.ObjectId,
       required: true,
       ref: 'User'
     }
-  }
+  
+
+
 });
 
-module.exports = mongoose.model('Quote', quoteSchema);
+    
+const Quote = mongoose.model('Quote', quoteSchema); 
+module.exports = Quote; 

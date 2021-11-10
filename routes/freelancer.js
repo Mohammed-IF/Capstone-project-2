@@ -9,13 +9,16 @@ const freelancerController = require('../controllers/freelancer');
 
 const router = express.Router();
 
-// /admin/products => GET
+
 router.get('/postedServices', isAuth, freelancerController.getPostedServices);
 
-// /admin/add-product => GET
+
+router.get('/customServices', isAuth, freelancerController.getCustomServices);
+
+
 router.get('/add-postedService', isAuth, freelancerController.getAddPostedService);
 
-// /admin/add-product => POST
+
 router.post(
   '/add-postedService',
   isAuth,
@@ -26,6 +29,9 @@ router.post(
       .isString()
       .isLength({ min: 3 })
       .trim(),
+      body('category')
+      .not()
+      .isEmpty(),
     body('price').isFloat(),
     body('description')
       .isLength({ min: 3, max: 200 })
@@ -34,10 +40,10 @@ router.post(
   freelancerController.postAddPostedService
 );
 
-// /admin/edit-product => GET
+
 router.get('/edit-postedService/:postedServiceId', isAuth, freelancerController.getEditPostedService);
 
-// /admin/edit-product => POST
+
 router.post(
   '/edit-postedService',
   isAuth,
@@ -55,17 +61,17 @@ router.post(
   freelancerController.postEditPostedService
 );
 
-// // /admin/delete-product => POST
+
 router.delete('/postedService/:postedServiceId',isAuth, freelancerController.deletePostedService);
 
 
-// /admin/products => GET
+
 router.get('/portfolios', isAuth, freelancerController.getPortfolios);
 
-// /admin/add-product => GET
+
 router.get('/add-portfolio', isAuth, freelancerController.getAddPortfolio);
 
-// /admin/add-product => POST
+
 router.post(
   '/add-portfolio',
   isAuth,
@@ -84,10 +90,10 @@ router.post(
   freelancerController.postAddPortfolio
 );
 
-// /admin/edit-product => GET
+
 router.get('/edit-portfolio/:portfolioId',isAuth, freelancerController.getEditPortfolio);
 
-// /admin/edit-product => POST
+
 router.post(
   '/edit-portfolio',
   isAuth,
@@ -104,8 +110,8 @@ router.post(
   ],
   freelancerController.postEditPortfolio
 );
+router.get('/portfolios/:portfolioId', freelancerController.getPortfolio);
 
-// // /admin/delete-product => POST
 router.delete('/portfolio/:portfolioId', isAuth, freelancerController.deletePortfolio);
 
 

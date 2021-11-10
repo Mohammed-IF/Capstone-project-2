@@ -74,7 +74,7 @@ exports.postLogin = (req, res, next) => {
             req.session.admin = admin;
             return req.session.save(err => {
               if (err) console.log(err);
-              res.redirect('/adminPages');
+              res.redirect('/admin/index');
             });
           }
           req.flash('error', 'Invalid email or password');

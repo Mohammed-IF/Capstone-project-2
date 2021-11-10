@@ -1,41 +1,53 @@
 <%- include('../includesFreelancer/head.ejs') %>
-    <link rel="stylesheet" href="/css/forms.css">
-    <link rel="stylesheet" href="/css/postedService.css">
+
 </head>
 <head>
     <%- include('../partials/freelanceP.ejs') %>
 
 </head> 
-<body>
 
-    <main>
-        <% if(errorMessage) { %>
-            <div class="user-message user-message--error"><%= errorMessage %></div>
-        <% } %>
-        <form class="postedService-form" action="/freelancer/<% if (editing) { %>edit-postedService<% } else { %>add-postedService<% } %>" method="POST" enctype="multipart/form-data">
-            <div class="form-control">
-                <label for="title">Title</label>
-                <input  class="<%= validationErrors.find(e => e.param == 'title') ? 'invalid' : '' %>" type="text" name="title" id="title" value="<% if (editing) { %><%= postedService.title %><% } else {%><%= oldInput.title %><%}%>">
+
+<div class="container mt-5">
+    <h3 class="my-3">Post your service Here...  </h3>
+    <form class="postedService-form" action="/freelancer/<% if (editing) { %>edit-postedService<% } else { %>add-postedService<% } %>" method="POST" enctype="multipart/form-data">
+        <div>
+        <input type="text" name="title" placeholder="Enter the service title" class="form-control" required class="<%= validationErrors.find(e => e.param == 'title') ? 'invalid' : '' %>" type="text" name="title" id="title" value="<% if (editing) { %><%= postedService.title %><% } else {%><%= oldInput.title %><%}%>">
+    </div>
+    <div>
+        <input type="file" name="image" placeholder="Enter the service image" class="form-control" required>
+    </div>
+
+
+        <div class="border-bottom p-3">
+            <label>Choose a category:</label>
+            <div class="row">
+               <div class="form-group col-md-6">
+                 <select name="category" class="form-control" required  > 
+                     <option selected>Select...</option>
+                     <option>Graphics & Design</option>
+                     <option>Digital Marketing</option>
+                     <option>Writing & Translation</option>
+                     <option>Video & Animation</option>
+                     <option>Music & Audio</option>
+                     <option>Programming & Tech</option>
+                     <option>Business</option>
+                     <option>Lifestyle</option>
+                  </select>
+               </div>
+               
             </div>
-            <div class="form-control">
-                <label for="image">Image</label>
-                <input type="file" name="image" id="image">
-            </div>
-            <div class="form-control">
-                <label for="price">Price</label>
-                <input  class="<%= validationErrors.find(e => e.param == 'price') ? 'invalid' : '' %>" type="number" name="price" id="price" step="0.01" value="<% if (editing) { %><%= postedService.price %><% } else {%><%= oldInput.price %><%}%>">
-            </div>
-            <div class="form-control">
-                <label for="description">Description</label>
-                <textarea name="description"  class="<%= validationErrors.find(e => e.param == 'description') ? 'invalid' : '' %>" id="description" rows="5"><% if (editing) { %><%= postedService.description %><% } else {%><%= oldInput.description %><%}%></textarea>
-            </div>
-            <% if (editing) { %>
-                <input type="hidden" value="<%= postedService._id %>" name="postedServiceId">
-            <% } %>
-            <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
-            <button class="btn" type="submit"><% if (editing) { %>Update PostedService<% } else { %>Add PostedService<% } %></button>
-        </form>
-    </main>
+         </div>
+
+         <input name="price" placeholder="Enter service price" class="form-control" required class="<%= validationErrors.find(e => e.param == 'price') ? 'invalid' : '' %>" type="number" name="price" id="price" step="0.01" value="<% if (editing) { %><%= postedService.price %><% } else {%><%= oldInput.price %><%}%>">>
+        
+         <textarea name="description" cols="30" rows="10" class="mt-3 form-control" placeholder="Enter the service description Here..." required class="<%= validationErrors.find(e => e.param == 'description') ? 'invalid' : '' %>" id="description" rows="5"><% if (editing) { %><%= postedService.description %><% } else {%><%= oldInput.description %><%}%>></textarea>
+      
+        <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
+        <button class="btn" type="submit"><% if (editing) { %>Update PostedService<% } else { %>Add PostedService<% } %></button>
+    </form>
+</div>
+
+<hr>
     <footer>
         <%- include('../partials/footer.ejs') %>
     </footer>

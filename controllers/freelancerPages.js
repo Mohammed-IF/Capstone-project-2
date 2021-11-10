@@ -4,10 +4,11 @@ const PDFDocument = require('pdfkit');
 const stripe = require('stripe')(process.env.STRIPE_SECRET);
 
 const PostedService = require('../models/postedService'); 
+const Portfolio = require('../models/portfolio'); 
 const Order = require('../models/order');
 const user = require('../models/user');
 
-const ITEMS_PER_PAGE = 50;
+const ITEMS_PER_PAGE = 3;
 
 exports.getIndex = (req, res, next) => {
   const page = +req.query.page || 1;
@@ -69,14 +70,17 @@ exports.getPostedServices = (req, res, next) => {
 
 exports.getPostedService = (req, res, next) => {
   const prodId = req.params.postedServiceId;
+  const porId = req.params.portfolioId;
   PostedService.findById(prodId).then(postedService => {
     res.render('freelancerPages/postedService-detail', {
       postedService: postedService,
       pageTitle: postedService.title,
       path: '/freelancerPages/postedServices-detail'
     });
-  });
-};
+  })
+  
+}
+
 /*
 exports.getCart = (req, res, next) => {
   req.user

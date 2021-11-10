@@ -1,0 +1,62 @@
+<head>
+    <%- include('../partials/freelanceP.ejs') %>
+</head>
+<%- include('../includesFreelancer/head.ejs') %>
+    <link rel="stylesheet" href="/css/postedService.css">
+    </head>
+
+    <body>
+        
+    <div class="container mt-3 py-3">
+
+        <form action="/freelancer/customServices" method="GET">
+            <label>Filter Customized Services Category</label>
+            <select name="category" class="form-control">
+               <option value="all"> All </option>
+               <option value="Graphics & Design"> Graphics & Design </option>
+               <option value="Programming & Tech"> Programming & Tech </option>
+               <option value="Video & Animation"> Video & Animation </option>
+               <option value=" Writing & Translation"> Writing & Translation </option>
+              </select>
+
+              <input type="submit" class="btn btn-primary mt-3" value="Filter">
+        </form>
+
+
+            </select>
+          
+        </form>
+
+</div>
+
+<hr>
+            <main>
+                <% if (prods.length > 0) { %>
+                    <div class="grid">
+                        <% for (let customService of prods) { %>
+                            <div class="card mt-3">
+                                <div class="card-body">
+                                    <p class="text-muted">published at: <%= customService.postedAt %> </p>
+                                    <p class="card-text"> posted by: <%= customService.user %> </p>
+                                    <h5 class="card-title"><%= customService.title %> </h5>
+                                    <p class="card-text">description: <%= customService.content %> </p>
+                                    <p class="card-text"><%= customService.price %>$</p>
+                                    <a href="/customReq/<%= customService._id %>" class="btn btn-primary">bid</a>
+                                    <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
+                                  
+                                </div>
+                            </div>
+                            <% } %>
+                    </div>
+                    <section class='pagination'>
+                        <%- include('../includesFreelancer/pagination.ejs', { currentPage: currentPage, previousPage: previousPage, nextPage: nextPage, hasPreviousPage: hasPreviousPage, hasNextPage: hasNextPage, lastPage: lastPage}) %>
+                    </section>
+                    <% } else { %>
+                        <h1>No Products Found!</h1>
+                        <% } %>
+            </main>
+            <%- include('../includesFreelancer/end.ejs') %>
+            <footer>
+                <%- include('../partials/footer.ejs') %>
+            </footer>
+             

@@ -28,6 +28,7 @@
                                     </p>
                                 </div>
                                 <div class="card__actions">
+                                    <a href=" /postedRes/<%= postedService._id %>" class="btn">View quotes</a>
                                     <a href="/freelancer/edit-postedService/<%= postedService._id %>?edit=true" class="btn">Edit</a>
                                     <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
                                     <input type="hidden" value="<%= postedService._id %>" name="postedServiceId">
@@ -40,7 +41,7 @@
                         <%- include('../includesFreelancer/pagination.ejs', { currentPage: currentPage, previousPage: previousPage, nextPage: nextPage, hasPreviousPage: hasPreviousPage, hasNextPage: hasNextPage, lastPage: lastPage}) %>
                     </section>
                     <% } else { %>
-                        <h1>No Products Found!</h1>
+                        <h1>No Services Found!</h1>
                         <% } %>
             </main>
             <footer>

@@ -22,15 +22,20 @@
 
 <div class="container pt-5">
     <div class="container">
-        <form action="/custom/<%=custom._id%>/comments" method="POST" >
+        <form action="/customReq/<%=custom._id%>/comments" method="POST" >
+            <div class="form-group">
+                <label>Bid price</label>
+        <input type="text" name="bidPrice" placeholder="Bid price" class="form-control" required>
+            
+    </div>
            <div class="form-group">
                <textarea class="form-control rounded-0"
-                placeholder="Leave a comment here" rows="4" name="comment"></textarea>
+                placeholder="Leave a your description here" rows="4" name="comment"></textarea>
 
            </div>
 
            <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
-          <div class="form-group pt-2"> <button class="btn rounded-0 btn-primary w-100">Comments</button> </div>
+          <div class="form-group pt-2"> <button class="btn rounded-0 btn-primary w-100">Bid</button> </div>
         
            
            
@@ -53,7 +58,7 @@
                 <% custom.comments.forEach((comment)=> {%>
                  <div class="col-12">
                   <p>
-                    <strong><%=comment.author%> : </strong> 
+                    <strong><%=comment.freelancerName%> : </strong> 
                     <br>
                     <%=comment.comment%>
                   

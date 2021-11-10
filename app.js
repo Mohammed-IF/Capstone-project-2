@@ -23,6 +23,7 @@ const cloudinary = require("./cloudinaryConfig");
 const cloudinaryStorage = require("multer-storage-cloudinary");
 
 const User = require('./models/user');
+//const Application = require('./models/application');
 const errorController = require("./controllers/error");
 
 
@@ -159,11 +160,8 @@ app.use((req, res, next) => {
       next(new Error(err));
     });
 });
-app.use(authUserRoutes);
-app.use(require("./routes/postCustom"));
-app.use(require("./routes/customIndex"));
-app.use(require("./routes/custom"));
-app.use(require("./routes/comment"));
+
+
 app.use((req, res, next) => {
   if (!req.session.freelancer) {
     return next();
@@ -181,19 +179,54 @@ app.use((req, res, next) => {
     });
 })
 
-//app.use('/', require('./routes/index.js'));
+app.use((req, res, next) => {
+  if (!req.session.application) {
+    return next();
+  }
+  Application.findById(req.session.application._id)
+    .then(application => {
+      if(!application){
+        return next()
+      }
+      req.application = application;
+      next();
+    })
+    .catch(err => {
+      next(new Error(err));
+    });
+})
 
 app.use("/freelancer", freelancerRoutes);
+app.use(authUserRoutes);
+app.use(require("./routes/postCustom"));
+app.use(require("./routes/customIndex"));
+app.use(require("./routes/custom"));
+app.use(require("./routes/comment"));
+app.use(require("./routes/postApp"));
+app.use(require("./routes/postedIndex"));
+app.use(require("./routes/quoteRoute"));
+app.use(require("./routes/appIndex"));
+app.use(require("./routes/app"));
+app.use(require("./routes/posted"));
+
+
+
+
+//app.use('/', require('./routes/index.js'));
+
 
 app.use(shopRoutes);
 app.use(freelancerPagesRoutes);
 app.use(authFreelancerRoutes);
 app.use(authAdminRoutes);
+app.use(require("./routes/adminPages"));
+app.use(require("./routes/adminRoute"));
+app.use("/user",require("./routes/customDisplay"));
 //app.use("/freelancer", appRoutes);
 
 
 
-app.use(require("./routes/postApp"));
+
 
 
 

@@ -1,3 +1,9 @@
+<%- include('./includesUser/head.ejs') %>
+    <link rel="stylesheet" href="/css/customService.css">
+    </head>
+<head>
+    <%- include('./partials/header.ejs') %>
+</head>
 <div class="container mt-5">
     <h3 class="my-3">Post your required service Here...  </h3>
     <form action="/postCustom" method="POST"> 
@@ -39,3 +45,7 @@
         <input type="submit" value="Post" class="mt-5 btn btn-md btn-danger">
     </form>
 </div>
+<footer>
+   <%- include('./partials/footer.ejs') %>
+</footer>
+<%- include('./includesUser/end.ejs') %>

@@ -8,8 +8,8 @@ const userSchema = mongoose.Schema({
     type: Date,
     default: Date.now
   },
-  //resetToken: String,
-  //resetTokenExpiration: Date,
+  resetToken: String,
+  resetTokenExpiration: Date,
   cart: {
     items: [
       {

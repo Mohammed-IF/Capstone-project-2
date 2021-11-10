@@ -11,10 +11,11 @@ const router = express.Router();
 const { body } = require('express-validator');
 
 router.get('/', shopController.getIndex);
-
+router.get('/postedServices', shopController.getPortfolios);
 router.get('/postedServices', shopController.getPostedServices);
 
 router.get('/postedServices/:postedServiceId', shopController.getPostedService);
+router.get('/postQuote/:postedServiceId', shopController.getPostedService1);
 
 router.get('/cart', isAuth, shopController.getCart);
 

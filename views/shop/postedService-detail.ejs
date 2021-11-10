@@ -3,8 +3,11 @@
 </head>
 <%- include('../includesUser/head.ejs') %>
     </head>
-
+<hr>
     <body>
+
+        <h4> posted by the freelancer: <%= postedService.name %> </h4>
+        <h4> You can explore the freelancer's portfolio <a href="/freelancer/portfolios">here</a></h4>
         
         <main class="centered">
             <h1><%= postedService.title %></h1>
@@ -16,8 +19,14 @@
             <p><%= postedService.description %></p>
             <% if (isAuthenticated) { %>
                 <%- include('../includesUser/add-to-cart.ejs', {postedService: postedService}) %>
-            <% } %>
+                <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
+               <a href="/postedReq/<%= postedService._id %>" class="btn btn-primary">quote</a>
+           <% } %>
         </main>
+
+        
+
+        <hr>
         <%- include('../includesUser/end.ejs') %>
 
         <footer>

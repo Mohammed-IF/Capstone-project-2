@@ -37,14 +37,14 @@ router
     if (!title || !content)
       return res.send("Please enter all the required credentials!");
 
-      const newCustom = new Custom({ user: req.user.name, title, content, category, day, price });
+      const newCustom = new Custom({ user: req.user.name, title, content, category, day, price, userId: req.user});
 
     // save the blog to the database
     newCustom
       .save()
       .then(() => {
         console.log("Custom service Saved Successfully!");
-        res.redirect("/custom");
+        res.redirect("/user/customServices");
       })
       .catch((err) => console.log(err));
   });

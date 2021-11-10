@@ -2,12 +2,13 @@ const express = require('express');
 const router = express.Router()
 var Application = require("../models/application");
 
-
+const swal = require('sweetalert');
 const User = require('../models/user');
 //const passport = require('passport');
 require('../config/auth');
 //require('../config/passport')(passport);;
-
+const alert = require('node-popup');
+//const popup = require('node-popup/dist/cjs.js');
 require('../routes/authUser');
 require('../models/user');
 const isAuth = require('../middleware/is-auth');
@@ -43,7 +44,10 @@ router
       .save()
       .then(() => {
         console.log("Application Saved Successfully!");
-        res.redirect("/postCustom");
+       // const alert = require('alert');
+       const {alert} = require('node-popup');
+          alert("Thank you, we will contact you by email soon.");
+        res.redirect("/");
       })
       .catch((err) => console.log(err));
   });

@@ -4,6 +4,7 @@ const PDFDocument = require('pdfkit');
 const stripe = require('stripe')(process.env.STRIPE_SECRET);
 
 const PostedService = require('../models/postedService'); 
+const Portfolio = require('../models/portfolio'); 
 const Order = require('../models/order');
 const Quote = require('../models/quote'); 
 const user = require('../models/user');
@@ -11,10 +12,10 @@ const quote = require('../models/quote');
 
 const ITEMS_PER_PAGE = 3;
 
-exports.getIndex = (req, res, next) => {
+exports.getIndex = async(req, res, next) => {
   const page = +req.query.page || 1;
   let totalItems;
-
+  
   PostedService.find()
     .countDocuments()
     .then(numPostedServices => {
@@ -38,8 +39,8 @@ exports.getIndex = (req, res, next) => {
       });
     })
     .catch(err => console.log(err));
-};
-
+     
+  }
 exports.getPostedServices = (req, res, next) => {
   const page = +req.query.page || 1;
   let totalItems;
@@ -71,6 +72,7 @@ exports.getPostedServices = (req, res, next) => {
 
 exports.getPostedService = (req, res, next) => {
   const prodId = req.params.postedServiceId;
+  //const porId = req.params.portfolioId;
   PostedService.findById(prodId).then(postedService => {
     res.render('shop/postedService-detail', {
       postedService: postedService,
@@ -78,8 +80,26 @@ exports.getPostedService = (req, res, next) => {
       path: '/postedServices'
     });
   });
+  
 };
-
+exports.getPostedService1 = (req, res, next) => {
+  const prodId = req.params.postedServiceId;
+  //const porId = req.params.portfolioId;
+  PostedService.findById(prodId).then(postedService => {
+    res.render('postQuote', {
+      postedService: postedService,
+      pageTitle: postedService.title,
+      path: '/postQuote'
+    });
+  });
+};
+/*Portfolio.findById(porId).then(portfolio => {
+    res.render('shop/postedService-detail', {
+      portfolio: portfolio,
+      pageTitle: portfolio.name,
+      path: '/postedServices'
+    });
+  }); */
 exports.getCart = (req, res, next) => {
   req.user
     .populate('cart.items.postedServiceId')
@@ -323,3 +343,51 @@ exports.postAddQuote = (req, res, next) => {
       next(error);
     });
 };
+
+exports.getPortfolios = (req, res, next) => {
+  const page = +req.query.page || 1;
+  let totalItems;
+
+  Portfolio.find({ freelancerId: req.freelancer._id })
+    .countDocuments()
+    .then(numPortfolios => {
+      totalItems = numPortfolios;
+
+      return Portfolio.find({ freelancerId: req.freelancer._id })
+        .populate('freelancerId')
+        .skip((page - 1) * ITEMS_PER_PAGE)
+        .limit(ITEMS_PER_PAGE);
+    })
+    .then(porfolios => {
+      res.render('shop/postedService-list', {
+        pors: porfolios,
+        pageTitle: 'Freelancer Portfolios',
+        path: '/postedServices',
+        currentPage: page,
+        hasNextPage: ITEMS_PER_PAGE * page < totalItems,
+        hasPreviousPage: page > 1,
+        nextPage: page + 1,
+        previousPage: page - 1,
+        lastPage: Math.ceil(totalItems / ITEMS_PER_PAGE)
+      });
+    })
+    .catch(err => {
+      const error = new Error(err);
+      error.httpStatusCode = 500;
+      next(error);
+    });
+};
+exports.getPortfolio = (req, res, next) => {
+  //const prodId = req.params.postedServiceId;
+  const porId = req.params.portfolioId;
+  Portfolio.findById(porId).then(portfolio => {
+    res.render('shop/postedService-detail', {
+      portfolio: portfolio,
+      //pageTitle: portfolio.title,
+      path: '/postedServices'
+    });
+  });
+  
+};
+
+

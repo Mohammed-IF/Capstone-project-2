@@ -7,10 +7,14 @@ const passport = require('passport');
 require('../config/auth');
 require('../config/passport')(passport);;
 require('../models/user');
-
+const freelancer = require('../models/freelancer');
 const Article = require('../models/Article');
 const Question = require('../models/Question');
+const isAuth = require('../middleware/is-auth');
+const stripe = require('stripe')(process.env.STRIPE_SECRET);
 
+
+const MY_DOMAIN = "http://localhost:3000";
 function isLoggedIn(req, res, next){
       if(req.session.isLoggedIn){
           next();
@@ -20,12 +24,21 @@ function isLoggedIn(req, res, next){
 
 
 }
+function isLoggedIn1(req, res, next){
+  if(req.session.isLoggedIn){
+      next();
+  }else{
+    res.redirect('login');
+  }
+}
 
-router.post('/custom/:id/comments',isLoggedIn,(req,res) => {  
+router.post('/customReq/:id/comments', isLoggedIn, (req,res) => {  
     
      const comment = new Comment({
-         author: req.freelancer.name,
-         comment: req.body.comment
+         freelancerName: req.freelancer.name,
+         bidPrice: req.body.bidPrice,
+         comment: req.body.comment,
+         freelancerId: req.freelancer
 
     });
 
@@ -44,7 +57,7 @@ router.post('/custom/:id/comments',isLoggedIn,(req,res) => {
                   custom.save();
 
                    console.log(custom.comments);
-                   res.redirect('/Custom');
+                   res.redirect('/freelancer/customServices');
                 }
 
             })
@@ -56,8 +69,141 @@ router.post('/custom/:id/comments',isLoggedIn,(req,res) => {
 
 });
 
+router.post('/customRes/:id/comments', isLoggedIn1, (req,res) => {  
+    
+  const comment = new Comment({
+      freelancerName: req.user.name,
+      comment: req.body.comment,
+      freelancerId: req.user
+
+ });
+
+comment.save((err, result)=> {
+     if(err){
+       console.log(err)
+
+     }else{
+       Custom.findById(req.params.id, (err, custom) =>{
+             if(err){
+                 console.log(err);
+             
+             }else{
+                
+               custom.comments.push(result);
+               custom.save();
+
+                console.log(custom.comments);
+                res.redirect('/Custom');
+             }
+
+         })
+        
+     }  
+ 
+ 
+})
+
+});
+
+router.post('/postedmReq/:id/comments', isLoggedIn, (req,res) => {  
+    
+  const comment = new Comment({
+      userName: req.user.name,
+      quotePrice: req.body.bidPrice,
+      comment: req.body.comment,
+      userId: req.user
+
+ });
+
+comment.save((err, result)=> {
+     if(err){
+       console.log(err)
+
+     }else{
+       Custom.findById(req.params.id, (err, custom) =>{
+             if(err){
+                 console.log(err);
+             
+             }else{
+                
+               custom.comments.push(result);
+               custom.save();
+
+                console.log(custom.comments);
+                res.redirect('/freelancer/customServices');
+             }
+
+         })
+        
+     }  
+ 
+ 
+})
+
+});
+//router.get("/acceptBid/:title/:contnet/:categoty/:price", async (req, res) => {
+  router.get("/acceptBid/:price", async (req, res) => {
+   
+  const { title } = req.params;
+  const {content} = req.params;
+  const {category} = req.params;
+  const {price} = req.params;
+  const quantity =0;
+  let customServices;
+  //const email1 = App.findOne({ email: email });
+  /*transporter.sendMail({
+      to: email,
+      from: 'm.i.f.15@outlook.sa',
+      subject: 'Application response',
+      html: `<p>You have been accepted as freelancer</p>
+          <p>please sigunp through the following link <a href="http://localhost:3000/signup1">here</a>`
+    });*/
+    stripe.charges.create({
+      amount: price,
+      source: req.body.stripeTokenId,
+      currency: 'usd'
+    }).then(function() {
+      console.log('Charge Successful')
+      res.json({ message: 'Successfully purchased items' })
+    }).catch(function() {
+      console.log('Charge Fail')
+      res.status(500).end()
+    })
+    const { customService } = req.body;
+    /*const session = await stripe.checkout.sessions.create({
+        payment_method_types: ["card"],
+        line_items: [
+            {
+                price_data: {
+                    currency: "USD",
+                    customService_data: {
+                        title: title,
+                        content: content,
+                        category: category
+                    },
+                    unit_amount: price * 100,
+                },
+                //quantity: 1
+            },
+        ],
+        mode: "payment",
+        success_url: `${MY_DOMAIN}/success.html`,
+        cancel_url: `${MY_DOMAIN}/cancel.html`,
+    });
+
+    res.json({ id: session.id });
+/*
+  App.deleteOne({ _id: id })
+    .then(() => {
+      console.log("Deleted app service successfully!");
+      res.redirect("/App");
+    })
+    .catch((err) => console.log(err));
+    */
+})
+
 // article comment
-router.post('/article/:id/comments',isLoggedIn,(req,res) => {  
+router.post('/article/:id/comments',(req,res) => {  
     
     const comment = new Comment({
         author: req.user.name,

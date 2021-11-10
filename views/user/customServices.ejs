@@ -1,0 +1,39 @@
+<%- include('../includesUser/head.ejs') %>
+    <link rel="stylesheet" href="/css/customService.css">
+    </head>
+<head>
+    <%- include('../partials/header.ejs') %>
+</head>
+    <body>
+
+            <main>
+                <% if (prods.length > 0) { %>
+                    <div class="grid">
+                        <% for (let customService of prods) { %>
+                             <div class="card mt-3">
+                                <div class="card-body">
+                                    <p class="text-muted">published at: <%= customService.postedAt %> </p>
+                                    <p class="card-text"> posted by: <%= customService.user %> </p>
+                                    <h5 class="card-title"><%= customService.title %> </h5>
+                                    <p class="card-text">description: <%= customService.content %> </p>
+                                    <p class="card-text"><%= customService.price %>$</p>
+                                    <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
+                                    <a href=" /customRes/<%= customService._id %>" class="btn btn-warning">View bids</a>
+                                    <a href=" /editCustom/<%= customService._id %>" class="btn btn-warning">Edit</a>
+                                    <a href=" /deleteCustom/<%= customService._id %>" class="btn btn-danger">Delete</a>
+                                </div>
+                            </div>
+                            <% } %>
+                    </div>
+                    <section class='pagination'>
+                        <%- include('../includesFreelancer/pagination.ejs', { currentPage: currentPage, previousPage: previousPage, nextPage: nextPage, hasPreviousPage: hasPreviousPage, hasNextPage: hasNextPage, lastPage: lastPage}) %>
+                    </section>
+                    <% } else { %>
+                        <h1>No Products Found!</h1>
+                        <% } %>
+            </main>
+            <footer>
+                <%- include('../partials/footer.ejs') %>
+            </footer>
+            <%- include('../includesUser/end.ejs') %>
+            <script src='/js/freelancer.js'></script>

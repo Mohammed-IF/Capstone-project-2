@@ -3,6 +3,10 @@ const mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var portfolioSchema = new Schema({
+  portfolioNumber: {
+    type: Number,
+    required: true
+  },
   previousWork: {
     type: String,
     required: true
@@ -26,6 +30,11 @@ var portfolioSchema = new Schema({
   },
   freelancerId: {
     type: mongoose.Schema.Types.ObjectId,
+    required: true,
+    ref: 'Freelancer'
+  },
+  name: {
+    type: mongoose.Schema.Types.String,
     required: true,
     ref: 'Freelancer'
   }

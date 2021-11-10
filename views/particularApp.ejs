@@ -1,0 +1,47 @@
+
+<div class="container mt-5">
+    <p class="text-muted">published at: <%= app.postedAt %> </p>
+    <h2><%= app.title %> </h2>
+
+    <hr>
+
+    <label>service details:</label>
+    <p class="mt-3"><%= app.content %> </p>
+ 
+    <hr>
+    
+        <label>i would like the service to be delivered in days:</label>
+        <p class="mt-3"><%= app.day %> </p>
+    
+        <hr>
+
+    <label>i'm willing to pay:</label>
+    <p class="mt-3"><%= app.price %> </p>
+
+<!-- comments-->
+
+<div class="container pt-5">
+    <div class="container">
+        <form action="/app/<%=app._id%>/comments" method="POST" >
+           <div class="form-group">
+               <textarea class="form-control rounded-0"
+                placeholder="Leave a comment here" rows="4" name="comment"></textarea>
+
+           </div>
+
+           <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
+          <div class="form-group pt-2"> <button class="btn rounded-0 btn-primary w-100">Comments</button> </div>
+        
+           
+           
+           
+
+          
+        
+        </form>
+
+    </div>
+
+</div>
+
+

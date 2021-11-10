@@ -3,11 +3,17 @@ const router = express.Router()
 const Custom = require('../models/Custom');
 
 router
-  .get("/custom/:id", async (req, res) => {
+  .get("/customReq/:id", async (req, res) => {
     const { id } = req.params;
     const getCustom = await Custom.findOne({ _id: id }).populate("comments");
 
-    res.render("particularCustom", { custom: getCustom  });
+    res.render("particularCustomReq", { custom: getCustom  });
+  })
+  .get("/customRes/:id", async (req, res) => {
+    const { id } = req.params;
+    const getCustom = await Custom.findOne({ _id: id }).populate("comments");
+
+    res.render("particularCustomRes", { custom: getCustom  });
   })
 
   .get("/deleteCustom/:id", (req, res) => {
@@ -15,7 +21,7 @@ router
     Custom.deleteOne({ _id: id })
       .then(() => {
         console.log("Deleted custom service successfully!");
-        res.redirect("/Custom");
+        res.redirect("/user/customServices");
       })
       .catch((err) => console.log(err));
   })
@@ -34,7 +40,7 @@ router
     Custom.updateOne({ _id: id }, { title, content, category, day, price })
       .then(() => {
         console.log("successfully! updated the custom service!");
-        res.redirect("/Custom");
+        res.redirect("/user/customServices");
       })
       .catch((err) => console.log(err));
   });

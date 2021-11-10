@@ -17,6 +17,7 @@
                             <h2>Quantity: <%= p.quantity %></h2>
                             <form action="/cart-delete-item" method="POST">
                                 <input type="hidden" value="<%= p.postedServiceId._id %>" name="postedServiceId">
+                                <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
                                 <button class="btn danger" type="submit">Delete</button>
                             </form>
                         </li>
@@ -33,7 +34,7 @@
                 </div>
                 
             <% } else { %>
-                <h1>No Products in Cart!</h1>
+                <h1>No Services in Cart!</h1>
             <% } %>
         </main>
         <%- include('../includesUser/end.ejs') %>

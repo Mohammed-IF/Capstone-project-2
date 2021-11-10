@@ -3,7 +3,7 @@ const express = require('express');
 const app = express();
 
 const commentSchema = new mongoose.Schema({
-    author: {
+    freelancerName: {
         type: String,
         required: true,
       },
@@ -11,11 +11,20 @@ const commentSchema = new mongoose.Schema({
         type: String,
         required: true,
       },
+      bidPrice: {
+        type: Number
+      },
 
       custom: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Custom'
-     }
+     },
+     freelancerId: {
+      type: mongoose.Schema.Types.ObjectId,
+      required: true,
+      ref: 'Freelancer'
+    }
+  
 
 
 });
