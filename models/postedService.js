@@ -13,7 +13,7 @@ var postedServiceSchema = new Schema({
   },
   category: {
     type: String,
-    required: true
+    
   },
   description: {
     type: String,
@@ -25,7 +25,7 @@ var postedServiceSchema = new Schema({
     },
     url: {
       type: String,
-      required: true
+      
     }
   },
     name: {

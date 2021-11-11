@@ -243,3 +243,41 @@ exports.postNewPassword = (req, res, next) => {
       next(error);
     });
 };
+exports.getUsers = (req, res, next) => {
+  const page = +req.query.page || 1;
+  let totalItems;
+
+  User.find()
+    .countDocuments()
+    .then(numUsers => {
+      totalItems = numUsers;
+
+      return User.find()
+        .skip((page - 1) * ITEMS_PER_PAGE)
+        .limit(ITEMS_PER_PAGE);
+    })
+    .then(users => {
+      res.render('partials/header', {
+        uors: users,
+        pageTitle: 'All Users',
+        path: '/users',
+        currentPage: page,
+        hasNextPage: ITEMS_PER_PAGE * page < totalItems,
+        hasPreviousPage: page > 1,
+        nextPage: page + 1,
+        previousPage: page - 1,
+        lastPage: Math.ceil(totalItems / ITEMS_PER_PAGE)
+      });
+    })
+    .catch(err => console.log(err));
+};
+exports.getUserInfo = (req, res, next) => {
+  const userId = req.params.userId;
+  User.findById(userId).then(user => {
+    res.render('pages/account', {
+      user: user,
+      path: '/users'
+    });
+  });
+  
+};

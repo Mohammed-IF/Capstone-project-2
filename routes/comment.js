@@ -2,7 +2,8 @@ const express = require('express');
 const Custom = require('../models/Custom');
 const router = express.Router()
 const Comment = require('../models/comment');
-const User = require('../models/user');
+//const User = require('../models/user');
+const PostedService = require('../models/postedService');
 const passport = require('passport');
 require('../config/auth');
 require('../config/passport')(passport);;
@@ -12,7 +13,7 @@ const Article = require('../models/Article');
 const Question = require('../models/Question');
 const isAuth = require('../middleware/is-auth');
 const stripe = require('stripe')(process.env.STRIPE_SECRET);
-
+const user = require('../models/user');
 
 const MY_DOMAIN = "http://localhost:3000";
 function isLoggedIn(req, res, next){
@@ -142,9 +143,9 @@ comment.save((err, result)=> {
 
 });
 //router.get("/acceptBid/:title/:contnet/:categoty/:price", async (req, res) => {
-  router.get("/acceptBid/:price", async (req, res) => {
+  //router.get("/acceptBid/:price", async (req, res) => {
    
-  const { title } = req.params;
+  /*const { title } = req.params;
   const {content} = req.params;
   const {category} = req.params;
   const {price} = req.params;
@@ -158,6 +159,7 @@ comment.save((err, result)=> {
       html: `<p>You have been accepted as freelancer</p>
           <p>please sigunp through the following link <a href="http://localhost:3000/signup1">here</a>`
     });*/
+    /*
     stripe.charges.create({
       amount: price,
       source: req.body.stripeTokenId,
@@ -200,6 +202,48 @@ comment.save((err, result)=> {
     })
     .catch((err) => console.log(err));
     */
+//})
+router.get("/acceptBid/:title/:price/:categoty/:content/:freelancerName/:freelancerId", async (req, res) => {
+  const { title } = req.params;
+  const {price} = req.params;
+  const {category} = req.params;
+  const {content} = req.params;
+  const {freelancerName} = req.params;
+  const {freelancerId} = req.params;
+
+
+  const postedService = new PostedService({
+    title : title,
+    price : price,
+    category : category,
+    description : content,
+    name: freelancerName,
+    freelancerId: freelancerId
+    
+  })
+  postedService
+      .save()
+      .then(() => {
+        console.log("Service Saved Successfully!");
+       res.redirect("/customCart");
+       req.user.addCustomToCart(postedService._id)
+      //res.redirect("/customCheckout/"+postedService._id);
+    /*  PostedService.findById(postedService._id)
+    .then(postedService => {
+      return req.user.addCustomToCart(postedService);
+    })
+    .then(result => {
+      res.redirect('/customCart/'+postedService._id);
+    });*/
+      })
+      
+     /* PostedService.deleteOne({ _id: postedService._id })
+      .then(() => {
+        console.log("Delete service successfully!");
+        res.redirect("/");
+      })
+      */
+      .catch((err) => console.log(err));
 })
 
 // article comment

@@ -16,6 +16,7 @@ exports.getIndex = async(req, res, next) => {
   const page = +req.query.page || 1;
   let totalItems;
   
+  
   PostedService.find()
     .countDocuments()
     .then(numPostedServices => {
@@ -113,7 +114,19 @@ exports.getCart = (req, res, next) => {
     })
     .catch(err => console.log(err));
 };
-
+exports.getCustomCart = (req, res, next) => {
+  req.user
+    .populate('cart.items.postedServiceId')
+    .execPopulate()
+    .then(user => {
+      res.render('shop/customCart', {
+        path: '/customCart',
+        pageTitle: 'Your Cart',
+        postedServices: user.cart.items
+      });
+    })
+    .catch(err => console.log(err));
+};
 exports.addToCart = (req, res, next) => {
   const prodId = req.body.postedServiceId;
   PostedService.findById(prodId)
@@ -122,6 +135,17 @@ exports.addToCart = (req, res, next) => {
     })
     .then(result => {
       res.redirect('/cart');
+    });
+};
+
+exports.addCustomToCart = (req, res, next) => {
+  const prodId = req.params;
+  PostedService.findById(prodId)
+    .then(postedService => {
+      return req.user.addCustomToCart(postedService);
+    })
+    .then(result => {
+      res.redirect('/customCart');
     });
 };
 
@@ -165,6 +189,38 @@ exports.getCheckoutSuccess = (req, res, next) => {
     .catch(err => console.log(err));
 };
 
+exports.getCustomCheckoutSuccess = (req, res, next) => {
+  const prodId = req.params;
+  req.user
+    .populate('cart.items.postedServiceId')
+    .execPopulate()
+    .then(user => {
+      const postedServices= user.cart.items.map(item => {
+        return { quantity: item.quantity, postedService: { ...item.postedServiceId._doc } };
+      });
+     
+      const order = new Order({
+        user: {
+          email: req.user.email,
+          userId: req.user
+        },
+        postedServices: postedServices
+      });
+      return order.save();
+      
+    })
+    .then(result => {
+      return req.user.clearCart();
+    })
+    .then(() => {
+      
+      res.redirect('/orders');
+    })
+    
+    
+   
+    .catch(err => console.log(err));
+};
 exports.deleteCartItem = (req, res, next) => {
   const prodId = req.body.postedServiceId;
   req.user
@@ -277,6 +333,52 @@ exports.getCheckout = (req, res, next) => {
         });
     });
 };
+exports.getCustomCheckout = (req, res, next) => {
+  const prodId = req.params;
+  //const prodId = p.postedServiceId; 
+  let postedServices,
+  
+    total = 0;
+  req.user
+    .populate('cart.items.postedServiceId')
+    .execPopulate()
+    .then(user => {
+      postedServices = user.cart.items;
+      postedServices.forEach(p => (total += p.quantity * p.postedServiceId.price));
+      return stripe.checkout.sessions
+        .create({
+          payment_method_types: ['card'],
+          line_items: postedServices.map(p => {
+            return {
+              name: p.postedServiceId.title,
+              description: p.postedServiceId.description,
+              amount: p.postedServiceId.price * 100,
+              currency: 'usd',
+              quantity: p.quantity
+            };
+          }),
+          success_url:
+            req.protocol + '://' + req.get('host') + '/customCheckout/success',
+          cancel_url:
+            req.protocol + '://' + req.get('host') + '/checkout/cancel'
+        })
+        .then(session => {
+          res.render('shop/customCheckout', {
+            path: '/customCheckout',
+            pageTitle: 'Checkout',
+            postedServices,
+            totalSum: total,
+            sessionId: session.id
+          });
+        
+        });
+        
+    });
+    PostedService.deleteOne({ _id: prodId })
+    .then(() => {
+      console.log("Delete service successfully!,yy");
+    })
+};
 exports.getAddQuote = (req, res, next) => {
   let quote = { description: '', image: { url: '' } };
   res.render('shop/edit-quote', {
@@ -359,10 +461,10 @@ exports.getPortfolios = (req, res, next) => {
         .limit(ITEMS_PER_PAGE);
     })
     .then(porfolios => {
-      res.render('shop/postedService-list', {
+      res.render('shop/freelancerPortfoilo', {
         pors: porfolios,
         pageTitle: 'Freelancer Portfolios',
-        path: '/postedServices',
+        path: '/freelancerPortfoilo',
         currentPage: page,
         hasNextPage: ITEMS_PER_PAGE * page < totalItems,
         hasPreviousPage: page > 1,

@@ -52,6 +52,28 @@ userSchema.methods.addToCart = function(postedService) {
   return this.save();
 };
 
+userSchema.methods.addCustomToCart = function(postedService) {
+  const cartPostedServiceIndex = this.cart.items.findIndex(item => {
+    return item.postedServiceId.toString() == postedService._id.toString();
+  });
+
+  let newQuantity = 1;
+  let updatedCartItems = this.cart ? [...this.cart.items] : [];
+
+  if (cartPostedServiceIndex >= 0) {
+    newQuantity = updatedCartItems[cartPostedServiceIndex].quantity + 1;
+    updatedCartItems[cartPostedServiceIndex].quantity = newQuantity;
+  } else {
+    updatedCartItems.push({
+      postedServiceId: postedService._id,
+      quantity: newQuantity
+    });
+  }
+  const updatedCart = { items: updatedCartItems };
+  this.cart = updatedCart;
+
+  return this.save();
+};
 userSchema.methods.removeFromCart = function(postedServiceId) {
   const updatedCartItems = this.cart.items.filter(
     item => item.postedServiceId.toString() != postedServiceId.toString()

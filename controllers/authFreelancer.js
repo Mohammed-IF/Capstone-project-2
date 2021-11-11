@@ -36,7 +36,8 @@ exports.getSignup = (req, res, next) => {
       name: '',
       email: '',
       password: '',
-      confirmPassword: ''
+      confirmPassword: '',
+
     },
     validationErrors: []
   });
@@ -104,12 +105,13 @@ exports.postSignup = (req, res, next) => {
       validationErrors: errors.array()
     });
   }
+  const portfolioId = null;
   bcrypt.hash(password, 12).then(hashedPass => {
     const newFreelancer = new Freelancer({
       name,
       email,
       password: hashedPass,
-      cart: { items: [] }
+      portfolioId: null
     });
     return newFreelancer 
       .save()

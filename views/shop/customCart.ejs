@@ -1,0 +1,45 @@
+<head>
+    <%- include('../partials/header.ejs') %>
+</head>
+
+<%- include('../includesUser/head.ejs') %>
+    <link rel="stylesheet" href="/css/cart.css">
+    </head>
+
+    <body>
+       
+        <main>
+            <% if (postedServices.length > 0) { %>
+                <ul class="cart__item-list">
+                    <% postedServices.forEach(p => { %>
+                        <li class="cart__item">
+                            <h1><%= p.postedServiceId.title %></h1>
+                            <h2>Quantity: <%= p.quantity %></h2>
+                            <form action="/cart-delete-item" method="POST">
+                                <input type="hidden" value="<%= p.postedServiceId._id %>" name="postedServiceId">
+                                <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
+                                <button class="btn danger" type="submit">Delete</button>
+                            </form>
+                            <a href='/customCheckout/<%= p.postedServiceId._id %>' class='btn'> Order Now! </a>
+                        </li>
+                    <% }) %>
+                </ul>
+                <hr>
+                <div class="centered">
+                    <!-- <form action="/create-order" method="POST">
+                        <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
+                        <button type="submit" class="btn">Order Now!</button>
+                    </form> -->
+
+                    
+                </div>
+                
+            <% } else { %>
+                <h1>No Services in Cart!</h1>
+            <% } %>
+        </main>
+        <%- include('../includesUser/end.ejs') %>
+        
+        <footer>
+            <%- include('../partials/footer.ejs') %>
+        </footer>

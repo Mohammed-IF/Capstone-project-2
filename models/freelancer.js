@@ -8,7 +8,8 @@ const freelancerSchema = mongoose.Schema({
   resetTokenExpiration: Date,
   portfolioId: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Portfolio'
+    required: true
+    //ref: 'Portfolio'
   }
 })
    

@@ -19,7 +19,9 @@
         <p class="mt-3"><%= custom.day %> </p>
     
         <hr>
-
+        <label>custom category:</label>
+        <p class="mt-3"><%= custom.category %> </p>
+        <hr>
     <label>i'm willing to pay:</label>
     <p class="mt-3"><%= custom.price %> </p>
 
@@ -65,7 +67,7 @@
             <p class="card-text">Description: <%= comment.comment %> </p>
             <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
              
-            <a href=" /acceptBid/<%= custom.title %>/<%= custom.content %>/<%= custom.category %>/<%= comment.bidPrice %>" class="btn btn-danger" id="btn">Accept bid</a>
+            <a href=" /acceptBid/<%= custom.title %>/<%= comment.bidPrice %>/<%= custom.category %>/<%= custom.content %>/<%= comment.freelancerName %>/<%= comment.freelancerId%>" class="btn btn-danger" id="btn">Accept bid</a>
             <a href=" /declineApp/<%= comment._id %>/<%= comment.email %>" class="btn btn-warning">Reject bid</a>
             
             

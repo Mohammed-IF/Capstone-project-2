@@ -45,8 +45,8 @@ router
       .then(() => {
         console.log("Application Saved Successfully!");
        // const alert = require('alert');
-       const {alert} = require('node-popup');
-          alert("Thank you, we will contact you by email soon.");
+      // const {alert} = require('node-popup');
+         // alert("Thank you, we will contact you by email soon.");
         res.redirect("/");
       })
       .catch((err) => console.log(err));

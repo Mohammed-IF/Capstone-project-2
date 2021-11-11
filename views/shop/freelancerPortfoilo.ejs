@@ -1,0 +1,57 @@
+<head>
+    <%- include('../partials/header.ejs') %>
+</head>
+<%- include('../includesUser/head.ejs') %>
+<link rel="stylesheet" href="/css/portfolio.css">
+</head>
+    <body>
+        
+
+            <main>
+                <% if (pors.length > 0) { %>
+                    <div class="grid">
+                        <% for (let portfolio of pors ) { %>
+                            <article class="card portfolio-item">
+                                <header class="card__header">
+                                    <h1 class="portfolio__previousWork" >
+                                        <%= portfolio.name %>
+                                    </h1>
+                                </header>
+                                <div class="card__image">
+                                    <img src="<%= portfolio.image.url %>" alt="<%= portfolio.previousWork %>">
+                                </div>
+                            </article>
+                                                   
+<div class="container mt-5">
+    <label>Brief summary about me:</label>
+    <p class="mt-3"><%= portfolio.description %> </p>
+ 
+    <hr> 
+    <p class="mt-3">years of experience: <%= portfolio.yearsOfExperinece %> </p>
+
+    <hr>
+        <p class="mt-3">previousWork: <%= portfolio.previousWork %> </p>
+    
+     <hr>
+    
+    
+</div>
+                        
+                            <% } %>
+                    </div>
+                
+               
+                    <section class='pagination'>
+                        <%- include('../includesFreelancer/pagination.ejs', { currentPage: currentPage, previousPage: previousPage, nextPage: nextPage, hasPreviousPage: hasPreviousPage, hasNextPage: hasNextPage, lastPage: lastPage}) %>
+                    </section>
+                    <% } else { %>
+                        <h1>You don't have a portfolio! please add your portfolio <a href="/freelancer/add-portfolio">here</a></h1>
+                        <% } %>
+
+                        
+            </main>
+            <%- include('../includesUser/end.ejs') %>
+
+            <footer>
+                <%- include('../partials/footer.ejs') %>
+            </footer>

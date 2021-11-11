@@ -296,14 +296,20 @@ exports.postAddPortfolio = (req, res, next) => {
     .save()
     .then(result => {
       console.log('Created Portfolio');
+      const pId = portfolio._id;
+      Freelancer.updateOne({_id: req.freelancer},{pId})
+      console.log('Portfolio id has been added to the freelancer');
+      //console.log(portfolio._id);
       res.redirect('/freelancer/portfolios');
     })
-    
-    .catch(err => {
+   
+        .catch(err => {
       const error = new Error(err);
       error.httpStatusCode = 500;
       next(error);
     });
+    /*const portfolioId =  Portfolio.findOne({}, {freelancerId: req.freelancer});
+    Freelancer.updateOne({_id: req.freelancer}, )*/
   
 };
 
