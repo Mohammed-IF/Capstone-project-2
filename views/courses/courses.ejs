@@ -1,0 +1,59 @@
+<head>
+  <%- include('../partials/header.ejs') %>
+</head>
+<%- include('../includesUser/head.ejs') %>
+    <link rel="stylesheet" href="/css/postedService.css">
+    </head>
+
+<hr>
+<% if (prods.length > 0) { %>
+    <div class="grid">
+      <% for (let course of prods) { %>
+      <article class="card postedService-item">
+        <header class="card__header">
+            <h1 class="postedService__title"><%= course.title %> </h1>
+        </header>
+        <div class="card__image">
+            <img src=""
+                alt="<%=course.title %>">
+        </div>
+        <div class="card__content">
+            <h2 class="postedService__price">$<%= course.price %></h2>
+            <p class="postedService__description"><%= course.desc %></p>
+        </div> 
+        <div class="card__actions">
+          <a href="/courses/<%= course._id %>" class="btn">Details</a>
+      </div>
+      </article>
+      
+
+    
+    
+      <!--<div class="col-md-4">
+
+      <a href="/courses/"
+        style="text-decoration: none; color: #34495e">
+        <div class="panel panel-default">
+
+          <div class="panel-body" style="border:0px;height:250px;overflow-y:auto">
+            <h4><</h4>
+            <p>Description:</p>
+            <p style="text-align:justify">></p>
+          </div>
+
+      </div>
+      </a>
+    </div>-->
+    <% } %>
+
+  </div>
+
+  <section class='pagination'>
+    <%- include('../includesUser/pagination.ejs', { currentPage: currentPage, previousPage: previousPage, nextPage: nextPage, hasPreviousPage: hasPreviousPage, hasNextPage: hasNextPage, lastPage: lastPage}) %> 
+</section>
+<% } %>
+<hr>
+<footer>
+  <%- include('../partials/footer.ejs') %>
+</footer>
+<%- include('../includesUser/end.ejs') %>

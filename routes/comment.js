@@ -6,7 +6,7 @@ const Comment = require('../models/comment');
 const PostedService = require('../models/postedService');
 const passport = require('passport');
 require('../config/auth');
-require('../config/passport')(passport);;
+//require('../config/passport')(passport);;
 require('../models/user');
 const freelancer = require('../models/freelancer');
 const Article = require('../models/Article');

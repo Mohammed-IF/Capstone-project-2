@@ -15,6 +15,8 @@ router.get('/freelancerPortfoilo', shopController.getPortfolios);
 
 router.get('/postedServices', shopController.getPostedServices);
 
+router.get('/courses', shopController.getCourses);
+
 router.get('/postedServices/:postedServiceId', shopController.getPostedService);
 router.get('/postQuote/:postedServiceId', shopController.getPostedService1);
 

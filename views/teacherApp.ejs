@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>App</title>
+  <head>
+    <%- include('./partials/adminHeader.ejs') %>
+</head>
+<%- include('./includesAdmin/head.ejs') %>
+    <link rel="stylesheet" href="/css/postedService.css">
+</head>
+</head>
+
+<body>
+
+    <center><div class="container mt-3 py-1"><h3>All applications to be a teacher </h3></div> </center>
+    <hr>
+
+<div class="container mt-5 py-5">
+
+
+    <% apps.forEach(app => { %>
+    <div class="card mt-3">
+        <div class="card-body">
+            <h5 class="text-title"> <%= app.name %> </h5>
+            <p class="card-text"> email: <%= app.email %> </p>
+            <p class="card-muted">Phone Number: <%= app.phoneNumber%> </p>
+            <p class="card-text">language: <%= app.language %> </p>
+            <p class="card-text">skills: <%= app.skills %></p>
+            <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
+             
+            <a href=" /acceptTeacherApp/<%= app._id %>/<%= app.email %>" class="btn btn-danger" >Accept</a>
+            <a href=" /declineTeacherApp/<%= app._id %>/<%= app.email %>" class="btn btn-warning">Decline</a>
+            
+        </div>
+    </div>
+    <%}) %>
+  
+</div>
+
+</body>
+<footer>
+    <%- include('./partials/footer.ejs') %>
+</footer>
+<%- include('./includesAdmin/end.ejs') %>
+</html>

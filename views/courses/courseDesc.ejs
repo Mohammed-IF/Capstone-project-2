@@ -1,0 +1,58 @@
+<head>
+  <%- include('../partials/header.ejs') %>
+</head>
+<%- include('../includesUser/head.ejs') %>
+    <link rel="stylesheet" href="/css/postedService.css">
+    </head>
+
+
+<hr>
+<main class="centered">
+  <h1><%= course.title %></h1>
+  <hr>
+  <div class="image">
+      <img src="/images/after.png" alt="<%= course.title %>">
+  </div>
+  <h2><%= course.price %>$</h2>
+  <p><%= course.desc %></p>
+
+</main>
+
+
+
+<div class="container">
+  <div class="row" style = 'padding: 0 90px; align-content: center;' >
+        
+      <div class="col-lg-6 ">
+        <div class='col-lg-4'></div>
+          <div class='col-lg-4 ' align="bottom" style = 'align-content: center; left:280pt'>
+            <form action="/payment" method="POST">
+              <input type="hidden" name="courseId" value="<%= course._id %>" />      
+              <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
+                <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                  data-key="pk_test_51JgEPqCuZRlwEilUPBWaqwcyDlEVomx3UQSuwc6u0vbr34j7AeQF5Kde18EruBwDPzJajjHLpPyw91wR8QEohVWe00RNyXvSvg"
+                  data-amount="<%= course.price *100 %>"
+                  data-name= "Stripe.com"
+                  data-description="Widget"
+                  data-image="",
+                  data-locale="auto">
+                </script>
+            </form>
+          </div>
+          <div class='col-lg-4'></div>      
+
+        </div>      
+      </div>
+
+  </div>
+
+</div>
+
+<hr>
+    <footer>
+      <%- include('../partials/footer.ejs') %>
+    </footer>
+    <%- include('../includesUser/end.ejs') %>
+
+
+    

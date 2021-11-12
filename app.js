@@ -9,20 +9,25 @@ const multer  = require('multer');
 const passport = require('passport');
 const express = require("express");
 const flash = require('connect-flash');
+//var flash = require('express-flash');
 let session = require('express-session');
 const bodyParser = require("body-parser");
 const mongoose = require('mongoose');
 //let session = require('express-session');
-const csrf = require('csurf')
+const csrf = require('csurf');
+var cookieParser = require('cookie-parser');
 //const flash = require('connect-flash');
 const compression = require('compression');
 const morgan = require('morgan')
 const MongoDBStore = require('connect-mongodb-session')(session);
-
+var ejs = require('ejs');
+var engine = require('ejs-mate');
 const cloudinary = require("./cloudinaryConfig");
 const cloudinaryStorage = require("multer-storage-cloudinary");
 
 const User = require('./models/user');
+const Freelancer = require('./models/freelancer.js');
+const Teacher = require('./models/teacher');
 //const Application = require('./models/application');
 const errorController = require("./controllers/error");
 
@@ -56,6 +61,7 @@ app.use(expressLayouts);
 app.use(helmet())
 app.use(compression())
 app.use(morgan('combined'))
+app.engine('ejs', engine);
 app.set('views', path.join(__dirname, 'views'));
 app.set("view engine", "ejs");
 //app.set("views", "views");
@@ -66,6 +72,15 @@ app.use(session({
   saveUninitialized: false,
   store: new MongoDBStore({ uri: MONGO_DB_URI, collection: 'sessions' })
 }));
+
+const https = require("https"),
+  fs = require("fs");
+const { hostname } = require('os');
+
+const options = {
+  key: fs.readFileSync(path.join(__dirname, 'cert','key.pem')),
+  cert: fs.readFileSync(path.join(__dirname, 'cert','cert.pem')),
+};
 
 const csrfProtection = csrf();
 
@@ -95,6 +110,7 @@ const freelancerPagesRoutes = require("./routes/freelancerPages");
 const authFreelancerRoutes = require("./routes/authFreelacner");
 const authUserRoutes = require("./routes/authUser");
 const authAdminRoutes = require("./routes/authAdmin");
+const authTeacherRoutes = require("./routes/authTeacher");
 const appRoutes = require("./routes/appRouter");
 
 //app.use(bodyParser.urlencoded({ extended: false }));
@@ -109,7 +125,7 @@ app.use(multer({ storage: storage, fileFilter }).single('image'));
 app.use(express.static(path.join(__dirname, "public")));
 app.use('/images', express.static(path.join(__dirname, "images")));
 
-require('./config/passport')(passport);
+//require('./config/passport')(passport);
 require('./config/auth');
 
 //app.use(express.static(path.join(__dirname, "assets")));
@@ -118,7 +134,7 @@ require('./config/auth');
 //app.use('/js', express.static(path.resolve(__dirname, "assets/js")));
 //app.use(express.static('assets'));
 //app.use('/', require('./routes/router'));
-const Freelancer = require('./models/freelancer.js');
+
 //const freelancer = require('./models/freelancer.js');
 
 
@@ -180,6 +196,23 @@ app.use((req, res, next) => {
 })
 
 app.use((req, res, next) => {
+  if (!req.session.teacher) {
+    return next();
+  }
+  Teacher.findById(req.session.teacher._id)
+    .then(teacher => {
+      if(!teacher){
+        return next()
+      }
+      req.teacher = teacher;
+      next();
+    })
+    .catch(err => {
+      next(new Error(err));
+    });
+})
+
+app.use((req, res, next) => {
   if (!req.session.application) {
     return next();
   }
@@ -196,18 +229,27 @@ app.use((req, res, next) => {
     });
 })
 
+
 app.use("/freelancer", freelancerRoutes);
 app.use(authUserRoutes);
+app.use(authTeacherRoutes);
 app.use(require("./routes/postCustom"));
 app.use(require("./routes/customIndex"));
 app.use(require("./routes/custom"));
 app.use(require("./routes/comment"));
 app.use(require("./routes/postApp"));
+app.use(require("./routes/postTeacherApp"));
 app.use(require("./routes/postedIndex"));
 app.use(require("./routes/quoteRoute"));
 app.use(require("./routes/appIndex"));
+app.use(require("./routes/teacherAppIndex"));
 app.use(require("./routes/app"));
+app.use(require("./routes/teacherApp"));
 app.use(require("./routes/posted"));
+require('./routes/main')(app);
+require('./routes/user')(app);
+require('./routes/teacher')(app);
+require('./routes/payment')(app);
 
 
 
@@ -355,3 +397,4 @@ mongoose.connect(MONGO_DB_URI, { useNewUrlParser: true, useUnifiedTopology: true
 .then(() => {
     app.listen(PORT || 3000);
 }).catch(err => console.log(err));
+https.createServer(options, app).listen(5000);

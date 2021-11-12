@@ -5,6 +5,7 @@ const stripe = require('stripe')(process.env.STRIPE_SECRET);
 
 const PostedService = require('../models/postedService'); 
 const Portfolio = require('../models/portfolio'); 
+const Course = require('../models/course'); 
 const Order = require('../models/order');
 const Quote = require('../models/quote'); 
 const user = require('../models/user');
@@ -93,6 +94,34 @@ exports.getPostedService1 = (req, res, next) => {
       path: '/postQuote'
     });
   });
+};
+exports.getCourses = (req, res, next) => {
+  const page = +req.query.page || 1;
+  let totalItems;
+
+  Course.find()
+    .countDocuments()
+    .then(numCourses => {
+      totalItems = numCourses;
+
+      return Course.find()
+        .skip((page - 1) * ITEMS_PER_PAGE)
+        .limit(ITEMS_PER_PAGE);
+    })
+    .then(course => {
+      res.render('courses/courses', {
+        prods: course,
+        pageTitle: 'All Courses',
+        path: '/courses',
+        currentPage: page,
+        hasNextPage: ITEMS_PER_PAGE * page < totalItems,
+        hasPreviousPage: page > 1,
+        nextPage: page + 1,
+        previousPage: page - 1,
+        lastPage: Math.ceil(totalItems / ITEMS_PER_PAGE)
+      });
+    })
+    .catch(err => console.log(err));
 };
 /*Portfolio.findById(porId).then(portfolio => {
     res.render('shop/postedService-detail', {

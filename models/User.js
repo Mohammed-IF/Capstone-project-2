@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+var Schema = mongoose.Schema;
 
 const userSchema = mongoose.Schema({
   name: { type: String, required: true },
@@ -10,6 +11,28 @@ const userSchema = mongoose.Schema({
   },
   resetToken: String,
   resetTokenExpiration: Date,
+  facebook: String,
+  tokens: Array,
+  role: String,
+  profile: {
+    name: { type: String, default: ''},
+    picture: { type: String, default: ''}
+  },
+
+  //-------Courses that user is teaching-------------
+  coursesTeach: [{
+    course: { type: Schema.Types.ObjectId, ref: 'Course'}
+  }],
+
+
+  //--------Courses that user is taking-------------
+  coursesTaken: [{
+    course: { type: Schema.Types.ObjectId, ref: 'Course'}
+  }],
+
+  revenue: [{
+    money: Number
+  }],
   cart: {
     items: [
       {

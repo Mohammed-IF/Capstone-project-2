@@ -1,0 +1,196 @@
+<!--<div class="container mt-5">
+    <h3 class="my-3">Post your required service Here...  </h3>
+    <form action="/postApp" method="POST"> 
+    -->
+    <!DOCTYPE html>
+    <html>
+       <head>
+          <%- include('./partials/header.ejs') %> 
+       </head>
+      <hr> 
+       <body>
+                   <main class="col-md-8">
+                      <div class="shadow-sm rounded bg-white mb-3">
+                         <div class="box-title border-bottom p-3">
+                           
+                            <p class="mb-0 mt-0 small">
+                            </p>
+                         </div>
+                         <h6 class="m-0">Enter your Info</h6>
+                         <div class="box-body p-3">
+                            <form class="js-validate" action="/postTeacherApp" method = "POST">
+                            </div>
+                               <div class="row">
+                                  <!-- Input -->
+                                  <div class="col-sm-6 mb-2">
+                                     <div class="js-form-message">
+                                        <label id="nameLabel" class="form-label">
+                                        Name
+                                        <span class="text-danger">*</span>
+                                        </label>
+                                        <div class="form-group">
+                                           <input type="text" class="form-control" name="name" value="<%= typeof name != 'undefined' ? name : '' %>" placeholder="Enter your name" aria-label="Enter your name" required="" aria-describedby="nameLabel" data-msg="Please enter your name." data-error-class="u-has-error" data-success-class="u-has-success">
+                                        </div>
+                                     </div>
+                                  </div>
+                                  <!-- End Input -->
+                                  <!-- Input -->
+                               </div>
+                          
+                               <div class="row">
+                                  <!-- Input -->
+                                  <div class="col-sm-6 mb-2">
+                                     <div class="js-form-message">
+                                        <label id="emailLabel" class="form-label">
+                                        Email address
+                                        <span class="text-danger">*</span>
+                                        </label>
+                                        <div class="form-group">
+                                           <input type="email" class="form-control" name="email" value="<%= typeof email != 'undefined' ? email : '' %>" placeholder="Enter your email address" aria-label="Enter your email address" required="" aria-describedby="emailLabel" data-msg="Please enter a valid email address." data-error-class="u-has-error" data-success-class="u-has-success">
+                                        </div>
+                                     </div>
+                                  </div>
+                              
+                               </div>
+                               <div class="row">
+                                  <!-- Input -->
+                                  <div class="col-sm-6 mb-2">
+                                     <div class="js-form-message">
+                                        <label id="phoneNumberLabel" class="form-label">
+                                        Phone number
+                                        <span class="text-danger">*</span>
+                                        </label>
+                                        <div class="form-group">
+                                           <input class="form-control" type="tel" name="phoneNumber" value="<%= typeof phoneNumber != 'undefined' ? phoneNumber : '' %>" placeholder="Enter your phone number" aria-label="Enter your phone number" required="" aria-describedby="phoneNumberLabel" data-msg="Please enter a valid phone number" data-error-class="u-has-error" data-success-class="u-has-success">
+                                        </div>
+                                     </div>
+                                  
+                                  </div>
+                               </div>
+                               
+                                  <!-- End Input -->
+                                  <!-- Input -->
+                                  <div class="row">
+                                  <div class="col-sm-6 mb-2">
+                                     <div class="js-form-message">
+                                        
+                                        <label class="form-label" >
+                                        Preferred language
+                                        <span class="text-danger">*</span>
+                                        </label>
+                                        <div class="form-group">
+                                           <select class="custom-select" name="language">
+                                              <option value="">Select language</option>
+                                              <option value="Arabic">Arabic</option>
+                                              <option value="English">English</option>
+                                              <option value="Français">Français</option>
+                                              <option value="Deutsch">Deutsch</option>
+                                              <option value="Português">Português</option>
+                                           </select>
+                                        </div>
+                                     </div>
+                                  </div>
+                               </div>
+                               <div class="row">
+                                  <!-- Input -->
+                                  <div class="col-sm-6 mb-2">
+                                     <div class="js-form-message">
+                                        <label id="skills" class="form-label">
+                                        Skills
+                                        <span class="text-danger">*</span>
+                                        </label>
+                                        <div class="form-group">
+                                           <input class="form-control" type="skills" name="skills" value="<%= typeof skills != 'undefined' ? skills : '' %>" placeholder="Enter your skills" aria-label="Enter your skills" required="" aria-describedby="skills Label" data-msg="Please enter a valid skill" data-error-class="u-has-error" data-success-class="u-has-success">
+                                        </div>
+                                     </div>
+                                  
+                                  </div>
+                               </div>
+                               
+                               <div> 
+                               <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
+                               
+                               <button type="submit" class="btn btn-success" onclick="submit()">Submit</button>
+
+                               <button type="submit" class="btn btn-outline-success" style="margin-left: 2em;">Cancel</button>
+                            </div>
+
+                                  
+                            </form>
+                         </div>
+                      </div>
+                   <script>
+                      function submit(){
+                      window.alert("Thank you, we will contact you by email soon.");
+                   }
+                   </script>
+                            
+                                
+                         
+                      </div>
+                   </main>
+                </div>
+             </div>
+          </div>
+          <script>
+             function submit(){
+                
+             }
+          </script>
+          <footer >
+             <%- include('./partials/footer.ejs') %> 
+          </footer>
+          <!-- Bootstrap core JavaScript -->
+          <script src="vendor/jquery.min.js"></script>
+          <script src="vendor/bootstrap.bundle.min.js"></script>
+          <!-- Contact form JavaScript -->
+          <!-- Do not edit these files! In order to set the email address and subject line for the contact form go to the bin/contact_me.php file. -->
+          <script src="js/jqBootstrapValidation.js"></script>
+          <script src="js/contact_me.js"></script>
+          <!-- Slick -->
+          <script src="vendor/slick.js" type="text/javascript" charset="utf-8"></script>
+          <!-- lightgallery -->
+          <script src="vendor/lightgallery-all.min.js"></script>
+          <!-- select2 Js -->
+          <script src="vendor/select2.min.js"></script>
+          <!-- Custom -->
+          <script src="js/custom.js"></script>
+       </body>
+    </html>
+
+
+    <!--
+      <input type="text" name="name" placeholder="Enter name" class="form-control" required>
+      <input type="text" name="email" placeholder="Enter email" class="form-control" required>
+      <input type="text" name="phoneNumber" placeholder="Enter phoneNumber" class="form-control" required>
+      <input type="text" name="language" placeholder="Enter language" class="form-control" required>
+      <input type="text" name="skills" placeholder="Enter skills" class="form-control" required>
+  -->
+
+<!--
+      <div class="border-bottom p-3">
+          <label>Choose a category:</label>
+          <div class="row">
+             <div class="form-group col-md-6">
+                <select name="skills" class="form-control" required>
+                   <option selected>Select...</option>
+                   <option>Graphics & Design</option>
+                   <option>Digital Marketing</option>
+                   <option>Writing & Translation</option>
+                   <option>Video & Animation</option>
+                   <option>Music & Audio</option>
+                   <option>Programming & Tech</option>
+                   <option>Business</option>
+                   <option>Lifestyle</option>
+                </select>
+             </div>
+             
+          </div>
+       </div>
+-->
+<!--
+    <input type="hidden" name="_csrf" value="" />
+      <input type="submit" value="Post" class="mt-5 btn btn-md btn-danger">
+  </form>
+</div>
+-->

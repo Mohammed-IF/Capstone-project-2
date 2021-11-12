@@ -6,6 +6,9 @@ const freelancerSchema = mongoose.Schema({
   password: { type: String, required: true },
   resetToken: String,
   resetTokenExpiration: Date,
+  revenue: [{
+    money: Number
+  }],
   portfolioId: {
     type: mongoose.Schema.Types.ObjectId,
     required: true
