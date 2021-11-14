@@ -246,6 +246,7 @@ app.use(require("./routes/teacherAppIndex"));
 app.use(require("./routes/app"));
 app.use(require("./routes/teacherApp"));
 app.use(require("./routes/posted"));
+app.use(require("./routes/course"));
 require('./routes/main')(app);
 require('./routes/user')(app);
 require('./routes/teacher')(app);

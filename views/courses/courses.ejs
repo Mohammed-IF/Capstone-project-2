@@ -14,7 +14,7 @@
             <h1 class="postedService__title"><%= course.title %> </h1>
         </header>
         <div class="card__image">
-            <img src=""
+            <img src="<%=course.image.url%>"
                 alt="<%=course.title %>">
         </div>
         <div class="card__content">
@@ -54,6 +54,6 @@
 <% } %>
 <hr>
 <footer>
-  <%- include('../partials/footer.ejs') %>
+  <%- include('../partials/LearningFooter.ejs') %>
 </footer>
 <%- include('../includesUser/end.ejs') %>

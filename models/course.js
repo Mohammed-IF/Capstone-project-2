@@ -10,7 +10,17 @@ var Schema = mongoose.Schema;
 
 var CourseSchema = new Schema({
   title: String,
-  desc: String,
+  image: {
+    public_id: {
+      type: String
+    },
+    url: {
+      type: String,
+      
+    }
+  },
+  category: String,
+  description: String,
   wistiaId: String,
   price: Number,
   ownByTeacher: { type: Schema.Types.ObjectId, ref: 'Teacher'},

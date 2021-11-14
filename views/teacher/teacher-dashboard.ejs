@@ -2,6 +2,9 @@
   <%- include('../partials/teacherHeader.ejs') %>
 </head>
 
+<%- include('../includesUser/head.ejs') %>
+<link rel="stylesheet" href="/css/postedService.css">
+
 <!--<div class="jumbotron">
   <div class="container">
     <p class="text-center">
@@ -9,40 +12,46 @@
   </div>
 </div> -->
 <hr>
-<div class="container">
 
-  <div class="row">
 
-    <h2 class="text-center" style=''>Courses that you teach</h2>
+
+<h2 class="text-center" style=''>Courses that you teach</h2>
     <hr />
 
-    <% for (var i = 0; i < foundTeacher.coursesTeach.length; i++) { %>
-    <div class="col-md-4">
-
-      <a href="/courses/<%= foundTeacher.coursesTeach[i].course._id %>"
-        style="text-decoration: none; color: #34495e">
-
-        <div class="panel panel-default">
-
-
-          <div class="panel-body" style="border:0px;height:275px;overflow-y:auto;">
-            <h4 ><p>course title: <%= foundTeacher.coursesTeach[i].course.title %></p></h4>
-            <p style="text-align:justify">course description: <%= foundTeacher.coursesTeach[i].course.desc %></p>
-            <p class="text-center ">
-              <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
-            <a href="/edit-course/<%= foundTeacher.coursesTeach[i].course._id %>" class="btn btn-primary" style="float: right;">Edit course</a>
+    <% if (prods.length > 0) { %>
+   
+      <div class="grid">
+        <% for (let course of prods) { %>
+       
+        <article class="card postedService-item">
+          <header class="card__header">
+              <h1 class="postedService__title"><%= course.title %> </h1>
+          </header>
+          <div class="card__image">
+              <img src="<%= course.image.url %>"
+                  alt="<%= course.title %>">
           </div>
-
-      </div>
+          <div class="card__content">
+              <h2 class="postedService__price">$<%= course.price %></h2>
+              <p class="postedService__description"><%= course.description %></p>
+          </div> 
+          <div class="card__actions">
+            <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
+            <a href="/edit-course/<%= course._id %>" class="btn">Edit course</a>
+        </div>
+        </article>
       
-      </a>
-    </div>
-    <% } %>
+        <% } %>
+                    </div>
+                    <section class='pagination'>
+                        <%- include('../includesFreelancer/pagination.ejs', { currentPage: currentPage, previousPage: previousPage, nextPage: nextPage, hasPreviousPage: hasPreviousPage, hasNextPage: hasNextPage, lastPage: lastPage}) %>
+                    </section>
+                    <% } else { %>
+                        <h1>No Courses Found!</h1>
+                        <% } %>
 
-  </div>
-
-</div>
 <footer>
+  <hr>
   <%- include('../partials/footer.ejs') %>
 </footer>
 <%- include('../includesUser/end.ejs') %>

@@ -12,7 +12,7 @@ function
 var Teacher = require('../models/teacher');
 //var Teacher = require('../models/teacher');
 var Course = require('../models/course');
-
+const cloudinary = require('../cloudinaryConfig');
 var async = require('async');
 const isAuth = require('../middleware/is-auth-teacher');
 
@@ -62,22 +62,45 @@ module.exports = function(app) {
     });
 
     //------------Chaining method using route to create a course and to redirect the web page to it----------
-    app.route('/create-course')
+    /*app.route('/create-course')
 
       .get(function(req, res, next) {
-        res.render('teacher/create-course');
+        let course = { title: '', image: { url: '' }, price: '',  description: '' };
+        res.render('teacher/create-course',{
+          course: course,
+        pageTitle: 'Add course',
+        path: '/create-course',
+       editing: false,
+      errorMessage: null,
+        validationErrors: [],
+         oldInput: { title: '', imageUrl: '',price: '', description: '' }
+        });
       })
+      
 
       //------Creating a course and saving it in the database---------
       .post(function(req, res, next) {
+      const title = req.body.title;
+      const image = req.file;
+      const price = req.body.price;
+      const desc = req.body.desc;
+      const wistiaId = req.body.wistiaId;
+      const ownByTeacher = req.teacher._id
+
         async.waterfall([
           function(callback) {
-            var course = new Course();
-            course.title = req.body.title;
-            course.price = req.body.price;
-            course.desc = req.body.desc;
-            course.wistiaId = req.body.wistiaId;
-            course.ownByTeacher = req.teacher._id;
+            var course = new Course({
+            title,
+            image: {
+              url: image.url,
+              public_id: image.public_id
+            },
+            price,
+            desc,
+            wistiaId,
+            ownByTeacher
+            })
+         
             course.save(function(err) {
               callback(err, course);
             });
@@ -95,7 +118,7 @@ module.exports = function(app) {
         ]);
       });
 
-
+*/
       //-----------Chaining method to edit an existing course----------
       app.route('/edit-course/:id')
 
@@ -111,6 +134,7 @@ module.exports = function(app) {
           Course.findOne({ _id: req.params.id }, function(err, foundCourse) {
             if (foundCourse) {
               if (req.body.title) foundCourse.title = req.body.title;
+              if (req.body.image) foundCourse.image = req.body.image;
               if (req.body.wistiaId) foundCourse.wistiaId = req.body.wistiaId;
               if (req.body.price) foundCourse.price = req.body.price;
               if (req.body.desc) foundCourse.desc = req.body.desc;
@@ -123,7 +147,16 @@ module.exports = function(app) {
           });
         });
 
-
+        /*app.get("/removeCourse/:id", isAuth, (req, res) => {
+          const { id } = req.params;
+          Course.deleteOne({ _id: id })
+            .then(() => {
+              console.log("Delete course successfully!");
+              res.redirect("/teacher/dashboard");
+            })
+            .catch((err) => console.log(err));
+        })*/
+      
         //---------Get requet for the revenue report------------
         app.get('/revenue-report', function(req, res, next) {
           var revenue = 0;
