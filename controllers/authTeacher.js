@@ -134,7 +134,7 @@ exports.postSignup = (req, res, next) => {
 exports.postLogout = (req, res, next) => {
   req.session.destroy(err => {
     if (err) console.log(err);
-    res.redirect('/teacherPages');
+    res.redirect('/teacher/dashboard');
   });
 };
 
@@ -165,7 +165,7 @@ exports.postReset = (req, res, next) => {
         return teacher.save();
       })
       .then(result => {
-        res.redirect('/teacherPages');
+        res.redirect('/teacher/dashboard');
         transporter.sendMail({
           to: email,
           from: 'shop@node-complete.com',

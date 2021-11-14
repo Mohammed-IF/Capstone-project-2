@@ -42,7 +42,7 @@ module.exports = function(app) {
       },
       //--------Find the user who has enrolled for this course
       function(callback) {
-        Teacher.findOne({ _id: req.teacher._id, 'coursesTaken.course': req.params.id})
+        User.findOne({ _id: req.user._id, 'coursesTaken.course': req.params.id})
         .populate('coursesTaken.course')
         .exec(function(err, foundUserCourse) {
           callback(err, foundUserCourse);
@@ -51,7 +51,7 @@ module.exports = function(app) {
 
       //---------Find the user who teaches this course 
       function(callback) {
-        Teacher.findOne({ _id: req.teacher._id, 'coursesTeach.course': req.params.id})
+        User.findOne({ _id: req.user._id, 'coursesTeach.course': req.params.id})
         .populate('coursesTeach.course')
         .exec(function(err, foundUserCourse) {
           callback(err, foundUserCourse);

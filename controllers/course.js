@@ -1,12 +1,48 @@
 const { validationResult } = require('express-validator');
 const cloudinary = require('../cloudinaryConfig');
 const Course = require('../models/course');
+const Teacher = require('../models/teacher');
 const Freelancer = require('../models/teacher');
 const CustomService = require('../models/Custom');
 const Portfolio = require('../models/portfolio');
 const fileHelper = require('../util/file');
 
 const ITEMS_PER_PAGE = 3;
+
+
+exports.getCourses = (req, res, next) => {
+  const page = +req.query.page || 1;
+  let totalItems;
+
+  Course.find({ ownByTeacher: req.teacher._id })
+    .countDocuments()
+    .then(numCourses => {
+      totalItems = numCourses;
+
+      return Course.find({ ownByTeacher: req.teacher._id })
+        .populate('ownByTeacher')
+        .skip((page - 1) * ITEMS_PER_PAGE)
+        .limit(ITEMS_PER_PAGE);
+    })
+    .then(courses => {
+      res.render('teacher/teacher-dashboard', {
+        prods: courses,
+        pageTitle: 'Teacher Courses',
+        path: '/teacher/dashboard',
+        currentPage: page,
+        hasNextPage: ITEMS_PER_PAGE * page < totalItems,
+        hasPreviousPage: page > 1,
+        nextPage: page + 1,
+        previousPage: page - 1,
+        lastPage: Math.ceil(totalItems / ITEMS_PER_PAGE)
+      });
+    })
+    .catch(err => {
+      const error = new Error(err);
+      error.httpStatusCode = 500;
+      next(error);
+    });
+};
 
 exports.getAddCourse = (req, res, next) => {
   let course = { title: '', price: '', category: '', description: '', wistiaId:'', image: { url: '' } };
@@ -58,6 +94,7 @@ exports.postAddCourse  = (req, res, next) => {
     description,
     wistiaId,
     ownByTeacher: req.teacher
+    
   /*portfolio: {
     previousWork: req.portfolio.previousWork,
     yearsOfExperinece: req.portfolio.yearsOfExperinece,
@@ -78,46 +115,21 @@ exports.postAddCourse  = (req, res, next) => {
       oldInput: { title, image, category, description, wistiaId }
     });
   }
-
+ 
   course 
     .save()
+    
     .then(result => {
       console.log('Created Course');
+      Teacher.findOne({_id: req.teacher._id}, function(err, foundTeacher) {
+        // foundTeacher.role = "teacher";
+         foundTeacher.coursesTeach.push({ course: course._id });
+         foundTeacher.save(function(err) {
+           if (err) return next(err);
+       
+         });
+       });
       res.redirect('/teacher/dashboard');
-    })
-    .catch(err => {
-      const error = new Error(err);
-      error.httpStatusCode = 500;
-      next(error);
-    });
-};
-
-exports.getCourses = (req, res, next) => {
-  const page = +req.query.page || 1;
-  let totalItems;
-
-  Course.find({ teacherId: req.teacher._id })
-    .countDocuments()
-    .then(numCourses => {
-      totalItems = numCourses;
-
-      return Course.find({ teacherId: req.teacher._id })
-        .populate('teacherId')
-        .skip((page - 1) * ITEMS_PER_PAGE)
-        .limit(ITEMS_PER_PAGE);
-    })
-    .then(courses => {
-      res.render('teacher/teacher-dashboard', {
-        prods: courses,
-        pageTitle: 'Teacher Courses',
-        path: '/teacher/dashboard',
-        currentPage: page,
-        hasNextPage: ITEMS_PER_PAGE * page < totalItems,
-        hasPreviousPage: page > 1,
-        nextPage: page + 1,
-        previousPage: page - 1,
-        lastPage: Math.ceil(totalItems / ITEMS_PER_PAGE)
-      });
     })
     .catch(err => {
       const error = new Error(err);
