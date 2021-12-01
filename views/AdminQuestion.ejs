@@ -36,8 +36,6 @@
 
 <div class="container mt-5 py-5">
 
-    <a href=" /postQuestion" class="btn btn-primary">post Question</a>
-
     <% questions.forEach(question => { %>
     <div class="card mt-3">
         <div class="card-body">
@@ -46,6 +44,8 @@
             <h5 class="card-title"><%= question.title %> </h5>
             <p class="card-text">description: <%= question.content %> </p>
             <a href=" /question/<%= question._id %>" class="btn btn-primary">Read More...</a>
+            <a href=" /deleteQuestion/<%= question._id %>" class="btn btn-danger">Delete</a>
+            <a href=" /editQuestion/<%= question._id %>" class="btn btn-warning">Edit</a>
             <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
         </div>
     </div>

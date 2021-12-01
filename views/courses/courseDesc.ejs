@@ -48,7 +48,37 @@
 
 </div>
 
+
+<div class="continer pt-5">
+  <div class="container">
+      <div class="row">
+
+       <strong> <label> The Average rating for this course is:
+          <%= ratingAverage %> / 5.
+         </label> <hr> </strong>
+      
+          <% course.comments.forEach((rate)=> {%>
+            <div class="col-12">
+               
+             <strong> <%=rate.Name%>: </strong>
+              <br>
+
+             -  <%=rate.comment%>
+              <br>
+          </div>
+           
+       <% }) %>
+          
+
+      </div>
+  </div>
+</div>
+
+
+
 <hr>
+
+
     <footer>
       <%- include('../partials/footer.ejs') %>
     </footer>

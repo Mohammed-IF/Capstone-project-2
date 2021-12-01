@@ -11,9 +11,20 @@ const freelancerSchema = mongoose.Schema({
   }],
   portfolioId: {
     type: mongoose.Schema.Types.ObjectId,
-    required: true
     //ref: 'Portfolio'
-  }
+  },
+  stars: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Rate',
+    
+  }]
+,
+
+comments: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Rate'
+  }]
+,
 })
    
 module.exports = mongoose.model('Freelancer', freelancerSchema);

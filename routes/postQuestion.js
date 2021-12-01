@@ -1,21 +1,25 @@
-const express = require('express');
-const router = express.Router()
-var Question = require("../models/Question");
-
-
-const User = require('../models/User');
 const passport = require('passport');
 require('../config/auth');
-require('../config/passport')(passport);;
-require('../models/User');
+const freelancer = require('../models/freelancer');
+const isAuth = require('../middleware/is-auth');
+var Question = require("../models/Question");
+const MY_DOMAIN = "http://localhost:3000";
+
+
+const express = require('express');
+const router = express.Router()
+
+
+require('../models/user');
+require('../routes/authUser');
+
 
 function isLoggedIn(req, res, next){
-      if(req.isAuthenticated()){
-          next();
-      }else{
-        res.redirect('/users/login');
-      }
-
+  if(req.session.isLoggedIn){
+      next();
+  }else{
+    res.redirect('login1');
+  }
 
 }
 
@@ -27,13 +31,20 @@ router
 
   .post("/postQuestion", (req, res) => {
  
+    var test;
+    if(req.freelancer){
+    test = req.freelancer.name
+    }else{
+    test = req.user.name
+    }
+    
     const {title, content, category} = req.body;
     
     // * check for the missing fields!
     if (!title || !content)
       return res.send("Please enter all the required credentials!");
 
-      const newQuestion = new Question({ user: req.user.name ,title, content, category });
+      const newQuestion = new Question({ user:test ,title, content, category });
 
     // save the blog to the database
     newQuestion

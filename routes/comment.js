@@ -3,6 +3,7 @@ const Custom = require('../models/Custom');
 const router = express.Router()
 const Comment = require('../models/comment');
 //const User = require('../models/user');
+const Course = require('../models/course');
 const PostedService = require('../models/postedService');
 const passport = require('passport');
 require('../config/auth');
@@ -20,16 +21,14 @@ function isLoggedIn(req, res, next){
       if(req.session.isLoggedIn){
           next();
       }else{
-        res.redirect('login1');
+        res.redirect('/login1');
       }
-
-
 }
 function isLoggedIn1(req, res, next){
   if(req.session.isLoggedIn){
       next();
   }else{
-    res.redirect('login');
+    res.redirect('/login');
   }
 }
 
@@ -247,10 +246,16 @@ router.get("/acceptBid/:title/:price/:categoty/:content/:freelancerName/:freelan
 })
 
 // article comment
-router.post('/article/:id/comments',(req,res) => {  
+router.post('/article/:id/comments',isLoggedIn1,(req,res) => {  
     
+var test;
+if(req.freelancer){
+test = req.freelancer.name
+}else{
+test = req.user.name
+}
     const comment = new Comment({
-        author: req.user.name,
+        freelancerName: test,
         comment: req.body.comment
 
    });
@@ -282,12 +287,22 @@ router.post('/article/:id/comments',(req,res) => {
 
 });
 
+
+
+
 // Question comment
 
-router.post('/question/:id/comments',isLoggedIn,(req,res) => {  
+router.post('/question/:id/comments',isLoggedIn1,(req,res) => {  
     
+  var test;
+if(req.freelancer){
+test = req.freelancer.name
+}else{
+test = req.user.name
+}
+
   const comment = new Comment({
-      author: req.user.name,
+    freelancerName: test,
       comment: req.body.comment
 
  });
@@ -318,4 +333,50 @@ comment.save((err, result)=> {
 })
 
 });
+
+////////// rate
+/*
+router.post('/course/:id/comments',isLoggedIn1,(req,res) => {  
+             
+  var test;
+if(req.freelancer){
+test = req.freelancer.name
+}else{
+test = req.user.name
+}
+
+  const comment = new Comment({
+      freelancerName: test,
+      rate: req.body.star,
+      comment: req.body.comment
+
+ });
+
+comment.save((err, result)=> {
+     if(err){
+       console.log(err)
+
+     }else{
+      Course.findById(req.params.id, (err, course) =>{
+             if(err){
+                 console.log(err);
+             
+             }else{
+                
+              course.stars.push(comment);
+              course.comments.push(comment);
+              course.save();
+
+                console.log(course.comments);
+                res.redirect('/Courses');
+             }
+
+         })
+        
+     }  
+ 
+ 
+})
+
+}); */
 module.exports = router;

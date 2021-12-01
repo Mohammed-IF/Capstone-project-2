@@ -2,18 +2,18 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Questions</title>
+  <title>Admin Article Page</title>
 </head>
 
 <body>
 
-    <center><div class="container mt-3 py-1"><h3>All Questions </h3></div> </center>
+    <center><div class="container mt-3 py-1"><h3>All Articles </h3></div> </center>
     <hr>
 
     <div class="container mt-3 py-3">
 
-        <form action="/Question" method="GET">
-            <label>Filter Questions Category</label>
+        <form action="/Article" method="GET">
+            <label>Filter Article Category</label>
             <select name="category" class="form-control">
                <option value="all"> All </option>
                <option value="Graphics & Design"> Graphics & Design </option>
@@ -36,16 +36,17 @@
 
 <div class="container mt-5 py-5">
 
-    <a href=" /postQuestion" class="btn btn-primary">post Question</a>
 
-    <% questions.forEach(question => { %>
+    <% articles.forEach(article => { %>
     <div class="card mt-3">
         <div class="card-body">
-            <p class="text-muted">published at: <%= question.postedAt %> </p>
-            <p class="card-text"> posted by: <%= question.user %> </p>
-            <h5 class="card-title"><%= question.title %> </h5>
-            <p class="card-text">description: <%= question.content %> </p>
-            <a href=" /question/<%= question._id %>" class="btn btn-primary">Read More...</a>
+            <p class="text-muted">published at: <%= article.postedAt %> </p>
+            <p class="card-text"> posted by: <%= article.user %> </p>
+            <h5 class="card-title"><%= article.title %> </h5>
+            <p class="card-text">description: <%= article.content %> </p>
+            <a href=" /article/<%= article._id %>" class="btn btn-primary">Read More...</a>
+            <a href=" /deleteArticle/<%= article._id %>" class="btn btn-danger">Delete</a>
+            <a href=" /editArticle/<%= article._id %>" class="btn btn-warning">Edit</a>
             <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
         </div>
     </div>

@@ -21,7 +21,7 @@
                <option value="Video & Animation"> Video & Animation </option>
                <option value=" Writing & Translation"> Writing & Translation </option>
               </select>
-
+              <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
               <input type="submit" class="btn btn-primary mt-3" value="Filter">
         </form>
 
@@ -46,8 +46,8 @@
             <h5 class="card-title"><%= article.title %> </h5>
             <p class="card-text">description: <%= article.content %> </p>
             <a href=" /article/<%= article._id %>" class="btn btn-primary">Read More...</a>
-            <a href=" /deleteArticle/<%= article._id %>" class="btn btn-danger">Delete</a>
-            <a href=" /editArticle/<%= article._id %>" class="btn btn-warning">Edit</a>
+           
+            <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
         </div>
     </div>
     <%}) %>

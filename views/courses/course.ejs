@@ -27,22 +27,78 @@
       });
     </script>
   </div>
- 
-  <% if(userCourse != null) { %> 
-  <div class="container text-center">
-      <a href="http://localhost:5000/chat.html?name=<%=  userCourse.profile.name.replace(/ /g,'')  %>&room=<%=  course.title.replace(/ /g,'')  %>" target="_blank">
-        <button type="button" class="btn btn-primary btn-lg">Start Chat</button>
-      </a>
+
+<!-- rate-->
+
+<div class="container pt-5">
+  <div class="container">
+      <form action="/courses/<%=course._id%>/rates" method="POST" >
+         
+
+          <div class="border-bottom p-3">
+            <label>stars:</label>
+            <div class="row">
+               <div class="form-group col-md-6">
+                  <select name="star" class="form-control" >
+                     <option selected>Select...</option>
+                     <option>1</option>
+                     <option>2</option>
+                     <option>3</option>
+                     <option>4</option>
+                     <option>5</option>
+                     
+                  </select>
+               </div>
+               
+            </div>
+         </div>
+
+
+
+          <div class="form-group">
+             <textarea class="form-control rounded-0"
+              placeholder="Leave a comment here" rows="4" name="comment"></textarea> 
+          </div>
+         
+         <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
+        <div class="form-group pt-2"> <button class="btn rounded-0 btn-primary w-100">Rate course</button> </div>
+      
+      
+      </form>
+
   </div>
-  <% }  %>
-  <% if(teacherCourse != null) { %> 
-    <div class="container text-center">
-        <a href="http://localhost:5000/chat.html?name=<%=  teacherCourse.profile.name.replace(/ /g,'')  %>&room=<%=  course.title.replace(/ /g,'')  %>" target="_blank">
-          <button type="button" class="btn btn-primary btn-lg">Start Chat</button>
-        </a>
-    </div>
-    <% }  %>
-<hr>
+
+</div>
+
+
+
+<div class="continer pt-5">
+  <div class="container">
+      <div class="row">
+
+       <strong> <label> The Average rating for this course is:
+          <%= ratingAverage %> / 5.
+         </label> <hr> </strong>
+      
+          <% course.comments.forEach((rate)=> {%>
+            <div class="col-12">
+               
+             <strong> <%=rate.Name%>: </strong>
+              <br>
+
+             -  <%=rate.comment%>
+              <br>
+          </div>
+           
+       <% }) %>
+          
+
+      </div>
+  </div>
+</div>
+  
+
+
     <footer>
       <%- include('../partials/footer.ejs') %>
     </footer>

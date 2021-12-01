@@ -21,7 +21,7 @@
                 placeholder="Leave an Answer here" rows="4" name="comment"></textarea>
 
            </div>
-        
+           <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
           <div class="form-group pt-2"> <button class="btn rounded-0 btn-primary w-100">Answer</button> </div>
         
            
@@ -45,7 +45,7 @@
                 <% question.comments.forEach((comment)=> {%>
                  <div class="col-12">
                   <p>
-                    <strong><%=comment.author%> : </strong> 
+                    <strong><%=comment.freelancerName%> : </strong> 
                     <br>
                     <%=comment.comment%>
                   

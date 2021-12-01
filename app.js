@@ -46,6 +46,8 @@ app.use(
 //app.use(passport.initialize());
 //app.use(passport.session());
 const db = require('./config/keys').mongoURI;
+
+
 app.use(morgan('tiny'));
 /*mongoose
   .connect(
@@ -252,8 +254,18 @@ require('./routes/user')(app);
 require('./routes/teacher')(app);
 require('./routes/payment')(app);
 
+// Articles
+app.use(require("./routes/articleIndex"))
+app.use(require("./routes/article"))
+app.use(require("./routes/postArticle"))
 
+// Question
+app.use(require("./routes/questionIndex"))
+app.use(require("./routes/question"))
+app.use(require("./routes/postQuestion"))
 
+/// Rate
+app.use(require("./routes/rate"))
 
 //app.use('/', require('./routes/index.js'));
 

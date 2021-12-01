@@ -16,7 +16,7 @@
     "node": "11.10.1"
   },
   "devDependencies": {
-    "nodemon": "^1.18.3",
+    "nodemon": "^1.19.4",
     "prettier": "^1.19.1"
   },
   "dependencies": {

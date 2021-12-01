@@ -2,28 +2,29 @@ const mongoose = require('mongoose');
 const express = require('express');
 const app = express();
 
-const commentSchema = new mongoose.Schema({
-    freelancerName: {
+const rateSchema = new mongoose.Schema({
+    Name: {
         type: String,
         required: true,
+      },
+
+      star: {
+        type: Number,
+         
       },
       comment: {
         type: String,
         required: true,
       },
-      bidPrice: {
-        type: Number
-      },
       
-     freelancerId: {
+     course: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'Freelancer'
+      ref: 'Course'
     }
   
-
 
 });
 
     
-const Comment = mongoose.model('Comment', commentSchema); 
-module.exports = Comment; 
+const Rate = mongoose.model('Rate', rateSchema); 
+module.exports = Rate; 
