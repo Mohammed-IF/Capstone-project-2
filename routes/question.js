@@ -15,7 +15,7 @@ router
     Question.deleteOne({ _id: id })
       .then(() => {
         console.log("Deleted Question successfully!");
-        res.redirect("/Question");
+        res.redirect("/adminQuestion");
       })
       .catch((err) => console.log(err));
   })
