@@ -10,6 +10,7 @@
                 <% if (prods.length > 0) { %>
                     <div class="grid">
                         <% for (let postedService of prods) { %>
+                            <% if (postedService.image.url != null) { %>
                             <article class="card postedService-item">
                                 <header class="card__header">
                                     <h1 class="postedService__title">
@@ -35,6 +36,7 @@
                                     <button class="btn" type="button" onclick="deletePostedService(this)">Delete</button>
                                 </div>
                             </article>
+                            <% } %>
                             <% } %>
                     </div>
                     <section class='pagination'>

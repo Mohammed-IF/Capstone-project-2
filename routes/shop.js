@@ -38,7 +38,8 @@ router.get('/orders', isAuth, shopController.getOrders);
 
 router.get('/orders/:orderId', isAuth, shopController.getInvoice);
 
-router.get('/checkout', isAuth, shopController.getCheckout);
+router.get('/checkout/:id/:price', isAuth, shopController.getCheckout);
+//router.get('/freelancer/freelancerRevenue', isAuth, shopController.getCheckout1);
 
 router.get('/customCheckout/:postedServiceId', isAuth, shopController.getCustomCheckout);
 //router.get('/add-quote', isAuth,shopController.getAddQuote);

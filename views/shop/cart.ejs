@@ -5,7 +5,7 @@
 <%- include('../includesUser/head.ejs') %>
     <link rel="stylesheet" href="/css/cart.css">
     </head>
-
+<hr>
     <body>
        
         <main>
@@ -21,22 +21,24 @@
                                 <button class="btn danger" type="submit">Delete</button>
                             </form>
                         </li>
+                        <div class="centered">
+                            <!-- <form action="/create-order" method="POST">
+                                <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
+                                <button type="submit" class="btn">Order Now!</button>
+                            </form> -->
+        
+                            <a href='/checkout/<%= p.postedServiceId.freelancerId %>/<%= p.quantity*p.postedServiceId.price %>' class='btn'> Order Now! </a>
+                        </div>
                     <% }) %>
                 </ul>
                 <hr>
-                <div class="centered">
-                    <!-- <form action="/create-order" method="POST">
-                        <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
-                        <button type="submit" class="btn">Order Now!</button>
-                    </form> -->
-
-                    <a href='/checkout/' class='btn'> Order Now! </a>
-                </div>
+               
                 
             <% } else { %>
                 <h1>No Services in Cart!</h1>
             <% } %>
         </main>
+        <hr>
         <%- include('../includesUser/end.ejs') %>
         
         <footer>

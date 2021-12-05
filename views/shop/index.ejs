@@ -4,12 +4,12 @@
 <%- include('../includesUser/head.ejs') %>
     <link rel="stylesheet" href="/css/postedService.css">
 </head>
-<div class="container mt-3 py-3">
+<div class="container mt-3 py-3" style="background-color: whitesmoke;">
 
-    <form action="/" method="GET">
+    <form action="/postedServices" method="GET" style="background-color: whitesmoke;">
         <label>Filter Services Category</label>
         <select name="category" class="form-control">
-           <option value="all"> All </option>
+           <option> <a href="/">Select category</a> </option>
            <option value="Graphics & Design"> Graphics & Design </option>
            <option value="Digital Marketing"> Digital Marketing </option>
            <option value="Writing & Translation"> Writing & Translation </option>
@@ -20,7 +20,6 @@
            <option value="Lifestyle"> Lifestyle </option>
            <option value="Sitemap"> Sitemap </option>
           </select>
- 
           <input type="submit" class="btn btn-primary mt-3" value="Filter">
     </form>
  
@@ -30,15 +29,16 @@
     </form>
  
  </div>
- 
+ <hr>
 
 
 <body>
  
-    <main>
+    <main style="background-color: whitesmoke;">
         <% if (prods.length > 0) { %>
             <div class="grid">
                 <% for (let postedService of prods) { %>
+                    <% if (postedService.image.url != null) { %>
                     <article class="card postedService-item">
                         <header class="card__header">
                             <h1 class="postedService__title"><%= postedService.title %></h1>
@@ -59,6 +59,7 @@
                         </div>
                     </article>
                 <% } %>
+                <% } %>
             </div>
             <section class='pagination'>
                  <%- include('../includesUser/pagination.ejs', { currentPage: currentPage, previousPage: previousPage, nextPage: nextPage, hasPreviousPage: hasPreviousPage, hasNextPage: hasNextPage, lastPage: lastPage}) %> 
@@ -66,7 +67,9 @@
         <% } else { %>
             <h1>No Services of this category Found!</h1>
         <% } %>
+        
     </main>
+    <hr>
 <%- include('../includesUser/end.ejs') %>
 
 <footer>

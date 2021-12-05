@@ -1,4 +1,4 @@
-<% layout('boilerplate') %>
+
 
 <div class="container">
 
@@ -17,10 +17,10 @@
 	<div class='container'>
 		<div class="row" style = 'padding: 0 90px;'>
 			<div class="col-lg-4">
-				<img src="<%= user.profile.picture %>" />
+				<img src="<%= users.name %>" />
 			</div>
 			<div class='col-lg-4' style="text-align:center;">
-				<h4><%= user.profile.name %></h4>
+				<h4>name is: <%= users.name %></h4>
 			</div>
 			<div class="col-lg-4"></div>
 		</div>
@@ -44,33 +44,4 @@
   </div>
 </div>
 
-<div class='container'>
 
-
- <% for (var i = 0; i < courses.length; i++) { %>
-   
-    <div class="col-md-4">
-
-    <% for (var j = 0; j < user.coursesTaken.length; j++) { %>
-
-    
-      <% if (courses[i]._id.toString() == user.coursesTaken[j].course.toString())  { %>
-
-      
-      <a href="/courses/<%= courses[i]._id %>"
-        style="text-decoration: none; color: #34495e">
-        <div class="panel panel-default">
-
-          <div class="panel-body" style="border:0px;height:250px;overflow-y:auto">
-            <h4><%= courses[i].title %></h4>
-            <p>Description:</p>
-            <p style="text-align:justify"><%= courses[i].desc %></p>
-          </div>
-
-      </div>
-      </a>
-      <% } %>
-      <% } %>
-    </div>
-    <% } %>
-    </div>

@@ -1,0 +1,35 @@
+
+</head>
+<head>
+   
+
+</head> 
+
+
+<div class="container mt-5">
+    <h3 class="my-3">edit your profile...  </h3>
+    <form class="portfolio-form" action="/<% if (editing) { %>editTeacherProfile<% } %>" method="POST" enctype="multipart/form-data">
+      
+        <hr>
+        <div>
+        <label>Enter your name: </label>
+        <input name="name" placeholder="Enter your name" class="form-control" required class="<%= validationErrors.find(e => e.param == 'name') ? 'invalid' : '' %>" type="text" name="name" id="name"  value="<% if (editing) { %><%= profile.name %><% } else {%><%= oldInput.name %><%}%>">
+    </div>
+    <hr>
+      <div>
+            <label>Upload your personal image: </label>
+            <input type="file" name="image" placeholder="Enter the service image" class="form-control" required>
+        </div>
+
+        <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
+        
+        <button class="btn" type="submit" style="border-color: green; position: relative; bottom: -23px;"> Edit Profile</button>
+    </form>
+</div>
+
+<hr style="position: relative; bottom: -23px;">
+    <footer style="position: relative; bottom: -23px;">
+        
+    </footer>
+
+

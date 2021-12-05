@@ -1,5 +1,5 @@
 <%- include('./includesUser/head.ejs') %>
-    <link rel="stylesheet" href="/css/customService.css">
+    <link rel="stylesheet" href="/css/postedService.css">
     </head>
 <head>
     <%- include('./partials/header.ejs') %>
@@ -28,29 +28,7 @@
 <!-- comments-->
 
 <div class="container pt-5">
-    <div class="container">
-        <form action="/customRes/<%=custom._id%>/comments" method="POST" >
-           <div class="form-group">
-               <textarea class="form-control rounded-0"
-                placeholder="Leave your response here" rows="4" name="comment"></textarea>
-
-           </div>
-
-           <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
-          <div class="form-group pt-2"> <button class="btn rounded-0 btn-primary w-100">Response to a bid</button> </div>
-        
-           
-           
-           
-
-          
-        
-        </form>
-
-    </div>
-
-</div>
-
+  
 <body>
 
     <center><div class="container mt-3 py-1"><h3>All bids </h3></div> </center>
@@ -67,8 +45,8 @@
             <p class="card-text">Description: <%= comment.comment %> </p>
             <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
              
-            <a href=" /acceptBid/<%= custom.title %>/<%= comment.bidPrice %>/<%= custom.category %>/<%= custom.content %>/<%= comment.freelancerName %>/<%= comment.freelancerId%>" class="btn btn-danger" id="btn">Accept bid</a>
-            <a href=" /declineApp/<%= comment._id %>/<%= comment.email %>" class="btn btn-warning">Reject bid</a>
+            <a href=" /acceptBid/<%= custom.title %>/<%= comment.bidPrice %>/<%= custom.category %>/<%= custom.content %>/<%= comment.freelancerName %>/<%= comment.freelancerId%>" style=" background-color:limegreen; " class="btn" id="btn">Accept bid</a>
+            <a href=" /rejectBid/<%= comment._id %>" class="btn btn-danger">Reject bid</a>
             
             
             <script type="text/javascript">

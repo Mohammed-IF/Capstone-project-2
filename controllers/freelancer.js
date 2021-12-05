@@ -228,7 +228,10 @@ exports.getPostedServices = (req, res, next) => {
     });
 };
 
-
+function addPort(fId,pId){
+  Freelancer.findByIdAndUpdate({ _id:fId },{"$set": {"portfolioId":pId}})
+  console.log("the portfolio "+ pId +" is added to the freelancer "+fId);
+}
 exports.getAddPortfolio = (req, res, next) => {
   let portfolio = { previousWork: '', yearsOfExperinece: '', description: '', image: { url: '' } };
   res.render('freelancer/edit-portfolio', {
@@ -247,7 +250,7 @@ exports.postAddPortfolio = (req, res, next) => {
   const image = req.file;
   const yearsOfExperinece = req.body.yearsOfExperinece;
   const description = req.body.description;
-  const portfolioNum =0;
+  //const portfolioNum =0;
  
   if (!image) {
     return res.status(422).render('freelancer/edit-portfolio', {
@@ -264,10 +267,9 @@ exports.postAddPortfolio = (req, res, next) => {
       oldInput: { previousWork, yearsOfExperinece, description }
     });
   }
-  const portfolioNumber = portfolioNum + 1;
+
   
   const portfolio  = new Portfolio ({
-    portfolioNumber,
     previousWork,
     yearsOfExperinece, 
     image: {
@@ -296,10 +298,14 @@ exports.postAddPortfolio = (req, res, next) => {
     .save()
     .then(result => {
       console.log('Created Portfolio');
+      const fId = req.freelancer._id;
       const pId = portfolio._id;
-      Freelancer.updateOne({_id: req.freelancer},{pId})
+      addPort(fId, pId);
       console.log('Portfolio id has been added to the freelancer');
-      //console.log(portfolio._id);
+      console.log(portfolio._id);
+      
+
+      
       res.redirect('/freelancer/portfolios');
     })
    
@@ -449,7 +455,8 @@ exports.getPortfolios = (req, res, next) => {
 };
 
 exports.getPortfolio = (req, res, next) => {
-  const porId = req.params.portfolioId;
+  const freelancerId = req.params;
+  const porId = req.params;
 
     
   Portfolio.findById(porId).then(portfolio => {
@@ -459,7 +466,7 @@ exports.getPortfolio = (req, res, next) => {
       path: '/portfolios'
     });
   })
-  Freelancer.updateOne({ _id: req.freelancer }, { porId})
+  Freelancer.updateOne({ _id: freelancerId }, { porId})
     .then(() => {
       console.log("successfully! updated the posted service!");
     })
@@ -505,3 +512,4 @@ exports.getCustomService = (req, res, next) => {
     });
   });
 };
+

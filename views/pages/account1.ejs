@@ -1,29 +1,7 @@
 <!DOCTYPE html>
 <html>
    <head>
-      <meta charset="utf-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-      <meta name="description" content="Gurdeep singh osahan">
-      <meta name="author" content="Gurdeep singh osahan">
-      <title>Miver - LMS & Freelance Services Marketplace for Businesses HTML Template</title>
-      <!-- Favicon Icon -->
-      <link rel="icon" type="image/png" href="images/fav.svg">
-      <!-- Bootstrap core CSS -->
-      <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-      <!-- Font Awesome-->
-      <link href="vendor/fontawesome/css/font-awesome.min.css" rel="stylesheet">
-      <!-- Material Design Icons -->
-      <link href="vendor/icons/css/materialdesignicons.min.css" media="all" rel="stylesheet" type="text/css">
-      <!-- Slick -->
-      <link href="vendor/slick-master/slick/slick.css" rel="stylesheet" type="text/css">
-      <!-- Lightgallery -->
-      <link href="vendor/lightgallery-master/dist/css/lightgallery.min.css" rel="stylesheet">
-      <!-- Select2 CSS -->
-      <link href="vendor/select2/css/select2-bootstrap.css" />
-      <link href="vendor/select2/css/select2.min.css" rel="stylesheet">
-      <!-- Custom styles for this template -->
-      <link href="css/style.css" rel="stylesheet">
-   </head>
+      
    <body>
       <!--    header -->
       <nav class="navbar navbar-expand-lg navbar-light topbar static-top shadow-sm bg-white osahan-nav-top px-0">
@@ -165,10 +143,14 @@
                   <a class="btn btn-icon btn-transparent-dark dropdown-toggle" id="navbarDropdownUserImage" href="javascript:void(0);" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img class="img-fluid" src="images/user/s4.png"></a>
                   <div class="dropdown-menu dropdown-menu-right border-0 shadow animated--fade-in-up" aria-labelledby="navbarDropdownUserImage">
                      <h6 class="dropdown-header d-flex align-items-center">
-                        <img class="dropdown-user-img" src="images/user/s4.png">
+                        <img class="dropdown-user-img" src="images/s4.png">
                         <div class="dropdown-user-details">
-                           <div class="dropdown-user-details-name">Askbootstrap</div>
-                           <div class="dropdown-user-details-email">iamosahan@gmail.com</div>
+                           <script> const user = require('../models/user');</script>
+                        
+                           <div class="dropdown-user-details-name"></div>
+                           <div class="dropdown-user-details-email"> </div>
+                         
+                          
                         </div>
                      </h6>
                      <div class="dropdown-divider"></div>
@@ -290,120 +272,297 @@
             </ul>
          </div>
       </nav>
-      <!-- Inner Header -->
-      <section class="py-5 bg-dark inner-header">
+      <div class="py-5">
          <div class="container">
             <div class="row">
-               <div class="col-md-12 text-center">
-                  <h1 class="mt-0 mb-3 text-white">About Us</h1>
-                  <div class="breadcrumbs">
-                     <p class="mb-0 text-white"><a class="text-white" href="#">Home</a>  /  <span class="text-success">About Us</span></p>
+               <!-- Main Content -->
+               <aside class="col col-xl-3 order-xl-1 col-lg-12 order-lg-1 col-12">
+                  <div class="box mb-3 shadow-sm rounded bg-white profile-box text-center">
+                     <div class="py-4 px-3 border-bottom">
+                        <img src="images/user/s4.png" class="img-fluid mt-2 rounded-circle" alt="Responsive image">
+                        <h5 class="font-weight-bold text-dark mb-1 mt-4">Gurdeep Osahan</h5>
+                        <p class="mb-0 text-muted">UI / UX Designer</p>
+                     </div>
+                     <div class="d-flex">
+                        <div class="col-6 border-right p-3">
+                           <h6 class="font-weight-bold text-dark mb-1">358</h6>
+                           <p class="mb-0 text-black-50 small">Connections</p>
+                        </div>
+                        <div class="col-6 p-3">
+                           <h6 class="font-weight-bold text-dark mb-1">85</h6>
+                           <p class="mb-0 text-black-50 small">Views</p>
+                        </div>
+                     </div>
+                     <div class="overflow-hidden border-top">
+                        <a class="font-weight-bold p-3 d-block" href="sign-in.html"> Log Out </a>
+                     </div>
                   </div>
-               </div>
-            </div>
-         </div>
-      </section>
-      <!-- End Inner Header -->
-      <!-- About -->
-      <section class="py-5 bg-white">
-         <div class="container">
-            <div class="row align-items-center">
-               <div class="pl-4 col-lg-5 col-md-5 pr-4">
-                  <img class="rounded img-fluid" src="images/about.jpg" alt="Card image cap">
-               </div>
-               <div class="col-lg-6 col-md-6 pl-5 pr-5">
-                  <h2 class="mb-5">The leading global marketplace for learning and instruction
-                  </h2>
-                  <h5 class="mt-2">Our Vision</h5>
-                  <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here,</p>
-                  <h5 class="mt-4">Our Goal</h5>
-                  <p>When looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here,</p>
-               </div>
-            </div>
-         </div>
-      </section>
-      <!-- End About -->
-      <!-- What We Provide -->
-      <section class="py-5">
-         <div class="section-title text-center mb-5">
-            <h2>What We Provide?</h2>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-         </div>
-         <div class="container">
-            <div class="row">
-               <div class="col-lg-4 col-md-4">
-                  <div class="mt-4 mb-4"><i class="text-success mdi mdi-account-box-outline mdi-48px"></i></div>
-                  <h5 class="mt-3 mb-3">Transforming Lives</h5>
-                  <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum</p>
-               </div>
-               <div class="col-lg-4 col-md-4">
-                  <div class="mt-4 mb-4"><i class="text-success mdi mdi-check-circle-outline mdi-48px"></i></div>
-                  <h5 class="mb-3">Our Beginnings</h5>
-                  <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
-               </div>
-               <div class="col-lg-4 col-md-4">
-                  <div class="mt-4 mb-4"><i class="text-success mdi mdi-account-multiple-outline mdi-48px"></i></div>
-                  <h5 class="mt-3 mb-3">Our Marketplace</h5>
-                  <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here,</p>
-               </div>
-            </div>
-            <div class="row">
-               <div class="col-lg-4 col-md-4">
-                  <div class="mt-4 mb-4"><i class="text-success mdi mdi-clock mdi-48px"></i></div>
-                  <h5 class="mb-3">Our Instructors</h5>
-                  <p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked.</p>
-               </div>
-               <div class="col-lg-4 col-md-4">
-                  <div class="mt-4 mb-4"><i class="text-success mdi mdi-sticker-emoji mdi-48px"></i></div>
-                  <h5 class="mt-3 mb-3">Jobs</h5>
-                  <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum</p>
-               </div>
-               <div class="col-lg-4 col-md-4">
-                  <div class="mt-4 mb-4"><i class="text-success mdi mdi-comment-alert-outline mdi-48px"></i></div>
-                  <h5 class="mt-3 mb-3">Help</h5>
-                  <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here,</p>
-               </div>
-            </div>
-         </div>
-      </section>
-      <!-- End What We Provide -->
-      <!-- Trusted Agents -->
-      <section class="py-5 bg-white">
-         <div class="section-title text-center mb-5">
-            <h2>Trusted Agents</h2>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-         </div>
-         <div class="container">
-            <div class="row">
-               <div class="col-lg-4 col-md-4">
-                  <div class="agents-card text-center">
-                     <img class="img-fluid mb-4" src="images/user/s1.png" alt="">
-                     <p class="mb-4">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been.</p>
-                     <h6 class="mb-0 text-success">- Stave Martin</h6>
-                     <small>Buying Agent</small>
+                  <div class="box shadow-sm  rounded bg-white mb-3">
+                     <div class="box-title border-bottom p-3">
+                        <h6 class="m-0">Skills & Endorsements</h6>
+                     </div>
+                     <div class="box-body">
+                        <div class="d-flex align-items-center osahan-post-header p-3 border-bottom people-list">
+                           <div class="dropdown-list-image mr-3">
+                              <img class="rounded-circle" src="images/l4.png" alt="">
+                           </div>
+                           <div class="font-weight-bold">
+                              <div class="text-truncate">Character Concept <span class="badge badge-dark ml-1">1</span></div>
+                              <div class="small text-muted"><span class="text-primary">You and 1 connection</span> have given endorsements for this skill
+                              </div>
+                           </div>
+                        </div>
+                        <div class="d-flex align-items-center osahan-post-header p-3 border-bottom people-list">
+                           <div class="dropdown-list-image mr-3">
+                              <img class="rounded-circle" src="images/l8.png" alt="">
+                           </div>
+                           <div class="font-weight-bold">
+                              <div class="text-truncate">Digital Painting <span class="badge badge-danger ml-1">6</span></div>
+                              <div class="small text-muted"><span class="text-primary">Ask</span> has given an endorsement for this skill
+                              </div>
+                           </div>
+                        </div>
+                        <div class="d-flex align-items-center osahan-post-header p-3 people-list">
+                           <div class="dropdown-list-image mr-3">
+                              <img class="rounded-circle" src="images/l5.png" alt="">
+                           </div>
+                           <div class="font-weight-bold">
+                              <div class="text-truncate">Adobe Photoshop <span class="badge badge-info ml-1">3</span></div>
+                              <div class="small text-muted"><span class="text-primary">Julia Cox</span> has given an endorsement for this skill
+                              </div>
+                           </div>
+                        </div>
+                     </div>
                   </div>
-               </div>
-               <div class="col-lg-4 col-md-4">
-                  <div class="agents-card text-center">
-                     <img class="img-fluid mb-4" src="images/user/s2.png" alt="">
-                     <p class="mb-4">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been.</p>
-                     <h6 class="mb-0 text-success">- Mark Smith</h6>
-                     <small>Selling Agent</small>
+                  <div class="box shadow-sm mb-3 rounded bg-white ads-box text-center overflow-hidden">
+                     <img src="images/job1.png" class="img-fluid" alt="Responsive image">
+                     <div class="p-3 border-bottom">
+                        <h6 class="font-weight-bold text-dark">Osahan Solutions</h6>
+                        <p class="mb-0 text-muted">Looking for talent?</p>
+                     </div>
+                     <div class="p-3">
+                        <button type="button" class="btn btn-outline-success pl-4 pr-4"> POST A JOB </button>
+                     </div>
                   </div>
-               </div>
-               <div class="col-lg-4 col-md-4">
-                  <div class="agents-card text-center">
-                     <img class="img-fluid mb-4" src="images/user/s3.png" alt="">
-                     <p class="mb-4">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been.</p>
-                     <h6 class="mb-0 text-success">- Ryan Printz</h6>
-                     <small>Real Estate Broker</small>
+               </aside>
+               <main class="col col-xl-6 order-xl-2 col-lg-12 order-lg-2 col-md-12 col-sm-12 col-12">
+                  <div class="box shadow-sm rounded bg-white mb-3">
+                     <div class="box-title border-bottom p-3">
+                        <h6 class="m-0">About You</h6>
+                     </div>
+                     <div class="box-body p-3">
+                        <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).
+                        </p>
+                        <p class="mb-0">Find the most qualified people in the most unexpected places. Information for applicants to consider when applying for local positions. The largest community on the web to find and list jobs that aren't restricted by commutes or a specific location.
+                        </p>
+                     </div>
                   </div>
-               </div>
+                  <div class="box shadow-sm rounded bg-white mb-3">
+                     <div class="box-title border-bottom p-3">
+                        <h6 class="m-0">Experience</h6>
+                     </div>
+                     <div class="box-body p-3 border-bottom">
+                        <div class="d-flex align-items-top job-item-header pb-2">
+                           <div class="mr-2">
+                              <h6 class="font-weight-bold text-dark mb-0">Web designer</h6>
+                              <div class="text-truncate text-primary">Spotify Inc.</div>
+                              <div class="small text-gray-500">Oct 2020 - Present (4 year 7 month) </div>
+                           </div>
+                           <img class="img-fluid ml-auto mb-auto" src="images/l3.png" alt="">
+                        </div>
+                        <p class="mb-0">Find the most qualified people in the most unexpected places. Information for applicants to consider when applying for local positions. </p>
+                     </div>
+                     <div class="box-body p-3 border-bottom">
+                        <div class="d-flex align-items-top job-item-header pb-2">
+                           <div class="mr-2">
+                              <h6 class="font-weight-bold text-dark mb-0">Cloud Software Engineer</h6>
+                              <div class="text-truncate text-primary">Spotify Inc.</div>
+                              <div class="small text-gray-500">Oct 2020 - Present (4 year 7 month) </div>
+                           </div>
+                           <img class="img-fluid ml-auto mb-auto" src="images/l6.png" alt="">
+                        </div>
+                        <p class="mb-0">Find the most qualified people in the most unexpected places. Information for.. </p>
+                     </div>
+                     <div class="box-body p-3">
+                        <div class="d-flex align-items-top job-item-header pb-2">
+                           <div class="mr-2">
+                              <h6 class="font-weight-bold text-dark mb-0">UI/UX designer</h6>
+                              <div class="text-truncate text-primary">Behance</div>
+                              <div class="small text-gray-500">Oct 2020 - Present (4 year 7 month) </div>
+                           </div>
+                           <img class="img-fluid ml-auto mb-auto" src="images/l2.png" alt="">
+                        </div>
+                        <p class="mb-0">Wualified people in the most unexpected places. Information for applicants to consider when applying for local positions. The largest community on the web to find and list jobs that aren't restricted by commutes or a specific location.
+                        </p>
+                     </div>
+                  </div>
+                  <div class="box shadow-sm rounded bg-white mb-3">
+                     <div class="box-title border-bottom p-3">
+                        <h6 class="m-0">Education</h6>
+                     </div>
+                     <div class="box-body p-3 border-bottom">
+                        <div class="d-flex align-items-top job-item-header pb-2">
+                           <div class="mr-2">
+                              <h6 class="font-weight-bold text-dark mb-0">Stanford University</h6>
+                              <div class="text-truncate text-primary">Master’s programmes</div>
+                              <div class="small text-gray-500">Oct 2020 - Present (4 year 7 month) </div>
+                           </div>
+                           <img class="img-fluid ml-auto mb-auto" src="images/e1.png" alt="">
+                        </div>
+                        <p class="mb-0">Find the most qualified people in the most unexpected places. Information for applicants to consider when applying for local positions.</p>
+                     </div>
+                     <div class="box-body p-3">
+                        <div class="d-flex align-items-top job-item-header pb-2">
+                           <div class="mr-2">
+                              <h6 class="font-weight-bold text-dark mb-0">Harvard University</h6>
+                              <div class="text-truncate text-primary">Maths and science education</div>
+                              <div class="small text-gray-500">Oct 2020 - Present (4 year 7 month) </div>
+                           </div>
+                           <img class="img-fluid ml-auto mb-auto" src="images/e2.png" alt="">
+                        </div>
+                        <p class="mb-0">Wualified people in the most unexpected places. Information for applicants to consider when applying for local positions.</p>
+                     </div>
+                  </div>
+               </main>
+               <aside class="col col-xl-3 order-xl-3 col-lg-12 order-lg-3 col-12">
+                  <div class="box shadow-sm rounded bg-white mb-3">
+                     <div class="box-title border-bottom p-3">
+                        <h6 class="m-0">Who viewed your profile</h6>
+                     </div>
+                     <div class="box-body p-3">
+                        <div class="d-flex align-items-center osahan-post-header mb-3 people-list">
+                           <div class="dropdown-list-image mr-3">
+                              <img class="rounded-circle" src="images/user/s1.png" alt="">
+                              <div class="status-indicator bg-success"></div>
+                           </div>
+                           <div class="font-weight-bold mr-2">
+                              <div class="text-truncate">Sophia Lee</div>
+                              <div class="small text-gray-500">@Harvard
+                              </div>
+                           </div>
+                           <span class="ml-auto"><button type="button" class="btn btn-light btn-sm">Connent</button>
+                           </span>
+                        </div>
+                        <div class="d-flex align-items-center osahan-post-header mb-3 people-list">
+                           <div class="dropdown-list-image mr-3">
+                              <img class="rounded-circle" src="images/user/s2.png" alt="">
+                              <div class="status-indicator bg-success"></div>
+                           </div>
+                           <div class="font-weight-bold mr-2">
+                              <div class="text-truncate">John Doe</div>
+                              <div class="small text-gray-500">Traveler
+                              </div>
+                           </div>
+                           <span class="ml-auto"><button type="button" class="btn btn-light btn-sm">Connent</button>
+                           </span>
+                        </div>
+                        <div class="d-flex align-items-center osahan-post-header mb-3 people-list">
+                           <div class="dropdown-list-image mr-3">
+                              <img class="rounded-circle" src="images/user/s3.png" alt="">
+                              <div class="status-indicator bg-success"></div>
+                           </div>
+                           <div class="font-weight-bold mr-2">
+                              <div class="text-truncate">Julia Cox</div>
+                              <div class="small text-gray-500">Art Designer
+                              </div>
+                           </div>
+                           <span class="ml-auto"><button type="button" class="btn btn-light btn-sm">Connent</button>
+                           </span>
+                        </div>
+                        <div class="d-flex align-items-center osahan-post-header mb-3 people-list">
+                           <div class="dropdown-list-image mr-3">
+                              <img class="rounded-circle" src="images/user/s4.png" alt="">
+                              <div class="status-indicator bg-success"></div>
+                           </div>
+                           <div class="font-weight-bold mr-2">
+                              <div class="text-truncate">Robert Cook</div>
+                              <div class="small text-gray-500">@Photography
+                              </div>
+                           </div>
+                           <span class="ml-auto"><button type="button" class="btn btn-light btn-sm">Connent</button>
+                           </span>
+                        </div>
+                        <div class="d-flex align-items-center osahan-post-header people-list">
+                           <div class="dropdown-list-image mr-3">
+                              <img class="rounded-circle" src="images/user/s5.png" alt="">
+                              <div class="status-indicator bg-success"></div>
+                           </div>
+                           <div class="font-weight-bold mr-2">
+                              <div class="text-truncate">Richard Bell</div>
+                              <div class="small text-gray-500">@Envato
+                              </div>
+                           </div>
+                           <span class="ml-auto"><button type="button" class="btn btn-light btn-sm">Connent</button>
+                           </span>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="box shadow-sm mb-3 rounded bg-white ads-box text-center overflow-hidden">
+                     <img src="images/ads1.png" class="img-fluid" alt="Responsive image">
+                     <div class="p-3 border-bottom">
+                        <h6 class="font-weight-bold text-gold">Reachable Work Premium</h6>
+                        <p class="mb-0 text-muted">Grow &amp; nurture your network</p>
+                     </div>
+                     <div class="p-3">
+                        <button type="button" class="btn btn-outline-gold pl-4 pr-4"> ACTIVATE </button>
+                     </div>
+                  </div>
+                  <a href="job-profile.html">
+                     <div class="shadow-sm rounded bg-white job-item mb-3">
+                        <div class="d-flex align-items-center p-3 job-item-header">
+                           <div class="overflow-hidden mr-2">
+                              <h6 class="font-weight-bold text-dark mb-0 text-truncate">Product Director</h6>
+                              <div class="text-truncate text-primary">Spotify Inc.</div>
+                              <div class="small text-gray-500"><i class="fa fa-map"></i> India, Punjab</div>
+                           </div>
+                           <img class="img-fluid ml-auto" src="images/l3.png" alt="">
+                        </div>
+                        <div class="d-flex align-items-center p-3 border-top border-bottom job-item-body">
+                           <div class="overlap-rounded-circle">
+                              <img class="rounded-circle shadow-sm" data-toggle="tooltip" data-placement="top" title="" src="images/user/s5.png" alt="" data-original-title="Sophia Lee">
+                              <img class="rounded-circle shadow-sm" data-toggle="tooltip" data-placement="top" title="" src="images/user/s6.png" alt="" data-original-title="John Doe">
+                              <img class="rounded-circle shadow-sm" data-toggle="tooltip" data-placement="top" title="" src="images/user/s7.png" alt="" data-original-title="Julia Cox">
+                              <img class="rounded-circle shadow-sm" data-toggle="tooltip" data-placement="top" title="" src="images/user/s8.png" alt="" data-original-title="John Doe">
+                              <img class="rounded-circle shadow-sm" data-toggle="tooltip" data-placement="top" title="" src="images/user/s9.png" alt="" data-original-title="Julia Cox">
+                              <img class="rounded-circle shadow-sm" data-toggle="tooltip" data-placement="top" title="" src="images/user/s10.png" alt="" data-original-title="Robert Cook">
+                           </div>
+                           <span class="font-weight-bold text-muted">18 connections</span>
+                        </div>
+                        <div class="p-3 job-item-footer">
+                           <small class="text-gray-500"><i class="fa fa-clock-o"></i> Posted 3 Days ago</small>
+                        </div>
+                     </div>
+                  </a>
+                  <a href="job-profile.html">
+                     <div class="shadow-sm rounded bg-white job-item mb-3">
+                        <div class="d-flex align-items-center p-3 job-item-header">
+                           <div class="overflow-hidden mr-2">
+                              <h6 class="font-weight-bold text-dark mb-0 text-truncate">.NET Developer</h6>
+                              <div class="text-truncate text-primary">Invision</div>
+                              <div class="small text-gray-500"><i class="fa fa-map"></i> London, UK
+                              </div>
+                           </div>
+                           <img class="img-fluid ml-auto" src="images/l4.png" alt="">
+                        </div>
+                        <div class="d-flex align-items-center p-3 border-top border-bottom job-item-body">
+                           <div class="overlap-rounded-circle">
+                              <img class="rounded-circle shadow-sm" data-toggle="tooltip" data-placement="top" title="" src="images/user/s1.png" alt="" data-original-title="Sophia Lee">
+                              <img class="rounded-circle shadow-sm" data-toggle="tooltip" data-placement="top" title="" src="images/user/s2.png" alt="" data-original-title="John Doe">
+                              <img class="rounded-circle shadow-sm" data-toggle="tooltip" data-placement="top" title="" src="images/user/s3.png" alt="" data-original-title="Julia Cox">
+                              <img class="rounded-circle shadow-sm" data-toggle="tooltip" data-placement="top" title="" src="images/user/s4.png" alt="" data-original-title="Robert Cook">
+                           </div>
+                           <span class="font-weight-bold text-muted">18 connections</span>
+                        </div>
+                        <div class="p-3 job-item-footer">
+                           <small class="text-gray-500"><i class="fa fa-clock-o"></i> Posted 3 Days ago</small>
+                        </div>
+                     </div>
+                  </a>
+               </aside>
             </div>
          </div>
-      </section>
-      <!-- End Trusted Agents -->
-      <footer class="bg-white border-top">
+      </div>
+      <footer class="bg-white">
          <div class="container">
             <div class="d-flex justify-content-between">
                <div class="footer-list">
@@ -437,10 +596,10 @@
                   <ul class="list">
                      <li><a href="#" >Help &amp; Support</a></li>
                      <li><a href="#">Trust &amp; Safety</a></li>
-                     <li><a href="#" >Selling on Miver
+                     <li><a href="#" >Selling on Reachable Work
                         </a>
                      </li>
-                     <li><a href="#">Buying on Miver
+                     <li><a href="#">Buying on Reachable Work
                         </a>
                      </li>
                   </ul>
@@ -456,21 +615,21 @@
                      <li><a href="#">Affiliates</a></li>
                      <li><a href="#">Invite a Friend</a></li>
                      <li><a href="#">Become a Seller</a></li>
-                     <li><a href="#" >Miver
+                     <li><a href="#" >Reachable Work
                         Elevate<small>Exclusive Benefits</small></a>
                      </li>
                   </ul>
                </div>
                <div class="footer-list">
-                  <h2>More From Miver</h2>
+                  <h2>More From Reachable Work</h2>
                   <ul class="list">
-                     <li><a href="#">Miver
+                     <li><a href="#">Reachable Work
                         Pro</a>
                      </li>
-                     <li><a href="#">Miver
+                     <li><a href="#">Reachable Work
                         Studios</a>
                      </li>
-                     <li><a href="#">Miver
+                     <li><a href="#">Reachable Work
                         Logo Maker</a>
                      </li>
                      <li><a href="#">Get Inspired</a></li>
@@ -486,7 +645,7 @@
                   <img src="images/logo.svg">
                   </a>
                </div>
-               <p>© Copyright 2022 Miver. All Rights Reserved
+               <p>© Copyright 2022 Reachable Work. All Rights Reserved
                </p>
                <ul class="social">
                   <li>
@@ -509,19 +668,6 @@
          </div>
       </footer>
       <!-- Bootstrap core JavaScript -->
-      <script src="vendor/jquery/jquery.min.js"></script>
-      <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-      <!-- Contact form JavaScript -->
-      <!-- Do not edit these files! In order to set the email address and subject line for the contact form go to the bin/contact_me.php file. -->
-      <script src="js/jqBootstrapValidation.js"></script>
-      <script src="js/contact_me.js"></script>
-      <!-- Slick -->
-      <script src="vendor/slick-master/slick/slick.js" type="text/javascript" charset="utf-8"></script>
-      <!-- lightgallery -->
-      <script src="vendor/lightgallery-master/dist/js/lightgallery-all.min.js"></script>
-      <!-- select2 Js -->
-      <script src="vendor/select2/js/select2.min.js"></script>
-      <!-- Custom -->
-      <script src="js/custom.js"></script>
+   
    </body>
 </html>

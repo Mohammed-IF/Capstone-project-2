@@ -4,6 +4,7 @@ const PDFDocument = require('pdfkit');
 const stripe = require('stripe')(process.env.STRIPE_SECRET);
 
 const PostedService = require('../models/postedService'); 
+const Freelancer = require('../models/freelancer'); 
 const Portfolio = require('../models/portfolio'); 
 const Course = require('../models/course'); 
 const Order = require('../models/order');
@@ -326,6 +327,15 @@ exports.getInvoice = (req, res, next) => {
 };
 
 exports.getCheckout = (req, res, next) => {
+  const { id } = req.params;
+  const { price} = req.params;
+
+  Freelancer.updateOne({ _id: id },{ $push:{ revenue:{money:price} }})
+    .then(() => {
+      console.log("successfully! updated the app service!");
+ 
+    })
+
   let postedServices,
     total = 0;
   req.user
@@ -345,6 +355,7 @@ exports.getCheckout = (req, res, next) => {
               currency: 'usd',
               quantity: p.quantity
             };
+           // Freelancer.updateOne({_id:p.postedServiceId.freelancerId},{"revenue":p.postedServiceId.price * 100})
           }),
           success_url:
             req.protocol + '://' + req.get('host') + '/checkout/success',
@@ -354,6 +365,45 @@ exports.getCheckout = (req, res, next) => {
         .then(session => {
           res.render('shop/checkout', {
             path: '/checkout',
+            pageTitle: 'Checkout',
+            postedServices,
+            totalSum: total,
+            sessionId: session.id
+          });
+        });
+    });
+};
+
+exports.getCheckout1 = (req, res, next) => {
+  let postedServices,
+    total = 0;
+  req.user
+    .populate('cart.items.postedServiceId')
+    .execPopulate()
+    .then(user => {
+      postedServices = user.cart.items;
+      postedServices.forEach(p => (total += p.quantity * p.postedServiceId.price));
+      return stripe.checkout.sessions
+        .create({
+          payment_method_types: ['card'],
+          line_items: postedServices.map(p => {
+            return {
+              name: p.postedServiceId.title,
+              description: p.postedServiceId.description,
+              amount: p.postedServiceId.price * 100,
+              currency: 'usd',
+              quantity: p.quantity
+            };
+           // Freelancer.updateOne({_id:p.postedServiceId.freelancerId},{"revenue":p.postedServiceId.price * 100})
+          }),
+          success_url:
+            req.protocol + '://' + req.get('host') + '/checkout/success',
+          cancel_url:
+            req.protocol + '://' + req.get('host') + '/checkout/cancel'
+        })
+        .then(session => {
+          res.render('freelancer/freelancerRevenue', {
+            path: '/freelancer/freelancerRevenue',
             pageTitle: 'Checkout',
             postedServices,
             totalSum: total,

@@ -1,43 +1,41 @@
 <%- include('../includesFreelancer/head.ejs') %>
-    <link rel="stylesheet" href="/css/forms.css">
-    <link rel="stylesheet" href="/css/portfolio.css">
+
 </head>
 <head>
     <%- include('../partials/freelanceP.ejs') %>
 
 </head> 
-<body>
-  
-    <main>
-        <% if(errorMessage) { %>
-            <div class="user-message user-message--error"><%= errorMessage %></div>
-            <% } %>
-        <form class="portfolio-form" action="/freelancer/<% if (editing) { %>edit-portfolio<% } else { %>add-portfolio<% } %>" method="POST" enctype="multipart/form-data">
-        
-            <div class="form-control">
-                <label for="image">Image</label>
-                <input type="file" name="image" id="image">
-            </div>
-            <div class="form-control">
-                <label for="previousWork">Previous work</label>
-                <input  class="<%= validationErrors.find(e => e.param == 'previousWork') ? 'invalid' : '' %>" type="text" name="previousWork" id="previousWork" value="<% if (editing) { %><%= portfolio.previousWork %><% } else {%><%= oldInput.previousWork %><%}%>">
-            </div>
-            <div class="form-control">
-                <label for="yearsOfExperinece">yearsOfExperinece</label>
-                <input  class="<%= validationErrors.find(e => e.param == 'yearsOfExperinece') ? 'invalid' : '' %>" type="number" name="yearsOfExperinece" id="yearsOfExperinece" step="0.01" value="<% if (editing) { %><%= portfolio.yearsOfExperinece %><% } else {%><%= oldInput.yearsOfExperinece %><%}%>">
-            </div>
-            <div class="form-control">
-                <label for="description">Description</label>
-                <textarea name="description"  class="<%= validationErrors.find(e => e.param == 'description') ? 'invalid' : '' %>" id="description" rows="5"><% if (editing) { %><%= portfolio.description %><% } else {%><%= oldInput.description %><%}%></textarea>
-            </div>
-            <% if (editing) { %>
-                <input type="hidden" value="<%= portfolio._id %>" name="portfolioId">
-            <% } %>
-            <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
-            <button class="btn" type="submit"><% if (editing) { %>Update Portfolio<% } else { %>Add Portfolio<% } %></button>
-        </form>
-    </main>
-    <footer>
+
+
+<div class="container mt-5">
+    <h3 class="my-3">Post your portfolio Here...  </h3>
+    <form class="portfolio-form" action="/freelancer/<% if (editing) { %>edit-portfolio<% } else { %>add-portfolio<% } %>" method="POST" enctype="multipart/form-data">
+      
+        <hr>
+        <div>
+        <label>Enter your previous work: </label>
+        <textarea name="previousWork" cols="30" rows="10" class="mt-3 form-control" placeholder="Enter the service previous work Here..." required class="<%= validationErrors.find(e => e.param == 'previousWork') ? 'invalid' : '' %>" id="previousWork" rows="5"><% if (editing) { %><%= portfolio.previousWork %><% } else {%><%= oldInput.previousWork %><%}%></textarea>
+    </div>
+    <hr>
+      <div>
+            <label>Upload your personal image: </label>
+            <input type="file" name="image" placeholder="Enter the service image" class="form-control" required>
+        </div>
+<div>
+         <label>Enter your years of experience: </label>
+         <input name="yearsOfExperinece" placeholder="Enter your yearsOfExperinece" class="form-control" required class="<%= validationErrors.find(e => e.param == 'yearsOfExperinece') ? 'invalid' : '' %>" type="number" name="yearsOfExperinece" id="yearsOfExperinece" step="0.01" value="<% if (editing) { %><%= portfolio.yearsOfExperinece %><% } else {%><%= oldInput.yearsOfExperinece %><%}%>">
+        </div> 
+        <div>
+         <label>Enter brief description about yourself: </label>
+         <textarea name="description" cols="30" rows="10" class="mt-3 form-control" placeholder="Enter brief description about yourself" required class="<%= validationErrors.find(e => e.param == 'description') ? 'invalid' : '' %>" id="description" rows="5"><% if (editing) { %><%= portfolio.description %><% } else {%><%= oldInput.description %><%}%></textarea>
+        </div>
+        <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
+        <button class="btn" type="submit" style="border-color: green; position: relative; bottom: -23px;"><% if (editing) { %>Update Portfolio<% } else { %>Add Portfolio<% } %></button>
+    </form>
+</div>
+
+<hr style="position: relative; bottom: -23px;">
+    <footer style="position: relative; bottom: -23px;">
         <%- include('../partials/footer.ejs') %>
     </footer>
 <%- include('../includesFreelancer/end.ejs') %>

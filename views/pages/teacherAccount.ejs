@@ -1,0 +1,46 @@
+<%- include('../includesFreelancer/head.ejs') %>
+    <link rel="stylesheet" href="/css/postedService.css">
+    </head>
+<head>
+    <%- include('../partials/freelanceP.ejs') %>
+</head>
+    <body>
+
+            <main>
+                <% if (prods.length > 0) { %>
+                    
+                    <h1>Your profile:</h1>
+                    <div class="grid">
+                        <% for (let profile of prods ) { %>
+               
+                       
+                            <article class="card postedService-item">
+                                <header class="card__header">
+                                    <h1 class="postedService__title">
+                                        <%= profile.name %>
+                                    </h1>
+                                </header>
+                                <div class="card__image">
+                                    
+                                    <img src="<%= profile.image.url %>"  alt="<%= profile.name %>" >
+                                </div>
+                              
+                                <div class="card__actions">
+                                    <a href="/editTeacherProfile/<%= profile._id %>/<%= profile.teacherId._id %>?edit=true" class="btn">Edit</a>
+                                    <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
+                                    <input type="hidden" value="<%= profile._id %>" name="profileId">
+                                </div>
+                            </article>
+                            <% } %>
+                            <% } else { %>
+                                <h1>Create your profile from <a href="/editTeacher">here</a></h1>
+                                <% } %>
+                    </div>
+   
+            </main>
+            <hr>
+            <footer>
+                <%- include('../partials/footer.ejs') %>
+            </footer>
+            <%- include('../includesFreelancer/end.ejs') %>
+            <script src='/js/freelancer.js'></script>

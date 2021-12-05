@@ -15,14 +15,15 @@
                         <h1><%= p.postedServiceId.title %></h1>
                         <h2>Quantity: <%= p.quantity %></h2>
                     </li>
-                <% }) %>
+                
             </ul>
             <hr>
             <div class="centered">
                 <h2>Total: $ <%= totalSum %></h2>
             </div>
             <div class="centered">
-                <button id="order-btn" class="btn">ORDER</button>
+            <a class="btn" id="order-btn" href="/checkout/<%= p.postedServiceId.freelancerId %>/<%= totalSum %>">ORDER</a></button>
+                <% }) %>
                 <script src="https://js.stripe.com/v3/"></script>
                 <script>
                     var stripe = Stripe('pk_test_51JgEPqCuZRlwEilUPBWaqwcyDlEVomx3UQSuwc6u0vbr34j7AeQF5Kde18EruBwDPzJajjHLpPyw91wR8QEohVWe00RNyXvSvg');
@@ -33,6 +34,7 @@
                         })
                     })
                 </script>
+
             </div>
         </main>
         <%- include('../includesUser/end.ejs') %>

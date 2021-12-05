@@ -111,7 +111,7 @@ exports.postSignup = (req, res, next) => {
       name,
       email,
       password: hashedPass,
-      portfolioId: null
+      portfolioId: ""
     });
     return newFreelancer 
       .save()

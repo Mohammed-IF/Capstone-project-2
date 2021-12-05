@@ -48,6 +48,7 @@ module.exports = function(app) {
             });
           });
         }
+        
       ]);
     });
 
@@ -56,9 +57,14 @@ module.exports = function(app) {
       Teacher.findOne({ _id: req.teacher._id })
       .populate('coursesTeach.course')
       .exec(function(err, foundTeacher) {
-        res.render('teacher/teacher-dashboard', { foundTeacher: foundTeacher });
+        res.render('teacher/teacher-dashboard', { foundFreelancer: foundFreelancer });
       });
-
+     /* app.get('/freelancer/portfolios', function(req, res, next) {
+        Freelance.findOne({ _id: req.teacher._id })
+        .populate('portfolioId.freelancer')
+        .exec(function(err, foundFreelance) {
+          res.render('freelancer/portfolios', { foundFreelancer: foundFreelancer});
+        });*/
     });
 
     //------------Chaining method using route to create a course and to redirect the web page to it----------

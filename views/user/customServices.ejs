@@ -4,6 +4,7 @@
 <head>
     <%- include('../partials/header.ejs') %>
 </head>
+<hr>
     <body>
 
             <main>
@@ -18,7 +19,7 @@
                                     <p class="card-text">description: <%= customService.content %> </p>
                                     <p class="card-text"><%= customService.price %>$</p>
                                     <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
-                                    <a href=" /customRes/<%= customService._id %>" class="btn btn-warning">View bids</a>
+                                    <a href=" /customRes/<%= customService._id %>" class="btn btn-warning" style="background-color: greenyellow ;" >View bids</a>
                                     <a href=" /editCustom/<%= customService._id %>" class="btn btn-warning">Edit</a>
                                     <a href=" /deleteCustom/<%= customService._id %>" class="btn btn-danger">Delete</a>
                                 </div>
@@ -29,9 +30,10 @@
                         <%- include('../includesFreelancer/pagination.ejs', { currentPage: currentPage, previousPage: previousPage, nextPage: nextPage, hasPreviousPage: hasPreviousPage, hasNextPage: hasNextPage, lastPage: lastPage}) %>
                     </section>
                     <% } else { %>
-                        <h1>No Products Found!</h1>
+                        <h1>You haven't posted any service!</h1>
                         <% } %>
             </main>
+            <hr>
             <footer>
                 <%- include('../partials/footer.ejs') %>
             </footer>

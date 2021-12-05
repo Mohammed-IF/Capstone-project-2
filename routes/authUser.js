@@ -2,7 +2,7 @@ const express = require('express');
 const { check, body } = require('express-validator');
 const authController = require('../controllers/authUser');
 const User = require('../models/user');
-
+const cloudinary = require('../cloudinaryConfig');
 const router = express.Router();
 
 router.get('/login', authController.getLogin);
@@ -65,8 +65,44 @@ router.get('/reset/:token', authController.getNewPassword);
 
 router.post('/new-password', authController.postNewPassword);
 
-router.get('/users', authController.getUsers);
+//router.get('/', authController.getUsers);
 
-router.get('/users/:userId', authController.getUserInfo);
+//router.get('/account/:userId', authController.getUserInfo);
+/*router.get("/getUser",(req, res) => {
+  const userId = req.user;
+  //const porId = req.params;
 
+    
+  User.findById(userId).then(user => {
+    res.render('pages/account', {
+      user: user,
+        pageTitle: 'User profile',
+        path: '/getUser',
+        
+        
+    });
+  })
+})*/
+
+/*router.get("/editUser/:id", async (req, res) => {
+  const { id } = req.params;
+
+  const getData = await User.findOne({ _id: id });
+  res.render("editUser", { user: getData });
+})
+
+router.post("/editUser/:id", (req, res) => {
+  const { id } = req.params;
+  const {image} = req.body;
+  const { name} = req.body;
+
+  User.updateOne({ _id: id }, { name, image})
+    .then(() => {
+      console.log("successfully! updated the user!");
+      res.redirect("/getUser");
+    })
+    .catch((err) => console.log(err));
+});
+
+*/
 module.exports = router;

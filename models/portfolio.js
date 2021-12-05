@@ -3,10 +3,6 @@ const mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var portfolioSchema = new Schema({
-  portfolioNumber: {
-    type: Number,
-    required: true
-  },
   previousWork: {
     type: String,
     required: true

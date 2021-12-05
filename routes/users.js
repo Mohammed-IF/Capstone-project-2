@@ -91,4 +91,28 @@ router.get('/logout', (req, res) => {
   res.redirect('/users/login');
 });
 
+router.get("/getUser",(req, res) => {
+  const userId = req.user;
+  //const porId = req.params;
+
+    
+  User.findById(userId).then(user => {
+    res.render('pages/account', {
+      prods: user,
+        pageTitle: 'Freelancer Portfolios',
+        path: '/getUser',
+        currentPage: page,
+        hasNextPage: ITEMS_PER_PAGE * page < totalItems,
+        hasPreviousPage: page > 1,
+        nextPage: page + 1,
+        previousPage: page - 1,
+        lastPage: Math.ceil(totalItems / ITEMS_PER_PAGE)
+    });
+  })
+})
+  /*Freelancer.updateOne({ _id: freelancerId }, { porId})
+    .then(() => {
+      console.log("successfully! updated the posted service!");
+    })*/
+
 module.exports = router;

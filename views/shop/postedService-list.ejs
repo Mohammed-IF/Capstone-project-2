@@ -5,7 +5,37 @@
     <link rel="stylesheet" href="/css/postedService.css">
     </head>
 
-    
+    <div class="container mt-3 py-3">
+
+        <form action="/postedServices" method="GET">
+            <label>Filter Services Category</label>
+            <select name="category" class="form-control">
+                
+               <option value="Graphics & Design"> Graphics & Design </option>
+               <option value="Digital Marketing"> Digital Marketing </option>
+               <option value="Writing & Translation"> Writing & Translation </option>
+               <option value="Video & Animation"> Video & Animation </option> 
+               <option value="Music & Audio"> Music & Audio </option>
+               <option value="Programming & Tech"> Programming & Tech </option>
+               <option value="Business"> Business </option>
+               <option value="Lifestyle"> Lifestyle </option>
+               <option value="Sitemap"> Sitemap </option>
+              </select>
+     
+              <input type="submit" class="btn btn-primary mt-3" value="Filter">
+              <button type="submit" class="btn btn-primary mt-3" onclick="a()"> Remove Filter</button>
+            </form>
+         
+         <script>
+             function a(){
+                window.location = '/'
+             }
+         </script>
+            </select>
+          
+        </form>
+     
+     </div>
     <body>
       
 
@@ -43,7 +73,7 @@
                         <%- include('../includesUser/pagination.ejs', { currentPage: currentPage, previousPage: previousPage, nextPage: nextPage, hasPreviousPage: hasPreviousPage, hasNextPage: hasNextPage, lastPage: lastPage}) %>
                     </section>
                     <% } else { %>
-                        <h1>No Products Found!</h1>
+                        <h1>No Services of this category found!</h1>
                         <% } %>
             </main>
             <%- include('../includesUser/end.ejs') %>

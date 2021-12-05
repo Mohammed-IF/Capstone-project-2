@@ -260,7 +260,7 @@ exports.getUsers = (req, res, next) => {
       res.render('partials/header', {
         uors: users,
         pageTitle: 'All Users',
-        path: '/users',
+        path: '/partials/header',
         currentPage: page,
         hasNextPage: ITEMS_PER_PAGE * page < totalItems,
         hasPreviousPage: page > 1,
@@ -276,7 +276,7 @@ exports.getUserInfo = (req, res, next) => {
   User.findById(userId).then(user => {
     res.render('pages/account', {
       user: user,
-      path: '/users'
+      path: '/account'
     });
   });
   

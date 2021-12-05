@@ -4,12 +4,12 @@
 <%- include('../includesUser/head.ejs') %>
     <link rel="stylesheet" href="/css/orders.css">
     </head>
-
+<hr>
     <body>
        
         <main>
             <% if (orders.length <= 0) { %>
-                <h1>Nothing there!</h1>
+                <h1>You don't have any order!</h1>
             <% } else { %>
                 <ul class="orders">
                     <% orders.forEach(order => { %>
@@ -25,6 +25,7 @@
                 </ul>
             <% } %>
         </main>
+        <hr>
         <%- include('../includesUser/end.ejs') %>
 
         <footer>

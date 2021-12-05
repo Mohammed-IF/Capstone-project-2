@@ -242,6 +242,7 @@ app.use(require("./routes/postTeacherApp"));
 app.use(require("./routes/postedIndex"));
 app.use(require("./routes/quoteRoute"));
 app.use(require("./routes/appIndex"));
+app.use(require("./routes/courseIndex"));
 app.use(require("./routes/teacherAppIndex"));
 app.use(require("./routes/app"));
 app.use(require("./routes/teacherApp"));
@@ -264,6 +265,8 @@ app.use(authFreelancerRoutes);
 app.use(authAdminRoutes);
 app.use(require("./routes/adminPages"));
 app.use(require("./routes/adminRoute"));
+app.use(require("./routes/userRouter"));
+app.use(require("./routes/teacherRouter"));
 app.use("/user",require("./routes/customDisplay"));
 //app.use("/freelancer", appRoutes);
 
@@ -370,6 +373,10 @@ app.get('/become-a-seller',function (req, res) {
                     res.render('pages/account',{
                     })
                     });
+                    app.get('/about', function (req, res) {
+                      res.render('pages/about',{
+                      })
+                      });
                     app.get('/serviceDetails',function (req, res) {
                       res.render('pages/serviceDetails',{
                       })

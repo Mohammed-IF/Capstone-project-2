@@ -6,7 +6,7 @@ callback
 var passport = require('passport');
 var passportConf = require('../config/passport');
 var Course = require('../models/course');
-
+var User = require('../models/user');
 module.exports = function(app) {
   //------Get request for login web page
   app.get('/accounts/login', function(req, res, next) {
@@ -32,12 +32,14 @@ module.exports = function(app) {
 
   //------Get request for the profile page of the user--------------
   app.get('/profile', function(req, res, next) {
-    Course.find({}, function(err, courses) {
+    User.find({}, function(err, users) {
        
-       res.render('accounts/profile', {courses: courses ,message: req.flash('loginMessage')});
+       res.render('accounts/profile', {users: users ,message: req.flash('loginMessage')});
     });
    
   });
+  
 
 
 }
+

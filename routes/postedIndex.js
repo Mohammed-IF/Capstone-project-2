@@ -13,7 +13,7 @@ const ITEMS_PER_PAGE = 3;
 */
 
 
-router.get("/", async (req, res) => {
+router.get("/postedServices", async (req, res) => {
     const page = +req.query.page || 1;
     let totalItems;
     PostedService.find()
@@ -31,17 +31,17 @@ router.get("/", async (req, res) => {
     if( category && category !== 'all'){
     
         const allPostedServices = await PostedService.find({category: category});
-
-        res.render("shop/index", { 
+        totalItems =  allPostedServices
+        res.render("shop/postedService-list", { 
             prods: allPostedServices,
             pageTitle: 'All PostedServices',
             path: '/postedServices',
             currentPage: page,
-            hasNextPage: 3 * page < 4,
+            hasNextPage: ITEMS_PER_PAGE * page < totalItems,
             hasPreviousPage: page > 1,
             nextPage: page + 1,
             previousPage: page - 1,
-            lastPage: Math.ceil(4 / 3) });
+            lastPage: Math.ceil(totalItems / ITEMS_PER_PAGE) });
 
     }else{
 
@@ -52,11 +52,11 @@ router.get("/", async (req, res) => {
         pageTitle: 'All PostedServices',
         path: '/',
         currentPage: page,
-        hasNextPage: 3 * page < 4,
+        hasNextPage: ITEMS_PER_PAGE * page < totalItems,
         hasPreviousPage: page > 1,
         nextPage: page + 1,
         previousPage: page - 1,
-        lastPage: Math.ceil(4 / 3)
+        lastPage: Math.ceil(totalItems / ITEMS_PER_PAGE)
     });
     
          } 
