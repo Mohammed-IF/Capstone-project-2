@@ -1,9 +1,7 @@
 <head>
 <%- include('./includesUser/head.ejs') %>
     </head>
-
     <body>
-        
         <main class="centered">
             <h1><%= postedService.title %></h1>
             <hr>
@@ -14,21 +12,15 @@
             <p><%= postedService.description %></p>
         </main>
         
-
 <div class="container mt-5">
     <h3 class="my-3">Post your Quote  </h3>
     <form action="/postQuote1/<%= postedService._id %>" method="POST"> 
-
-       
-
         <div class="border-bottom p-3">
-
             <div class="row">
                 <input type="text" name="price" placeholder="Enter Price" class="form-control" required> 
                <label name= "price"> </label>
             </div>
             <div class="row"></div>
-        
             <textarea name="description" cols="30" rows="10" class="mt-3 form-control" placeholder="Enter description Here..." required></textarea>
         </div>
          </div>
@@ -37,7 +29,6 @@
     </form>
 </div>
 <%- include('./includesUser/end.ejs') %>
-
         <footer>
             <%- include('./partials/footer.ejs') %>
         </footer>

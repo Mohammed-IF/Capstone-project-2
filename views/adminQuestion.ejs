@@ -1,18 +1,11 @@
-<!DOCTYPE html>
-<head>
-    <%- include('./partials/header.ejs') %>
- </head>
- <%- include('./includesUser/head.ejs') %>
-    </head>
+<% include includesUser/head %>
 <link rel="stylesheet" href="/css/postedService.css">
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <title>Questions</title>
-  
 </head>
-
-
 
 <body>
 
@@ -31,7 +24,7 @@
                <option value=" Writing & Translation"> Writing & Translation </option>
               </select>
               <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
-              <input type="submit" class="btn btn-primary mt-3" value="Filter" style="background-color: blue; color: white;">
+              <input type="submit" class="btn btn-primary mt-3" value="Filter">
         </form>
 
 
@@ -45,8 +38,6 @@
 
 <div class="container mt-5 py-5">
 
-    <a href=" /postQuestion" class="btn btn-primary" style="background-color: blue; color: white;">post Question</a>
-
     <% questions.forEach(question => { %>
     <div class="card mt-3">
         <div class="card-body">
@@ -54,7 +45,9 @@
             <p class="card-text"> posted by: <%= question.user %> </p>
             <h5 class="card-title"><%= question.title %> </h5>
             <p class="card-text">description: <%= question.content %> </p>
-            <a href=" /question/<%= question._id %>" class="btn btn-primary" style="background-color: blue; color: white;">Read More...</a>
+            <a href=" /question/<%= question._id %>" class="btn btn-primary">Read More...</a>
+            <a href=" /deleteQuestion/<%= question._id %>" class="btn btn-danger">Delete</a>
+            <a href=" /editQuestion/<%= question._id %>" class="btn btn-warning">Edit</a>
             <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
         </div>
     </div>
@@ -64,11 +57,4 @@
 </div>
 
 </body>
-
 </html>
-<hr>
-        <%- include('./includesUser/end.ejs') %>
-
-        <footer>
-            <%- include('./partials/footer.ejs') %>
-        </footer>

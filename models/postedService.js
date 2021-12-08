@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-
 var Schema = mongoose.Schema;
 
 var postedServiceSchema = new Schema({
@@ -13,7 +12,7 @@ var postedServiceSchema = new Schema({
   },
   category: {
     type: String,
-    
+    required: true  
   },
   description: {
     type: String,
@@ -25,7 +24,6 @@ var postedServiceSchema = new Schema({
     },
     url: {
       type: String,
-      
     }
   },
     name: {
@@ -41,25 +39,5 @@ var postedServiceSchema = new Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Quote'
   }],
-  /*portfolio: {
-    previousWork: {
-      type: String,
-      required: true                  
-    },
-    yearsOfExperinece: {
-      type: String,
-      required: true                  
-    },
-    description: {
-      type: String,
-      required: true                  
-    },
-    portfolioId: {
-      type: Schema.Types.ObjectId,
-      required: true,
-      ref: 'Portfolio'
-    }
-  } */
 });
-
 module.exports = mongoose.model('PostedService', postedServiceSchema);

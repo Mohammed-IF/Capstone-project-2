@@ -15,7 +15,7 @@ router
     Article.deleteOne({ _id: id })
       .then(() => {
         console.log("Deleted article successfully!");
-        res.redirect("/Article");
+        res.redirect("/adminArticle");
       })
       .catch((err) => console.log(err));
   })

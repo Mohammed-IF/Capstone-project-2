@@ -27,7 +27,19 @@ var CourseSchema = new Schema({
   ownByStudent: [{
     user: { type: Schema.Types.ObjectId, ref: 'User'},
   }],
-  totalStudents: Number
+  totalStudents: Number,
+  stars: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Rate',
+    
+  }]
+,
+
+comments: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Rate'
+  }]
+,
 });
 
 //--------module to export database---------

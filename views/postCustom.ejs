@@ -8,16 +8,18 @@
 <div class="container mt-5">
     <h3 class="my-3">Post your required service Here...  </h3>
     <form action="/postCustom" method="POST"> 
-
+<div >
+        <label>Choose your service's title:</label>
         <input type="text" name="title" placeholder="Enter Title" class="form-control" required>
-        
+    </div>
+    <div >
+        <label style="position: relative; bottom: -10pt;">Choose your service's content:</label>
         <textarea name="content" cols="30" rows="10" class="mt-3 form-control" placeholder="Enter Content Here..." required></textarea>
-
-
-        <div class="border-bottom p-3" >
+    </div>
+        <div class="" style="position: relative; bottom: -10pt;">
             <label>Choose a category:</label>
             <div class="row">
-               <div class="form-group col-md-6" style="left: -16px;">
+               <div class="form-group col-md-6">
                   <select name="category" class="form-control" required>
                      <option selected>Select...</option>
                      <option>Graphics & Design</option>
@@ -33,17 +35,14 @@
                
             </div>
          </div>
+        <label style="position: relative; bottom: -10pt;">Once you place your order, when would you like your service delivered?</label>
+        <input type="number" name="day" placeholder="I'm looking for..." class="form-control" required style="position: relative; bottom: -10pt;">
 
-
-        <label>Once you place your order, when would you like your service delivered?</label>
-        <input type="text" name="day" placeholder="I'm looking for..." class="form-control" required>
-
-
-        <label>What is your budget for this service?</label>
-        <input type="text" name="price" placeholder="Enter service price" class="form-control" required>
+        <label style="position: relative; bottom: -10pt;">What is your budget for this service?</label>
+        <input type="number" name="price" placeholder="Enter service price" class="form-control" required style="position: relative; bottom: -10pt;">
             
         <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
-        <button class="btn" type="submit" style="border-color: green; position:relative; bottom: -21px;"> Post </button>
+        <button class="btn" type="submit" style="background-color: blue; color: white; position:relative; bottom: -25px;"> Post </button>
     </form>
 </div>
 <hr style="position: relative; bottom: -21px;">

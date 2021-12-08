@@ -17,9 +17,9 @@
                                     <p class="card-text"> posted by: <%= customService.user %> </p>
                                     <h5 class="card-title"><%= customService.title %> </h5>
                                     <p class="card-text">description: <%= customService.content %> </p>
-                                    <p class="card-text"><%= customService.price %>$</p>
+                                    <p class="card-text">price: <%= customService.price %>$</p>
                                     <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
-                                    <a href=" /customRes/<%= customService._id %>" class="btn btn-warning" style="background-color: greenyellow ;" >View bids</a>
+                                    <a href=" /customRes/<%= customService._id %>" class="btn btn-warning" style="background-color:blue; color: white;" >View bids</a>
                                     <a href=" /editCustom/<%= customService._id %>" class="btn btn-warning">Edit</a>
                                     <a href=" /deleteCustom/<%= customService._id %>" class="btn btn-danger">Delete</a>
                                 </div>
@@ -27,7 +27,7 @@
                             <% } %>
                     </div>
                     <section class='pagination'>
-                        <%- include('../includesFreelancer/pagination.ejs', { currentPage: currentPage, previousPage: previousPage, nextPage: nextPage, hasPreviousPage: hasPreviousPage, hasNextPage: hasNextPage, lastPage: lastPage}) %>
+                        <%- include('../includesUser/pagination.ejs', { currentPage: currentPage, previousPage: previousPage, nextPage: nextPage, hasPreviousPage: hasPreviousPage, hasNextPage: hasNextPage, lastPage: lastPage}) %>
                     </section>
                     <% } else { %>
                         <h1>You haven't posted any service!</h1>

@@ -12,7 +12,7 @@ const Quote = require('../models/quote');
 const user = require('../models/user');
 const quote = require('../models/quote');
 
-const ITEMS_PER_PAGE = 3;
+const ITEMS_PER_PAGE = 6;
 
 exports.getIndex = async(req, res, next) => {
   const page = +req.query.page || 1;

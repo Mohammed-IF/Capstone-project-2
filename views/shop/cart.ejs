@@ -5,7 +5,7 @@
 <%- include('../includesUser/head.ejs') %>
     <link rel="stylesheet" href="/css/cart.css">
     </head>
-<hr>
+
     <body>
        
         <main>
@@ -27,11 +27,11 @@
                                 <button type="submit" class="btn">Order Now!</button>
                             </form> -->
         
-                            <a href='/checkout/<%= p.postedServiceId.freelancerId %>/<%= p.quantity*p.postedServiceId.price %>' class='btn'> Order Now! </a>
+                            <a href='/checkout/<%= p.postedServiceId.freelancerId %>/<%= p.quantity*p.postedServiceId.price %>' class='btn' style="background-color: blue; color: white;"> Order Now! </a>
                         </div>
                     <% }) %>
                 </ul>
-                <hr>
+               
                
                 
             <% } else { %>

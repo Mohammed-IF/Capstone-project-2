@@ -1,9 +1,10 @@
+<%- include('./includesUser/head.ejs') %>
+    <link rel="stylesheet" href="/css/postedService.css">
+    </head>
 <head>
-    <%- include('./includesUser/head.ejs') %>
-        </head>
-    
-        <body>
-            
+    <%- include('./partials/header.ejs') %>
+</head>
+     <body>            
             <main class="centered">
                 <h1><%= posted.title %></h1>
                 <hr>
@@ -13,60 +14,43 @@
                 <h2><%= posted.price %></h2>
                 <p><%= posted.description %></p>
             </main>
-            
+            <hr>
     
-<!-- comments-->
-
 <div class="container pt-5">
     <div class="container">
         <form action="/postedReq/<%=posted._id%>/quotes" method="POST" >
             <div class="form-group">
-                <label>Bid price</label>
-        <input type="text" name="price" placeholder="price" class="form-control" required>
-            
+                <label>Quote price</label>
+        <input type="text" name="price" placeholder="price" class="form-control" required>      
     </div>
            <div class="form-group">
                <textarea class="form-control rounded-0"
                 placeholder="Leave a your description here" rows="4" name="comment"></textarea>
-
            </div>
-
            <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
-          <div class="form-group pt-2"> <button class="btn rounded-0 btn-primary w-100">Quote</button> </div>
-        
-           
-           
-           
-
-          
-        
+          <div class="form-group pt-2"> <button class="btn  btn-primary" style="background-color: blue; color: white;">Quote</button> </div>    
         </form>
-
     </div>
-
 </div>
-
 
 <div class="continer pt-5">
     <div class="container">
         <div class="row">
-          
-          
                 <% posted.quotes.forEach((quote)=> {%>
                  <div class="col-12">
                   <p>
                     <strong><%=quote.userName%> : </strong> 
                     <br>
                     <%=quote.comment%>
-                  
-                    
                    </p> 
                    <hr>
                </div>
-                
             <% }) %>
-            
-
         </div>
     </div>
 </div>
+<hr style="position: relative; bottom: 30px;">
+<footer style="position: relative; bottom: 30px;">
+   <%- include('./partials/footer.ejs') %>
+</footer>
+<%- include('./includesUser/end.ejs') %>

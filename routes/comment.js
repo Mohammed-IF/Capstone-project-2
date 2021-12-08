@@ -3,6 +3,7 @@ const Custom = require('../models/Custom');
 const router = express.Router()
 const Comment = require('../models/comment');
 //const User = require('../models/user');
+const Course = require('../models/course');
 const PostedService = require('../models/postedService');
 const passport = require('passport');
 require('../config/auth');
@@ -14,31 +15,20 @@ const Question = require('../models/Question');
 const isAuth = require('../middleware/is-auth');
 const stripe = require('stripe')(process.env.STRIPE_SECRET);
 const user = require('../models/user');
-const nodemailer = require('nodemailer');
-const sendgridTransport = require('nodemailer-sendgrid-transport');
 
-const transporter = nodemailer.createTransport(
-  sendgridTransport({
-    auth: {
-      api_key: process.env.SENDGRID_API_KEY
-    }
-  })
-);
 const MY_DOMAIN = "http://localhost:3000";
 function isLoggedIn(req, res, next){
       if(req.session.isLoggedIn){
           next();
       }else{
-        res.redirect('login1');
+        res.redirect('/login1');
       }
-
-
 }
 function isLoggedIn1(req, res, next){
   if(req.session.isLoggedIn){
       next();
   }else{
-    res.redirect('login');
+    res.redirect('/login');
   }
 }
 
@@ -46,7 +36,6 @@ router.post('/customReq/:id/comments', isLoggedIn, (req,res) => {
     
      const comment = new Comment({
          freelancerName: req.freelancer.name,
-         freelancerEmail: req.freelancer.email,
          bidPrice: req.body.bidPrice,
          comment: req.body.comment,
          freelancerId: req.freelancer
@@ -152,7 +141,67 @@ comment.save((err, result)=> {
 })
 
 });
+//router.get("/acceptBid/:title/:contnet/:categoty/:price", async (req, res) => {
+  //router.get("/acceptBid/:price", async (req, res) => {
+   
+  /*const { title } = req.params;
+  const {content} = req.params;
+  const {category} = req.params;
+  const {price} = req.params;
+  const quantity =0;
+  let customServices;
+  //const email1 = App.findOne({ email: email });
+  /*transporter.sendMail({
+      to: email,
+      from: 'm.i.f.15@outlook.sa',
+      subject: 'Application response',
+      html: `<p>You have been accepted as freelancer</p>
+          <p>please sigunp through the following link <a href="http://localhost:3000/signup1">here</a>`
+    });*/
+    /*
+    stripe.charges.create({
+      amount: price,
+      source: req.body.stripeTokenId,
+      currency: 'usd'
+    }).then(function() {
+      console.log('Charge Successful')
+      res.json({ message: 'Successfully purchased items' })
+    }).catch(function() {
+      console.log('Charge Fail')
+      res.status(500).end()
+    })
+    const { customService } = req.body;
+    /*const session = await stripe.checkout.sessions.create({
+        payment_method_types: ["card"],
+        line_items: [
+            {
+                price_data: {
+                    currency: "USD",
+                    customService_data: {
+                        title: title,
+                        content: content,
+                        category: category
+                    },
+                    unit_amount: price * 100,
+                },
+                //quantity: 1
+            },
+        ],
+        mode: "payment",
+        success_url: `${MY_DOMAIN}/success.html`,
+        cancel_url: `${MY_DOMAIN}/cancel.html`,
+    });
 
+    res.json({ id: session.id });
+/*
+  App.deleteOne({ _id: id })
+    .then(() => {
+      console.log("Deleted app service successfully!");
+      res.redirect("/App");
+    })
+    .catch((err) => console.log(err));
+    */
+//})
 router.get("/acceptBid/:title/:price/:categoty/:content/:freelancerName/:freelancerId", async (req, res) => {
   const { title } = req.params;
   const {price} = req.params;
@@ -175,44 +224,38 @@ router.get("/acceptBid/:title/:price/:categoty/:content/:freelancerName/:freelan
       .save()
       .then(() => {
         console.log("Service Saved Successfully!");
-        transporter.sendMail({
-          to: 'm.a.f.15@hotmail.com',
-          from: 'm.i.f.15@outlook.sa',
-          subject: 'Bid response',
-          html: `<p>Your bid has been accepted</p>`
-        });
        res.redirect("/customCart");
        req.user.addCustomToCart(postedService._id)
+      //res.redirect("/customCheckout/"+postedService._id);
+    /*  PostedService.findById(postedService._id)
+    .then(postedService => {
+      return req.user.addCustomToCart(postedService);
+    })
+    .then(result => {
+      res.redirect('/customCart/'+postedService._id);
+    });*/
       })
-  
+      
+     /* PostedService.deleteOne({ _id: postedService._id })
+      .then(() => {
+        console.log("Delete service successfully!");
+        res.redirect("/");
+      })
+      */
       .catch((err) => console.log(err));
 })
 
-router.get("/rejectBid/:id", async (req, res) => {
-  const { id } = req.params;
-  const { email }  = req.params;
-  
-        transporter.sendMail({
-          to: 'm.a.f.15@hotmail.com',
-          from: 'm.i.f.15@outlook.sa',
-          subject: 'Bid response',
-          html: `<p>Your bid has been rejected</p>`
-        });
-        Comment.deleteOne({ _id: id })
-        .then(() => {
-          console.log("Deleted bid successfully!");
-          res.redirect("/user/customservices");
-        })
-        .catch((err) => console.log(err))
-      
-  
-})
-
 // article comment
-router.post('/article/:id/comments',(req,res) => {  
+router.post('/article/:id/comments',isLoggedIn1,(req,res) => {  
     
+var test;
+if(req.freelancer){
+test = req.freelancer.name
+}else{
+test = req.user.name
+}
     const comment = new Comment({
-        author: req.user.name,
+        freelancerName: test,
         comment: req.body.comment
 
    });
@@ -244,12 +287,22 @@ router.post('/article/:id/comments',(req,res) => {
 
 });
 
+
+
+
 // Question comment
 
-router.post('/question/:id/comments',isLoggedIn,(req,res) => {  
+router.post('/question/:id/comments',isLoggedIn1,(req,res) => {  
     
+  var test;
+if(req.freelancer){
+test = req.freelancer.name
+}else{
+test = req.user.name
+}
+
   const comment = new Comment({
-      author: req.user.name,
+    freelancerName: test,
       comment: req.body.comment
 
  });
@@ -280,4 +333,50 @@ comment.save((err, result)=> {
 })
 
 });
+
+////////// rate
+/*
+router.post('/course/:id/comments',isLoggedIn1,(req,res) => {  
+             
+  var test;
+if(req.freelancer){
+test = req.freelancer.name
+}else{
+test = req.user.name
+}
+
+  const comment = new Comment({
+      freelancerName: test,
+      rate: req.body.star,
+      comment: req.body.comment
+
+ });
+
+comment.save((err, result)=> {
+     if(err){
+       console.log(err)
+
+     }else{
+      Course.findById(req.params.id, (err, course) =>{
+             if(err){
+                 console.log(err);
+             
+             }else{
+                
+              course.stars.push(comment);
+              course.comments.push(comment);
+              course.save();
+
+                console.log(course.comments);
+                res.redirect('/Courses');
+             }
+
+         })
+        
+     }  
+ 
+ 
+})
+
+}); */
 module.exports = router;

@@ -1,14 +1,10 @@
-<head>
-    <%- include('./partials/header.ejs') %>
-</head>
 <% include includesUser/head %>
 <link rel="stylesheet" href="/css/postedService.css">
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Article</title>
+  <title>Admin Article Page</title>
 </head>
 
 <body>
@@ -28,7 +24,7 @@
                <option value=" Writing & Translation"> Writing & Translation </option>
               </select>
               <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
-              <input type="submit" class="btn btn-primary mt-3" value="Filter" style="background-color: blue; color: white;">
+              <input type="submit" class="btn btn-primary mt-3" value="Filter">
         </form>
 
 
@@ -42,7 +38,6 @@
 
 <div class="container mt-5 py-5">
 
-    <a href=" /postArticle" class="btn btn-primary" style="background-color: blue; color: white;">post Article</a>
 
     <% articles.forEach(article => { %>
     <div class="card mt-3">
@@ -51,8 +46,9 @@
             <p class="card-text"> posted by: <%= article.user %> </p>
             <h5 class="card-title"><%= article.title %> </h5>
             <p class="card-text">description: <%= article.content %> </p>
-            <a href=" /article/<%= article._id %>" class="btn btn-primary" style="background-color: blue; color: white;">Read More...</a>
-           
+            <a href=" /article/<%= article._id %>" class="btn btn-primary">Read More...</a>
+            <a href=" /deleteArticle/<%= article._id %>" class="btn btn-danger">Delete</a>
+            <a href=" /editArticle/<%= article._id %>" class="btn btn-warning">Edit</a>
             <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
         </div>
     </div>
@@ -63,9 +59,3 @@
 
 </body>
 </html>
-<hr>
-        <%- include('./includesUser/end.ejs') %>
-
-        <footer>
-            <%- include('./partials/footer.ejs') %>
-        </footer>

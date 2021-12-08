@@ -6,21 +6,21 @@
 <hr>
     <body>
 
-        <h4> posted by the freelancer: <%= postedService.name %> </h4>
+        <h4> Posted by the freelancer: <%= postedService.name %> </h4>
         <h4> You can explore the freelancer's portfolio <a href="/freelancerPortfoilo">here</a></h4>
-        
+        <hr>
         <main class="centered">
             <h1><%= postedService.title %></h1>
             <hr>
             <div class="image">
                 <img src="<%= postedService.image.url %>" alt="<%= postedService.title %>">
             </div>
-            <h2><%= postedService.price %></h2>
+            <h2><%= postedService.price %>$</h2>
             <p><%= postedService.description %></p>
             <% if (isAuthenticated) { %>
                 <%- include('../includesUser/add-to-cart.ejs', {postedService: postedService}) %>
                 <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
-               <a href="/postedReq/<%= postedService._id %>" class="btn btn-primary">quote</a>
+               <a href="/postedReq/<%= postedService._id %>" class="btn btn-primary" style="background-color: blue; color: white;">quote</a>
            <% } %>
         </main>
 

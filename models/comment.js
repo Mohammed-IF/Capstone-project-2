@@ -9,7 +9,6 @@ const commentSchema = new mongoose.Schema({
       },
       freelancerEmail: {
         type: String,
-        required: true,
       },
       comment: {
         type: String,

@@ -1,41 +1,25 @@
 const express = require('express');
 const router = express.Router()
 var Article = require("../models/Article");
-
-
-const User = require('../models/User');
-const passport = require('passport');
-require('../config/auth');
-require('../config/passport')(passport);;
-require('../models/User');
-
-function isLoggedIn(req, res, next){
-      if(req.isAuthenticated()){
-          next();
-      }else{
-        res.redirect('/users/login');
-      }
-
-
-}
-
+require('../models/user');
+require('../routes/authUser');
 
 router
-  .get("/postArticle",isLoggedIn, (req, res) => { 
+  .get("/postArticle", (req, res) => { 
     res.render("postArticle");
   })
-
-  .post("/postArticle", (req, res) => {
- 
-    const {title, content, category} = req.body;
+  .post("/postArticle", (req, res) => {  
     
-    // * check for the missing fields!
+ var user;
+if(req.freelancer){
+user = req.freelancer.name
+}else {
+  user = req.user.name
+}
+  const {title, content, category} = req.body;
     if (!title || !content)
       return res.send("Please enter all the required credentials!");
-
-      const newArticle = new Article({ user: req.user.name ,title, content, category });
-
-    // save the blog to the database
+      const newArticle = new Article({ user: user ,title, content, category });
     newArticle
       .save()
       .then(() => {
@@ -44,5 +28,4 @@ router
       })
       .catch((err) => console.log(err));
   });
-
 module.exports = router;

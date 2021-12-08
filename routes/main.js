@@ -21,13 +21,64 @@ module.exports = function(app) {
     });
   });
 */
+/*
+const collection = require('../models/course');
+
+function test(err, result) {
+  const average =  collection.aggregate([
+  {
+    $unwind: "$stars"
+  },
+  {
+    $group: {
+      _id: "$_id",
+       averagePointsPerGame: {
+        $avg: "$stars.star",
+        
+      },
+      
+    }
+  }
+])
+
+return( { avg: average  });
+}
+
+*/
+
+app.get('/courses/:id', async function(req, res){
+   const { id } = req.params;
+    Course.findOne({ _id: id }).populate("comments").populate("stars").exec(function(err, course2){
+      if(err){
+          console.log(err);
+      } else{
+          var total = 0;
+          for(var i = 0; i < course2.stars.length; i++) {
+              total += course2.stars[i].star;
+          }
+          
+          var avg = total / course2.stars.length;
+          res.render('courses/course', {course: course2, ratingAverage: avg.toFixed(2)});
+      }
+   }); 
+});
+/*
+app
+  .get("/courses/:id", async (req, res) => {
+   const test7= test();
+    const { id } = req.params;
+    const getCours = await Course.findOne({ _id: id }).populate("comments").populate("stars");
+
+    res.render('courses/course', { course: getCours  });
+  })
+
   //----------<Get request to display the most popular courses>----------
   app.get('/mostpopular', function(req, res, next) {
     Course.find({}, function(err, courses) {
       res.render('courses/mostpopular', { courses: courses });
     });
   });
-
+*/
   //--------Get request to display the courses which the user has enrolled for
   app.get('/courses/:id', function(req, res, next) {
     //---------Async.parallel is to support the databases operations parallely

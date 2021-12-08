@@ -3,6 +3,7 @@ const router = express.Router()
 
 
 const PostedService = require("../models/postedService")
+const Freelancer = require("../models/freelancer")
 const ITEMS_PER_PAGE = 3;
 /*function isLoggedIn(req, res, next){
     if(req.session.isLoggedIn){
@@ -11,6 +12,31 @@ const ITEMS_PER_PAGE = 3;
       res.redirect('/login1');
     }
 */
+/*function isLoggedIn(req, res, next){
+    if(req.session.isLoggedIn){
+        next();
+    }else{
+      res.redirect('/login1');
+    }
+*/
+
+router.get('postedServices/:id', async function(req, res){
+   const { id } = req.params;
+    Freelancer.findOne({ _id: id }).populate("comments").populate("stars").exec(function(err, freelancer2){
+      if(err){
+          console.log(err);
+      } else{
+          var total = 0;
+          for(var i = 0; i < freelancer2.stars.length; i++) {
+              total += freelancer2.stars[i].star;
+          }
+          
+          var avg2 = total / freelancer2.stars.length;
+          res.render('/postedServices', {freelancer: freelancer2, ratingAverage: avg2.toFixed(2)});
+      }
+   }); 
+});
+
 
 
 router.get("/postedServices", async (req, res) => {

@@ -21,7 +21,7 @@ const CustomSchema = new mongoose.Schema({
     required: true
   },
   day: {
-    type: String,
+    type: Number,
     required: true
   },
   

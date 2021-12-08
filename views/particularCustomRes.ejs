@@ -45,7 +45,7 @@
             <p class="card-text">Description: <%= comment.comment %> </p>
             <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
              
-            <a href=" /acceptBid/<%= custom.title %>/<%= comment.bidPrice %>/<%= custom.category %>/<%= custom.content %>/<%= comment.freelancerName %>/<%= comment.freelancerId%>" style=" background-color:limegreen; " class="btn" id="btn">Accept bid</a>
+            <a href=" /acceptBid/<%= custom.title %>/<%= comment.bidPrice %>/<%= custom.category %>/<%= custom.content %>/<%= comment.freelancerName %>/<%= comment.freelancerId%>" style=" background-color:limegreen; color: white;" class="btn" id="btn">Accept bid</a>
             <a href=" /rejectBid/<%= comment._id %>" class="btn btn-danger">Reject bid</a>
             
             
@@ -99,7 +99,7 @@
 </div>
 
 </body>
-
+<hr>
 <footer>
   <%- include('./partials/footer.ejs') %>
 </footer>

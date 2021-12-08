@@ -9,8 +9,9 @@
        
         <main>
             <% if (orders.length <= 0) { %>
-                <h1>You don't have any order!</h1>
+                <h2>You don't have any order!</h2>
             <% } else { %>
+                <h1 style=" position: relative;top: -10pt;">Your orders: </h1>
                 <ul class="orders">
                     <% orders.forEach(order => { %>
                         <li class="orders__item">

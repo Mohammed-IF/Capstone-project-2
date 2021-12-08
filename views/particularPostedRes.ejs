@@ -1,48 +1,30 @@
-
-    <link rel="stylesheet" href="/css/customService.css">
-    </head>
 <head>
     <%- include('./partials/freelanceP') %>
 </head>
 <div class="container mt-5">
     <h2><%= posted.title %> </h2>
-
     <hr>
-
     <label>service details:</label>
     <p class="mt-3"><%= posted.description %> </p>
- 
     <hr>
-    
-
     <label>service price:</label>
     <p class="mt-3"><%= posted.price %>$</p>
 
 <body>
-
-    <center><div class="container mt-3 py-1"><h3>All quotes </h3></div> </center>
+   <div class="container mt-3 py-1" style="position: relative; text-align:center;"><h3> All quotes</h3></div> 
     <hr>
-
 <div class="container mt-5 py-5">
-
-
     <% posted.quotes.forEach((quote)=> {%>
     <div class="card mt-3">
         <div class="card-body">
           <p class="card-text"> Enterpeuner's name: <%= quote.userName %></p>
             <p class="card-text"> Quote price: <%= quote.price %>$</p>
             <p class="card-text">Description: <%= quote.comment %> </p>
-            <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
-             
+            <input type="hidden" name="_csrf" value="<%= csrfToken %>" />       
             <a href="/acceptQuote/<%= quote._id %>/<%= posted._id %>/<%= quote.price %>/<%= quote.comment %>" class="btn btn-danger" id="btn">Accept quote</a>
             <a href="/rejectQuote/<%= quote._id %>" class="btn btn-warning">Reject quote</a>
-            
-          </div>
-        </div>
-        <%}) %>
-       
+          </div></div><%}) %>    
 </div>
-
 </body>
 <hr>
 <footer>
