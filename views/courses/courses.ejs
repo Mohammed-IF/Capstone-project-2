@@ -5,9 +5,9 @@
     <link rel="stylesheet" href="/css/postedService.css">
     </head>
     <hr>
-    <div class="container mt-3 py-3">
+    <div class="container mt-3 py-3" style="background-color: whitesmoke;">
 
-      <form action="/coursesFiltered" method="GET">
+      <form action="/coursesFiltered" method="GET" >
           <label>Filter Courses Category</label>
           <select name="category" class="form-control">
              <option value="Graphics & Design"> Graphics & Design </option>
@@ -32,7 +32,7 @@
    </div>
 <hr>
 <% if (prods.length > 0) { %>
-    <div class="grid">
+    <div class="grid" style="background-color: whitesmoke;">
       <% for (let course of prods) { %>
       <article class="card postedService-item">
         <header class="card__header">
@@ -44,15 +44,14 @@
         </div>
         <div class="card__content">
             <h2 class="postedService__price">$<%= course.price %></h2>
-            <p class="postedService__description"><%= course.desc %></p>
+            <p class="postedService__description"><%= course.description %></p>
         </div> 
+        
         <div class="card__actions">
-          <a href="/courses/<%= course._id %>" class="btn" style="background-color: blue; color: white;">Details</a>
+          <a href="/courses/<%= course._id %>" class="btn" style="background-color: blue; color: white;" >Details</a>
       </div>
       </article>
       
-
-    
     
       <!--<div class="col-md-4">
 
@@ -70,7 +69,15 @@
       </a>
     </div>-->
     <% } %>
-
+    <script>
+      function func(){
+        
+        if(error){
+window.open("/coursesPayed/");
+        }
+      }
+      
+    </script>
   </div>
 
   <section class='pagination'>

@@ -11,42 +11,7 @@
       wistiaPlaylist = Wistia.playlist("<%= course.wistiaId %>", {version: "v1",theme: "tab", videoOptions: {volumeControl: true, autoPlay: true,videoWidth: "1000",videoHeight: "625"},
       media_0_0: {autoPlay: false,controlsVisibleOnLoad: false}});</script></div>
 <!-- rate-->
-<div class="container pt-5">
-  <div class="container">
-      <form action="/courses/<%=course._id%>/rates" method="POST" >
-          <div class="border-bottom p-3">
-            <label>stars:</label>
-            <div class="row">
-               <div class="form-group col-md-6">
-                  <select name="star" class="form-control" >
-                     <option selected>Select...</option>
-                     <option>1</option>
-                     <option>2</option>
-                     <option>3</option>
-                     <option>4</option>
-                     <option>5</option>
-                  </select> </div> </div></div>
-          <div class="form-group">
-             <textarea class="form-control rounded-0"
-              placeholder="Leave a comment here" rows="4" name="comment"></textarea> 
-          </div>
-         <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
-        <div class="form-group pt-2"> <button class="btn rounded-0 btn-primary w-100">Rate course</button> </div>
-      </form>
-  </div></div>
-<div class="continer pt-5">
-  <div class="container">
-      <div class="row">
-       <strong> <label> The Average rating for this course is:
-          <%= ratingAverage %> / 5.
-         </label> <hr> </strong>
-          <% course.comments.forEach((rate)=> {%>
-            <div class="col-12">
-             <strong> <%=rate.Name%>: </strong>
-              <br>
-             -  <%=rate.comment%>
-              <br>
-          </div> <% }) %></div></div></div>
+
 <hr>
     <footer>
       <%- include('../partials/footer.ejs') %>

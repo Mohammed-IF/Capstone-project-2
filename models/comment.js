@@ -24,7 +24,7 @@ const commentSchema = new mongoose.Schema({
      },
      freelancerId: {
       type: mongoose.Schema.Types.ObjectId,
-      required: true,
+  
       ref: 'Freelancer'
     }
   

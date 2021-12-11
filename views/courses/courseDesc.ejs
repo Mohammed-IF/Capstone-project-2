@@ -11,10 +11,10 @@
   <h1><%= course.title %></h1>
   <hr>
   <div class="image">
-      <img src="/images/after.png" alt="<%= course.title %>">
+      <img src="<%= course.image.url %>" alt="<%= course.title %>">
   </div>
   <h2><%= course.price %>$</h2>
-  <p><%= course.desc %></p>
+  <p><%= course.description %></p>
 
 </main>
 
@@ -35,11 +35,12 @@
                   data-name= "Stripe.com"
                   data-description="Widget"
                   data-image="",
-                  data-locale="auto">
+                  data-locale="auto"
+                  >
                 </script>
             </form>
           </div>
-          <div class='col-lg-4'></div>      
+            
 
         </div>      
       </div>
@@ -49,32 +50,9 @@
 </div>
 
 
-<div class="continer pt-5">
-  <div class="container">
-      <div class="row">
-
-       <strong> <label> The Average rating for this course is:
-          <%= ratingAverage %> / 5.
-         </label> <hr> </strong>
-      
-          <% course.comments.forEach((rate)=> {%>
-            <div class="col-12">
-               
-             <strong> <%=rate.Name%>: </strong>
-              <br>
-
-             -  <%=rate.comment%>
-              <br>
-          </div>
-          <hr>  
-       <% }) %>
-          
-
-      </div>
-  </div>
-</div>
 
 
+<hr>
 
 
 

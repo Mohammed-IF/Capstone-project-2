@@ -1,10 +1,3 @@
-/*-
-Creating a schema for the courses 
-used an array because each course is owned by many students
-*/
-
-
-
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
@@ -24,17 +17,15 @@ var CourseSchema = new Schema({
   wistiaId: String,
   price: Number,
   ownByTeacher: { type: Schema.Types.ObjectId, ref: 'Teacher'},
-  ownByStudent: [{
+  enrolledByStudents: [{
     user: { type: Schema.Types.ObjectId, ref: 'User'},
   }],
   totalStudents: Number,
   stars: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Rate',
-    
   }]
 ,
-
 comments: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Rate'

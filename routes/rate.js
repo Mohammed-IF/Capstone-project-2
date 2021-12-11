@@ -18,7 +18,7 @@ function isLoggedIn(req, res, next){
       if(req.session.isLoggedIn){
           next();
       }else{
-        res.redirect('/login1');
+        res.redirect('/login');
       }
 }
 
@@ -26,7 +26,7 @@ function isLoggedIn(req, res, next){
 
 
 // Course rate
-router.post('/courses/:id/rates',isLoggedIn,(req,res) => {  
+router.post('/rateCourse/:id/rates',isLoggedIn,(req,res) => {  
              
   var test;
 if(req.freelancer){
@@ -59,7 +59,7 @@ rate.save((err, result)=> {
               course.save();
 
                 console.log(course.comments);
-                res.redirect('/Courses');
+                res.redirect('/courses/'+req.params.id);
              }
 
          })

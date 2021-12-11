@@ -14,11 +14,10 @@ const transporter = nodemailer.createTransport(
       api_key: process.env.SENDGRID_API_KEY
     }}));
 
-router.get("/acceptQuote/:quoteId/:postedId/:price/:description/:email", isAuth, (req, res) => {
+router.get("/acceptQuote/:quoteId/:postedId/:price/:email", isAuth, (req, res) => {
   const { quoteId } = req.params;
   const { postedId } = req.params;
   const { price } = req.params;
-  const { description } = req.params;
   const {email} = req.params;
 
   transporter.sendMail({
@@ -27,7 +26,7 @@ router.get("/acceptQuote/:quoteId/:postedId/:price/:description/:email", isAuth,
       subject: 'Quote response',
       html: `<p>Your quote have been accepted</p>`
     });
-    Posted.updateOne({ _id: postedId }, { price, description })
+    Posted.updateOne({ _id: postedId }, { price})
     .then(() => {
       console.log("successfully! updated the posted service!");
     })
@@ -51,7 +50,7 @@ router.get("/rejectQuote/:id/:email", isAuth, (req, res) => {
     });
   Quote.deleteOne({ _id: id })
     .then(() => {
-      console.log("Deleted app service successfully!");
+      console.log("Deleted quote successfully!");
       res.redirect("/freelancerPages");
     })
     .catch((err) => console.log(err));

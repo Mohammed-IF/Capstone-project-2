@@ -13,9 +13,6 @@ const router = express.Router();
 router.get('/teacher/dashboard', isAuth, teacherController.getCourses);
 
 
-
-
-
 router.get('/create-course', isAuth, teacherController.getAddCourse);
 
 
@@ -34,7 +31,7 @@ router.post(
       .isEmpty(),
     body('price').isFloat(),
     body('description')
-      .isLength({ min: 3, max: 200 })
+      .isLength({ min: 3, max: 300 })
       .trim(),
       body('wistiaId')
       .not()
