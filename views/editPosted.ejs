@@ -1,0 +1,57 @@
+
+</head>
+<head>
+    <%- include('./partials/freelanceP.ejs') %>
+
+</head> 
+
+
+<div class="container mt-5">
+    <h3 class="my-3">Post your service Here...  </h3>
+    <form class="postedService-form" action="/freelancer/editPosted/<%= postedService._id %>" method="POST" enctype="multipart/form-data">
+        <div>
+        <label>Enter the service title: </label>
+        <input type="text" name="title" placeholder="Enter the service title" class="form-control" value="<%= postedService.title %>">
+    </div>
+    <hr>
+    <div>
+        <label>Upload the service image: </label>
+        <input type="file" name="image" placeholder="Enter the service image" class="form-control" required value="<%= postedService.image.url %>">
+    </div>
+    <div class="border-bottom p-3" style= "left: -1em;" >
+    <label>Choose a category:</label>
+            <div class="row">
+               <div class="form-group col-md-6" style= "left: -1em;">
+             <select name="category" class="form-control" required  > 
+                     <option selected>Select...</option>
+                     <option>Graphics & Design</option>
+                     <option>Digital Marketing</option>
+                     <option>Writing & Translation</option>
+                     <option>Video & Animation</option>
+                     <option>Music & Audio</option>
+                     <option>Programming & Tech</option>
+                     <option>Business</option>
+                     <option>Lifestyle</option>
+                     <option> Sitemap </option>
+                  </select>
+               </div>
+               
+            </div>
+         </div>
+<div>
+         <label>Enter the service price: </label>
+         <input name="price" placeholder="Enter service price" class="form-control" required value="<%= postedService.price %>">
+        </div> 
+        <div>
+         <label>Enter the service description: </label>
+         <textarea value="<%= postedService.description %>" name="description" cols="30" rows="10" class="mt-3 form-control" placeholder="Enter the service description Here..." required ></textarea> 
+        </div>
+        <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
+        <button class="btn" style="background-color: blue; color: white; position: relative; bottom: -10px;" type="submit">Update</button>
+    </form>
+</div>
+
+<hr>
+ 
+<%- include('./includesFreelancer/end.ejs') %>
+

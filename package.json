@@ -1,5 +1,5 @@
 {
-  "name": "online-shop",
+  "name": "Reachable work",
   "version": "1.0.0",
   "description": "e-commerce app built with Node.js",
   "main": "app.js",
@@ -10,7 +10,7 @@
     "dev": "nodemon app.js",
     "prettify": "prettier **/*.js --write"
   },
-  "author": "James Katarikawe",
+  "author": " Mohammed and suliaman",
   "license": "ISC",
   "engines": {
     "node": "11.10.1"

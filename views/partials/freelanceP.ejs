@@ -45,10 +45,10 @@
      <ul class="navbar-nav align-items-center ml-auto">
         
         <li class="nav-item dropdown no-arrow no-caret dropdown-user">
-           <a class="btn btn-icon btn-transparent-dark dropdown-toggle" id="navbarDropdownUserImage" href="javascript:void(0);" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img class="img-fluid" src="/images/s4.png"></a>
+           <a class="btn btn-icon btn-transparent-dark dropdown-toggle" id="navbarDropdownUserImage" href="javascript:void(0);" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"  style="border-color: blue;"><img class="img-fluid" src="/images/profile.png" style=" image-resolution: 300dpi; height: 120px;"></a>
            <div class="dropdown-menu dropdown-menu-right border-0 shadow animated--fade-in-up" aria-labelledby="navbarDropdownUserImage">
               <h6 class="dropdown-header d-flex align-items-center">
-                 <img class="dropdown-user-img" src="/images/s4.png">
+                 
                  <div class="dropdown-user-details">
                     <div class="dropdown-user-details-name"><p></p></div>
                     <div class="dropdown-user-details-email"><p></p></div>
@@ -98,7 +98,10 @@
               <a class="nav-link" href="/freelancer/add-postedService">Add service</a>
            </li>
              <li class="nav-item">
-                
+               <a class="nav-link" href="/freelancer/customServices">Bid on service</a>
+             </li>
+             <li class="nav-item">
+               <a class="nav-link" href="/freelancer/revenueReport">Your revenues</a>
              </li>
              <li class="nav-item dropdown">
                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownPortfolio" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -116,13 +119,12 @@
  </nav>
 
 
-
   
 <% } else { %>
 <nav class="navbar navbar-expand-lg navbar-light topbar static-top shadow-sm bg-white osahan-nav-top px-0">
    <div class="container">
       <!-- Sidebar Toggle (Topbar) -->
-      <a class="navbar-brand" href=""><img src="/images/logo.jpg"  style="background-color:gray; image-resolution: 300dpi; height: 120px;" alt=""></a>
+      <a class="navbar-brand" href=""><img src=""  style="background-color:gray; image-resolution: 300dpi; height: 120px;" alt=""></a>
       <!-- Topbar Search -->
       <!--<form class="d-none d-sm-inline-block form-inline mr-auto my-2 my-md-0 mw-100 navbar-search">
          <div class="input-group">
@@ -141,7 +143,6 @@
             <a class="btn btn-icon btn-transparent-dark dropdown-toggle" id="navbarDropdownUserImage" href="javascript:void(0);" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img class="img-fluid" src="images/s4.png"></a>
             <div class="dropdown-menu dropdown-menu-right border-0 shadow animated--fade-in-up" aria-labelledby="navbarDropdownUserImage">
                <h6 class="dropdown-header d-flex align-items-center">
-                  <img class="dropdown-user-img" src="/images/s4.png">
                   <div class="dropdown-user-details">
                      <div class="dropdown-user-details-name"><p></p></div>
                      <div class="dropdown-user-details-email"><p></p></div>
@@ -186,9 +187,9 @@
             <li class="nav-item">
              <a class="nav-link" href="/freelancer/add-postedService">Add service</a>
           </li>
-            <li class="nav-item">
-               
-            </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/freelancer/customServices">Bid on service</a>
+          </li>
             <li class="nav-item dropdown">
                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownPortfolio" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 community

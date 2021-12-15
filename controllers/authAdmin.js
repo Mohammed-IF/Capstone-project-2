@@ -168,7 +168,7 @@ exports.postReset = (req, res, next) => {
         res.redirect('/adminPages');
         transporter.sendMail({
           to: email,
-          from: 'shop@node-complete.com',
+          from: 'm.i.f.15@outlook.sa',
           subject: 'Password Reset',
           html: `<p>You requested a password reset</p>
               <p>Click this <a href="http://localhost:3000/reset1/${token}">link</a> to set a new password`
@@ -230,7 +230,7 @@ exports.postNewPassword = (req, res, next) => {
           res.redirect('/login3');
           transporter.sendMail({
             to: savedAdmin.email,
-            from: 'shop@node-complete.com',
+            from: 'm.i.f.15@outlook.sa',
             subject: 'New Password Set',
             html: `<p>You have created a new password</p>`
           });

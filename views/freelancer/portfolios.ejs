@@ -38,11 +38,10 @@
 </div>
                             
                                 <div class="card__actions">
-                                    <a class="btn" href="/freelancer/postPort/<%= portfolio.freelancerId._id %>/<%= portfolio._id %>" type="submit" style="border-color: green; position: relative; bottom: -23px;">Add portfolio to your profile</a>
-                                    <a href="/freelancer/edit-portfolio/<%= portfolio._id %>?edit=true" class="btn">Edit</a>
+                                    <a href="/freelancer/edit-portfolio/<%= portfolio._id %>?edit=true" class="btn" style="background-color:goldenrod; color: white;">Edit</a>
                                     <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
                                     <input type="hidden" value="<%= portfolio._id %>" name="portfolioId">
-                                    <button class="btn" type="button" onclick="deletePortfolio(this)">Delete</button>
+                                    <button class="btn" type="button" onclick="deletePortfolio(this)" style="background-color:red; color: white;">Delete</button>
                                 </div>
                            
                             <% } %>

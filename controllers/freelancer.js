@@ -112,6 +112,7 @@ exports.getEditPostedService = (req, res, next) => {
 
 exports.postEditPostedService  = (req, res, next) => {
   const prodId = req.body.postedServiceId;
+  const freelancerId = req.body.freelancerId;
   const title = req.body.title;
   const category = req.body.category; 
   const price = req.body.price;
@@ -138,8 +139,8 @@ exports.postEditPostedService  = (req, res, next) => {
 
   PostedService.findById(prodId)
     .then(postedService  => {
-      if (postedService.freelancerId.toString() !== req.freelancer._id.toString()) {
-        res.redirect('/freelancerPages');
+     if (postedService.freelancerId.toString() !== req.freelancer._id.toString()) {
+        res.redirect('/freelancer/postedServices');
       }
       postedService.title = title;
       postedService.category = category;
@@ -365,9 +366,9 @@ exports.postEditPortfolio = (req, res, next) => {
 
   Portfolio.findById(prodId)
     .then(portfolio  => {
-      if (portfolio.freelancerId.toString() !== req.freelancer._id.toString()) {
+     /*if (portfolio.freelancerId.toString() !== req.freelancer._id.toString()) {
         res.redirect('/');
-      }
+      }*/
       portfolio.previousWork = previousWork; 
       portfolio.yearsOfExperinece = yearsOfExperinece;
       portfolio.description = description;
@@ -414,6 +415,33 @@ exports.deletePortfolio = (req, res, next) => {
     })
     .then(() => {
       res.status(200).json({ message: 'Success' });
+    })
+    .catch(err => {
+      res.status(500).json({ message: 'Failed to delete portfolio' });
+    });
+};
+
+exports.adminPortfolio = (req, res, next) => {
+  const prodId = req.params.portfolioId;
+  Portfolio.findById(prodId)
+    .then(portfolio => {
+      if (!portfolio) {
+        return next(new Error('Portfolio Not Found'));
+      }
+      cloudinary.v2.uploader.destroy(portfolio.image.public_id, function(
+        error,
+        result
+      ) {
+        if (error) {
+          error.httpStatusCode = 500;
+          next(error);
+        }
+        console.log('Image deleted'.result);
+      });
+      return Portfolio.deleteOne({ _id: prodId, freelancerId: req.freelancer._id });
+    })
+    .then(() => {
+      res.redirect("/admin/portfolios");
     })
     .catch(err => {
       res.status(500).json({ message: 'Failed to delete portfolio' });
@@ -512,4 +540,5 @@ exports.getCustomService = (req, res, next) => {
     });
   });
 };
+
 

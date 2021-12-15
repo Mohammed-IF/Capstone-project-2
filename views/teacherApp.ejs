@@ -29,8 +29,8 @@
             <p class="card-text">skills: <%= app.skills %></p>
             <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
              
-            <a href=" /acceptTeacherApp/<%= app._id %>/<%= app.email %>" class="btn btn-danger" >Accept</a>
-            <a href=" /declineTeacherApp/<%= app._id %>/<%= app.email %>" class="btn btn-warning">Decline</a>
+            <a href=" /acceptTeacherApp/<%= app._id %>/<%= app.email %>" class="btn btn-danger" style="background-color: green; color: white; position: relative; bottom: -10px;">Accept</a>
+            <a href=" /declineTeacherApp/<%= app._id %>/<%= app.email %>" class="btn btn-warning" style="background-color: red; color: white; position: relative; bottom: -10px;">Decline</a>
             
         </div>
     </div>

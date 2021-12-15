@@ -3,10 +3,13 @@ const { body } = require('express-validator');
 const express = require('express');
 
 const isAuth = require('../middleware/is-auth-freelancer');
+const isAuth1 = require('../middleware/is-auth-admin');
 const stripe = require('stripe')(process.env.STRIPE_SECRET);
 const freelancerController = require('../controllers/freelancer');
 const user = require('../models/user');
 const Freelancer = require('../models/freelancer');
+const Quote = require('../models/quote');
+const PostedService = require('../models/postedService');
 //const portfolio = require('../models/portfolio');
 
 const router = express.Router();
@@ -20,6 +23,11 @@ router.get('/customServices', isAuth, freelancerController.getCustomServices);
 
 router.get('/add-postedService', isAuth, freelancerController.getAddPostedService);
 
+router.get("/quoteRes/:id", async (req, res) => {
+  const { id } = req.params;
+  const getQuote = await Quote.findOne({ posted: id })
+  res.render("particularPostedRes", { quote: getQuote  });
+})
 
 router.post(
   '/add-postedService',
@@ -63,6 +71,26 @@ router.post(
   freelancerController.postEditPostedService
 );
 
+
+router
+.get("/editPosted/:id", async (req, res) => {
+  const { id } = req.params;
+
+  const getData = await PostedService.findOne({ _id: id });
+  res.render("editPosted", { postedService: getData });
+})
+
+.post("/editPosted/:id", (req, res) => {
+  const { id } = req.params;
+  const { title, category, price, description } = req.body;
+
+  PostedService.updateOne({ _id: id }, { title, category, price, description })
+    .then(() => {
+      console.log("successfully! updated the posted service!");
+      res.redirect("/freelancer/postedServices");
+    })
+    .catch((err) => console.log(err));
+});
 
 router.delete('/postedService/:postedServiceId',isAuth, freelancerController.deletePostedService);
 
@@ -143,6 +171,7 @@ router.post(
 
 router.delete('/portfolio/:portfolioId', isAuth, freelancerController.deletePortfolio);
 
+router.delete('/admin/portfolios/:portfolioId', isAuth1,freelancerController.adminPortfolio);
 
 router.get("/freelancerRevenue/:id/:money", (req, res) => { 
   const { id } = req.params;
@@ -195,7 +224,7 @@ router.get('/revenueReport', function(req, res, next) {
   var revenue = 0;
   Freelancer.findOne({ _id: req.freelancer._id }, function(err, foundFreelancer) {
     foundFreelancer.revenue.forEach(function(value) {
-      revenue += value;
+      revenue += value.money;
     });
 
     res.render('freelancer/revenueReport', { revenue: revenue });
@@ -231,4 +260,5 @@ router
       })
       .catch((err) => console.log(err));
   });
+  
 module.exports = router;

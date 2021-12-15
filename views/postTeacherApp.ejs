@@ -97,7 +97,7 @@
                                         <span class="text-danger">*</span>
                                         </label>
                                         <div class="form-group">
-                                           <input class="form-control" type="skills" name="skills" value="<%= typeof skills != 'undefined' ? skills : '' %>" placeholder="Enter your skills" aria-label="Enter your skills" required="" aria-describedby="skills Label" data-msg="Please enter a valid skill" data-error-class="u-has-error" data-success-class="u-has-success">
+                                          <textarea class="form-control" type="skills" name="skills" cols="30" rows="5" value="<%= typeof skills != 'undefined' ? skills : '' %>" placeholder="Enter your skills" aria-label="Enter your skills" required="" aria-describedby="skills Label" data-msg="Please enter a valid skill" data-error-class="u-has-error" data-success-class="u-has-success"> </textarea>
                                         </div>
                                      </div>
                                   
@@ -107,9 +107,9 @@
                                <div> 
                                <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
                                
-                               <button type="submit" class="btn btn-success" onclick="submit()">Submit</button>
+                               <button type="submit" class="btn btn-success" style="background-color: blue; color: white; position: relative; top: -3pt;">Submit</button>
 
-                               <button type="submit" class="btn btn-outline-success" style="margin-left: 2em;">Cancel</button>
+                               <button type="submit" class="btn btn-outline-success" style="margin-left: 2em; background-color: white; color: blue; position: relative; top: -3pt;">Cancel</button>
                             </div>
 
                                   

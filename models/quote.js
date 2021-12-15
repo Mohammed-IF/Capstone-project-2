@@ -7,6 +7,10 @@ const quoteSchema = new mongoose.Schema({
         type: String,
         required: true,
       },
+      userEmail: {
+        type: String,
+        required: true
+      },
       comment: {
         type: String,
         required: true
@@ -24,6 +28,11 @@ const quoteSchema = new mongoose.Schema({
       type: mongoose.Schema.Types.ObjectId,
       required: true,
       ref: 'User'
+    },
+    freelancerId: {
+      type: mongoose.Schema.Types.ObjectId,
+      required: true,
+      ref: 'Freelancer'
     }
   
 

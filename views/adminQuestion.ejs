@@ -1,4 +1,7 @@
-<% include includesUser/head %>
+<%- include('./includesAdmin/head') %>
+<head>
+    <%- include('./partials/adminHeader.ejs') %>
+</head>
 <link rel="stylesheet" href="/css/postedService.css">
 <!DOCTYPE html>
 <html lang="en">
@@ -24,7 +27,7 @@
                <option value=" Writing & Translation"> Writing & Translation </option>
               </select>
               <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
-              <input type="submit" class="btn btn-primary mt-3" value="Filter">
+              <input type="submit" class="btn btn-primary mt-3" value="Filter" style="background-color: blue; color: white;">
         </form>
 
 
@@ -45,9 +48,9 @@
             <p class="card-text"> posted by: <%= question.user %> </p>
             <h5 class="card-title"><%= question.title %> </h5>
             <p class="card-text">description: <%= question.content %> </p>
-            <a href=" /question/<%= question._id %>" class="btn btn-primary">Read More...</a>
-            <a href=" /deleteQuestion/<%= question._id %>" class="btn btn-danger">Delete</a>
-            <a href=" /editQuestion/<%= question._id %>" class="btn btn-warning">Edit</a>
+            <a href=" /question/<%= question._id %>" class="btn btn-primary" style="background-color: blue; color: white;">Read More...</a>
+            <a href=" /deleteQuestion/<%= question._id %>" class="btn btn-danger" style="background-color: red; color: white;">Delete</a>
+            <a href=" /editQuestion/<%= question._id %>" class="btn btn-warning" style="background-color: orange; color: white;">Edit</a>
             <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
         </div>
     </div>
@@ -58,3 +61,4 @@
 
 </body>
 </html>
+<% include includesUser/end %>

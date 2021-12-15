@@ -5,7 +5,7 @@
     </head>
 <div class="container mt-5">
     <h3 class="my-3">Edit the service...  </h3>
-    <form action="/editCustom/<%= custom._id %>" method="POST">
+    <form action="/editAdminCustom/<%= custom._id %>" method="POST">
         <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
         <input type="text" value="<%= custom.title %>" name="title" placeholder="Enter Title" class="form-control" required>
         <textarea name="content" cols="30" rows="10" class="mt-3 form-control" placeholder="Enter Content Here..."

@@ -43,22 +43,20 @@
                               <div class="form-group">
                                  <label class="mb-1">name</label>
                                  <div class="position-relative icon-form-control">
-                                    <i class="mdi mdi-email-outline position-absolute"></i>
                                     <input class="form-control" class="<%= validationErrors.find(e => e.param == 'name') ? 'invalid' : '' %>" type="name" name="name" id="name" value="<%= oldInput.name %>">
                                  </div>
                               </div>
                            </div>
+                           </div>
                         <div class="form-group">
                            <label class="mb-1">Email</label>
                            <div class="position-relative icon-form-control">
-                              <i class="mdi mdi-email-outline position-absolute"></i>
                               <input class="form-control" class="<%= validationErrors.find(e => e.param == 'email') ? 'invalid' : '' %>" type="email" name="email" id="email" value="<%= oldInput.email %>">
                            </div>
                         </div>
                         <div class="form-group">
                            <label class="mb-1">Password (6 or more characters)</label>
                            <div class="position-relative icon-form-control">
-                              <i class="mdi mdi-key-variant position-absolute"></i>
                               <input class="form-control" class="<%= validationErrors.find(e => e.param == 'password') ? 'invalid' : '' %>"  type="password" name="password" id="password" value="<%= oldInput.password %>">
                            </div>
                         </div>
@@ -66,11 +64,10 @@
                         <div class="form-group">
                             <label class="mb-1" for="confirmPassword">Confirm Password</label>
                             <div class="position-relative icon-form-control">
-                                <i class="mdi mdi-key-variant position-absolute"></i>
                             <input  class="form-control" class="<%= validationErrors.find(e => e.param == 'confirmPassword') ? 'invalid' : '' %>"  type="password" name="confirmPassword" id="confirmPassword"  value="<%= oldInput.confirmPassword %>">
                         </div>
                         <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
-                        <button class="btn btn-success btn-block text-uppercase" style="background-color: blue;" type="submit"> signup </button>
+                        <button class="btn btn-success btn-block text-uppercase" style="background-color: blue; position: relative; bottom: -10pt;" type="submit"> signup </button>
                         <div class="py-3 d-flex align-item-center">
                            <a href="/reset3">Forgot password?</a>
                            </div>

@@ -4,9 +4,9 @@
   <meta charset="UTF-8">
   <title>Custom</title>
   <head>
-    <%- include('./partials/adminHeader.ejs') %>
+    <%- include('../partials/adminHeader.ejs') %>
 </head>
-<%- include('./includesAdmin/head.ejs') %>
+<%- include('../includesAdmin/head.ejs') %>
     <link rel="stylesheet" href="/css/postedService.css">
 </head>
 </head>
@@ -28,7 +28,7 @@
                <option value=" Writing & Translation"> Writing & Translation </option>
               </select>
 
-              <input type="submit" class="btn btn-primary mt-3" value="Filter">
+              <input type="submit" class="btn btn-primary mt-3" value="Filter" style="background-color: blue; color: white;">
         </form>
 
 
@@ -42,9 +42,12 @@
 
 <div class="container mt-5 py-5">
 
-    <a href="/postCustom" class="btn btn-primary">post service</a>
-
-    <% customs.forEach(custom => { %>
+  
+    <% if (prods.length > 0) { %>
+     
+     
+          <% for (let custom of prods) { %>
+         
     <div class="card mt-3">
         <div class="card-body">
             <p class="text-muted">published at: <%= custom.postedAt %> </p>
@@ -52,16 +55,24 @@
             <h5 class="card-title"><%= custom.title %> </h5>
             <p class="card-text">description: <%= custom.content %> </p>
             <p class="card-text"><%= custom.price %>$</p>
-            <a href=" /editCustom/<%= custom._id %>" class="btn btn-warning">Edit</a>
-            <a href=" /deleteCustom/<%= custom._id %>" class="btn btn-danger">Delete</a>
+            <a href=" /editAdminCustom/<%= custom._id %>" class="btn " style="background-color: orange; color: white;">Edit</a>
+            <a href=" /deleteAdminCustom/<%= custom._id %>" class="btn " style="background-color: red; color: white;">Delete</a>
             <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
           
         </div>
     </div>
-    <%}) %>
-
+    <%} %>
+    <section class='pagination'>
+        <%- include('../includesFreelancer/pagination.ejs', { currentPage: currentPage, previousPage: previousPage, nextPage: nextPage, hasPreviousPage: hasPreviousPage, hasNextPage: hasNextPage, lastPage: lastPage}) %>
+    </section>
+    <% } else { %>
+        <h1>No Services Found!</h1>
+        <% } %>
+    
 
 </div>
 
 </body>
 </html>
+
+<%- include('../includesUser/end.ejs') %>

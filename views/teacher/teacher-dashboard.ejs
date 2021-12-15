@@ -5,12 +5,6 @@
 <%- include('../includesUser/head.ejs') %>
 <link rel="stylesheet" href="/css/postedService.css">
 
-<!--<div class="jumbotron">
-  <div class="container">
-    <p class="text-center">
-    <a href="/create-course" class="btn btn-primary btn-lg">Create a new Course</a></p> 
-  </div>
-</div> -->
 <hr>
 
 
@@ -37,7 +31,7 @@
           </div> 
           <div class="card__actions">
             <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
-            <a href="/edit-course/<%= course._id %>" class="btn">Edit course</a>
+            <a href="/edit-course/<%= course._id %>" class="btn" style="background-color: orange; color: white;">Edit course</a>
         </div>
         </article>
       

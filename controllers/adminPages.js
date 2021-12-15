@@ -3,6 +3,8 @@ const { validationResult } = require('express-validator');
 const cloudinary = require('../cloudinaryConfig');
 const PostedService = require('../models/postedService');
 const Portfolio = require('../models/portfolio');
+const Course = require('../models/course');
+const CustomService = require('../models/Custom');
 const fileHelper = require('../util/file');
 
 const ITEMS_PER_PAGE = 3;
@@ -263,7 +265,7 @@ exports.getEditPostedService = (req, res, next) => {
           }
           console.log('Image deleted'.result);
         });
-        return Portfolio.deleteOne({ _id: prodId, adminId: req.admin._id });
+        return Portfolio.deleteOne({ _id: prodId, freelancerId: req.freelancer._id });
       })
       .then(() => {
         res.status(200).json({ message: 'Success' });
@@ -336,3 +338,73 @@ exports.getEditPostedService = (req, res, next) => {
       })
       .catch(err => console.log(err));
   };
+  exports.getCourses = (req, res, next) => {
+    const page = +req.query.page || 1;
+    let totalItems;
+  
+    Course.find()
+      .countDocuments()
+      .then(numCourses => {
+        totalItems = numCourses;
+  
+        return Course.find()
+          .skip((page - 1) * ITEMS_PER_PAGE)
+          .limit(ITEMS_PER_PAGE);
+      })
+      .then(courses => {
+        res.render('adminPages/courses', {
+          prods: courses,
+          pageTitle: 'adminPages',
+          path: '/admin/courses',
+          currentPage: page,
+          hasNextPage: ITEMS_PER_PAGE * page < totalItems,
+          hasPreviousPage: page > 1,
+          nextPage: page + 1,
+          previousPage: page - 1,
+          lastPage: Math.ceil(totalItems / ITEMS_PER_PAGE)
+        });
+      })
+      .catch(err => console.log(err));
+  };
+
+  exports.getCustomServices = (req, res, next) => {
+    const page = +req.query.page || 1;
+    let totalItems;
+  
+    CustomService.find()
+      .countDocuments()
+      .then(numCustomServices => {
+        totalItems = numCustomServices;
+  
+        return CustomService.find()
+          .skip((page - 1) * ITEMS_PER_PAGE)
+          .limit(ITEMS_PER_PAGE);
+      })
+      .then(customs => {
+        res.render('adminPages/custom', {
+          prods: customs,
+          pageTitle: 'All CustomServices',
+          path: '/admin/customServices',
+          currentPage: page,
+          hasNextPage: ITEMS_PER_PAGE * page < totalItems,
+          hasPreviousPage: page > 1,
+          nextPage: page + 1,
+          previousPage: page - 1,
+          lastPage: Math.ceil(totalItems / ITEMS_PER_PAGE)
+        });
+      })
+      .catch(err => console.log(err));
+  };
+  
+  /*exports.getCustomService = (req, res, next) => {
+    const prodId = req.params.customServiceId;
+    CustomService.findById(prodId).then(customService => {
+      res.render('adminPages/custom', {
+        custom: custom,     
+        pageTitle: customService.title,
+        path: '/admin/customServices'
+      });
+    });
+  };
+  */
+  

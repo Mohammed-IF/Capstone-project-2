@@ -25,7 +25,15 @@ router
       })
       .catch((err) => console.log(err));
   })
-
+  .get("/deleteAdminCustom/:id", (req, res) => {
+    const { id } = req.params;
+    Custom.deleteOne({ _id: id })
+      .then(() => {
+        console.log("Deleted custom service successfully!");
+        res.redirect("/admin/customServices");
+      })
+      .catch((err) => console.log(err));
+  })
   .get("/editCustom/:id", async (req, res) => {
     const { id } = req.params;
 
@@ -44,5 +52,23 @@ router
       })
       .catch((err) => console.log(err));
   });
+  router
+  .get("/editAdminCustom/:id", async (req, res) => {
+    const { id } = req.params;
 
+    const getData = await Custom.findOne({ _id: id });
+    res.render("editAdminCustom", { custom: getData });
+  })
+
+  .post("/editAdminCustom/:id", (req, res) => {
+    const { id } = req.params;
+    const { title, content, category, day, price, } = req.body;
+
+    Custom.updateOne({ _id: id }, { title, content, category, day, price })
+      .then(() => {
+        console.log("successfully! updated the custom service!");
+        res.redirect("/admin/customServices");
+      })
+      .catch((err) => console.log(err));
+  });
 module.exports = router;

@@ -19,7 +19,7 @@
                <option value=" Writing & Translation"> Writing & Translation </option>
               </select>
 
-              <input type="submit" class="btn btn-primary mt-3" value="Filter">
+              <input type="submit" class="btn btn-primary mt-3" value="Filter"  style="background-color: blue; color: white;">
         </form>
 
 
@@ -41,7 +41,7 @@
                                     <h5 class="card-title"><%= customService.title %> </h5>
                                     <p class="card-text">description: <%= customService.content %> </p>
                                     <p class="card-text"><%= customService.price %>$</p>
-                                    <a href="/customReq/<%= customService._id %>" class="btn btn-primary">bid</a>
+                                    <a href="/customReq/<%= customService._id %>" class="btn btn-primary"  style="background-color: blue; color: white;">bid</a>
                                     <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
                                   
                                 </div>

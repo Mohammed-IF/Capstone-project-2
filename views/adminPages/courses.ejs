@@ -1,0 +1,51 @@
+<head>
+    <%- include('../partials/adminHeader.ejs') %>
+  </head>
+  
+  <%- include('../includesUser/head.ejs') %>
+  <link rel="stylesheet" href="/css/postedService.css">
+  
+  <!--<div class="jumbotron">
+    <div class="container">
+      <p class="text-center">
+      <a href="/create-course" class="btn btn-primary btn-lg">Create a new Course</a></p> 
+    </div>
+  </div> -->
+  <hr>
+
+      <hr />
+  
+      <% if (prods.length > 0) { %>
+     
+        <div class="grid">
+          <% for (let course of prods) { %>
+         
+          <article class="card postedService-item">
+            <header class="card__header">
+                <h1 class="postedService__title"><%= course.title %> </h1>
+            </header>
+            <div class="card__image">
+                <img src="<%= course.image.url %>"
+                    alt="<%= course.title %>">
+            </div>
+            <div class="card__content">
+                <h2 class="postedService__price">$<%= course.price %></h2>
+                <p class="postedService__description"><%= course.description %></p>
+            </div> 
+            <div class="card__actions">
+              <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
+              <a href="/editCourse/<%= course._id %>" class="btn" style="background-color: orange; color: white; position: relative; bottom: -10px;">Edit course</a>
+          </div>
+          </article>
+        
+          <% } %>
+                      </div>
+                      <section class='pagination'>
+                          <%- include('../includesFreelancer/pagination.ejs', { currentPage: currentPage, previousPage: previousPage, nextPage: nextPage, hasPreviousPage: hasPreviousPage, hasNextPage: hasNextPage, lastPage: lastPage}) %>
+                      </section>
+                      <% } else { %>
+                          <h1>No Courses Found!</h1>
+                          <% } %>
+
+         
+  <%- include('../includesUser/end.ejs') %>

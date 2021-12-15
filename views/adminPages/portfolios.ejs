@@ -6,8 +6,6 @@
 </head>
 
     <body>
-       
-
             <main>
                 <% if (prods.length > 0) { %>
                     <div class="grid">
@@ -23,18 +21,18 @@
                                     <img src="<%= portfolio.image.url %>" alt="<%= portfolio.previousWork %>">
                                 </div>
                                 <div class="card__content">
-                                    <h2 class="portfolio__yearsOfExperience">$
-                                        <%= portfolio.yearsOfExperience %>
+                                    <h2 class="portfolio__yearsOfExperience"> 
+                                        <%= portfolio.yearsOfExperinece %> years
                                     </h2>
                                     <p class="portfolio__description">
                                         <%= portfolio.description %>
                                     </p>
                                 </div>
                                 <div class="card__actions">
-                                    <a href="/freelancer/edit-portfolio/<%= portfolio._id %>?edit=true" class="btn">Edit</a>
+                                    <a href="/freelancer/edit-portfolio/<%= portfolio._id %>?edit=true" class="btn" style="background-color: orange; color: white; position: relative; bottom: -10px;">Edit</a>
                                     <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
                                     <input type="hidden" value="<%= portfolio._id %>" name="portfolioId">
-                                    <a href="/deleteprtfolio/<%= portfolio._id %>" class="btn" >Delete</a>
+                                    <a onclick="deletePortfolio(this)" class="btn" style="background-color: red; color: white; position: relative; bottom: -10px;">Delete</a>
                                 </div>
                             </article>
                             <% } %>
@@ -45,6 +43,7 @@
                     <% } else { %>
                         <h1>No Portfolios Found!</h1>
                         <% } %>
+                        <hr>
             </main>
             <%- include('../includesFreelancer/end.ejs') %>
             <head>

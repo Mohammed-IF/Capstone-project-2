@@ -33,7 +33,7 @@
                 <input type="hidden" value="<%= postedService._id %>" name="postedServiceId">
             <% } %>
             <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
-            <button class="btn" type="submit"><% if (editing) { %>Update PostedService<% } else { %>Add PostedService<% } %></button>
+            <button class="btn" type="submit" style="background-color: blue; color: white; position: relative; bottom: -10px;"><% if (editing) { %>Update PostedService<% } else { %>Add PostedService<% } %></button>
         </form>
     </main>
     <footer>

@@ -29,11 +29,11 @@
                                     </p>
                                 </div>
                                 <div class="card__actions">
-                                    <a href=" /postedRes/<%= postedService._id %>" class="btn">View quotes</a>
-                                    <a href="/freelancer/edit-postedService/<%= postedService._id %>?edit=true" class="btn">Edit</a>
+                                    <a href="/postedRes/<%= postedService._id %>" class="btn" style="background-color: blue; color: white;">View quotes</a>
+                                    <a href="/freelancer/editPosted/<%= postedService._id %>?edit=true" class="btn" style="background-color:goldenrod; color: white;">Edit</a>
                                     <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
                                     <input type="hidden" value="<%= postedService._id %>" name="postedServiceId">
-                                    <button class="btn" type="button" onclick="deletePostedService(this)">Delete</button>
+                                    <button class="btn" type="button" onclick="deletePostedService(this)" style="background-color:red; color: white;">Delete</button>
                                 </div>
                             </article>
                             <% } %>
@@ -46,6 +46,7 @@
                         <h1>No Services Found!</h1>
                         <% } %>
             </main>
+            <hr>
             <footer>
                 <%- include('../partials/footer.ejs') %>
             </footer>

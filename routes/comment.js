@@ -4,6 +4,7 @@ const router = express.Router()
 const Comment = require('../models/comment');
 //const User = require('../models/user');
 const Course = require('../models/course');
+const Quote = require('../models/quote');
 const PostedService = require('../models/postedService');
 const passport = require('passport');
 require('../config/auth');
@@ -105,42 +106,32 @@ comment.save((err, result)=> {
 
 });
 
-router.post('/postedmReq/:id/comments', isLoggedIn, (req,res) => {  
-    
-  const comment = new Comment({
+router.post('/postedmReq/:id/:fId', (req,res) => {  
+    const {id} = req.params;
+    const {fId} = req.params;
+  const quote = new Quote({
       userName: req.user.name,
-      quotePrice: req.body.bidPrice,
+      userEmail: req.user.email,
+      price: req.body.price,
       comment: req.body.comment,
-      userId: req.user
+      userId: req.user,
+      posted: id,
+      freelancerId: fId
 
  });
 
-comment.save((err, result)=> {
-     if(err){
-       console.log(err)
+quote
+.save()
+      .then(() => {
+        console.log("Quote Saved Successfully!");
+       // const alert = require('alert');
+      // const {alert} = require('node-popup');
+         // alert("Thank you, we will contact you by email soon.");
+        res.redirect("/");
+      })
+      .catch((err) => console.log(err));
+     }) 
 
-     }else{
-       Custom.findById(req.params.id, (err, custom) =>{
-             if(err){
-                 console.log(err);
-             
-             }else{
-                
-               custom.comments.push(result);
-               custom.save();
-
-                console.log(custom.comments);
-                res.redirect('/freelancer/customServices');
-             }
-
-         })
-        
-     }  
- 
- 
-})
-
-});
 //router.get("/acceptBid/:title/:contnet/:categoty/:price", async (req, res) => {
   //router.get("/acceptBid/:price", async (req, res) => {
    

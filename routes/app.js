@@ -22,12 +22,12 @@ router
     res.render("particularApp", { app: getApp  });
   })
 
-  .get("/acceptApp/:id", isAuth, (req, res) => {
+  .get("/acceptApp/:id/:email", isAuth, (req, res) => {
 
    
     const { id } = req.params;
-    //const {email} = req.params;
-    //const email1 = App.findOne({ email: email });
+    const {email} = req.params;
+    
     transporter.sendMail({
         to: email,
         from: 'm.i.f.15@outlook.sa',

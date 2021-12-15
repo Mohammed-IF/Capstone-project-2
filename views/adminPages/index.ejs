@@ -24,12 +24,12 @@
                         </div>
                         
                         <div class="card__actions">
-                            <a href="/postedServices/<%= postedService._id %>" class="btn">Details</a>
+                            <a href="/postedServices/<%= postedService._id %>" class="btn" style="background-color: blue; color: white; position: relative; bottom: -10px;">Details</a>
                           
-                                <a href="/admin/edit-postedService/<%= postedService._id %>?edit=true" class="btn">Edit</a>
+                                <a href="/admin/edit-postedService/<%= postedService._id %>?edit=true" class="btn" style="background-color: orange; color: white; position: relative; bottom: -10px;">Edit</a>
                                 <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
                                 <input type="hidden" value="<%= postedService._id %>" name="postedServiceId">
-                                <a href="/deletepostedService/<%= postedService._id %>" class="btn"  >Delete</a>
+                                <a href="/deletepostedService/<%= postedService._id %>" class="btn"  style="background-color: red; color: white; position: relative; bottom: -10px;">Delete</a>
                         
                         </div>
                     </article>
@@ -39,13 +39,7 @@
                 <%- include('../includesFreelancer/pagination.ejs', { currentPage: currentPage, previousPage: previousPage, nextPage: nextPage, hasPreviousPage: hasPreviousPage, hasNextPage: hasNextPage, lastPage: lastPage}) %>
             </section>
         <% } else { %>
-            <h1>No Products Found!</h1>
+            <h1>No Services Found!</h1>
         <% } %>
     </main>
 <%- include('../includesFreelancer/end.ejs') %>
-
-
-<footer>
-    <%- include('../partials/footer.ejs') %>
-</footer>
- 
